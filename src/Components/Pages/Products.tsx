@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import classes from './Products.module.css';
 
 import { collection, getDocs } from 'firebase/firestore';
@@ -6,9 +6,14 @@ import { db } from '../../firebase/firebase';
 
 import { Volume } from '../../types';
 import Card from '../Common/Card';
+// Redux
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux/es/exports';
+import { RootState, volumesAction } from '../../store';
 
 const Products: React.FC = () => {
-  const [volumes, setVolumes] = useState<Volume[]>([]);
+  const dispatch = useDispatch();
+  const volumes = useSelector((state: RootState) => state);
 
   useEffect(() => {
     const products = collection(db, 'products', 'naruto', 'volumes');
@@ -21,8 +26,8 @@ const Products: React.FC = () => {
             const volume = p.data() as Volume;
             volumesArray.push(volume);
           }
-          setVolumes(volumesArray);
         });
+        dispatch(volumesAction.initialize(volumesArray));
       })
       .catch((error) => {
         console.log(error);
