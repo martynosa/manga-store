@@ -4,3 +4,8 @@
   justify-content: center;
   gap: 0.6rem;
 }
+
+.nav a {
+  text-transform: uppercase;
+  text-decoration: none;
+}

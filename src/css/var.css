@@ -1,0 +1,18 @@
+:root {
+  /* GENERAL */
+  --animation: all 0.3s ease-in-out;
+  --shadow: -4px 4px 0 #0f172a;
+
+  /* FONT_SIZE */
+  --fs-52: 5.2rem;
+  --fs-48: 4.8rem;
+  --fs-24: 2.4rem;
+  --fs-default: 1.6rem;
+  --fs-14: 1.4rem;
+  --fs-12: 1.2rem;
+
+  /* COLORS */
+  --font-color: #0f172a;
+  --bg-color: #fff7ed;
+  --primary-color: #f97316;
+}
