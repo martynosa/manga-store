@@ -1,15 +1,15 @@
-export interface Chapter {
+export interface IChapter {
   chapter: number;
   engName: string;
   japName: string;
 }
 
-export interface Volume {
+export interface IVolume {
   volume: number;
   engVolumeName: string;
   japVolumeName: string;
   engRelease: string;
   japRelease: string;
   coverLink: string;
-  chapters: Chapter[];
+  chapters: IChapter[];
 }

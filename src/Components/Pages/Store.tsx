@@ -1,29 +1,29 @@
 import { useEffect } from 'react';
-import classes from './Products.module.css';
+import classes from './Store.module.css';
 
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
 
-import { Volume } from '../../types';
+import { IVolume } from '../../types';
 import Card from '../Common/Card';
 // Redux
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux/es/exports';
 import { RootState, volumesAction } from '../../store';
 
-const Products: React.FC = () => {
+const Store: React.FC = () => {
   const dispatch = useDispatch();
   const volumes = useSelector((state: RootState) => state);
 
   useEffect(() => {
     const products = collection(db, 'products', 'naruto', 'volumes');
-    const volumesArray: Volume[] = [];
+    const volumesArray: IVolume[] = [];
 
     getDocs(products)
       .then((productsSnap) => {
         productsSnap.forEach((p) => {
           if (p.exists()) {
-            const volume = p.data() as Volume;
+            const volume = p.data() as IVolume;
             volumesArray.push(volume);
           }
         });
@@ -36,14 +36,14 @@ const Products: React.FC = () => {
 
   return (
     <section>
-      <h1>Products</h1>
-      <div className={classes['products-grid']}>
+      <h1 className={classes['page-title']}>Store</h1>
+      <div className={classes['store-grid']}>
         {volumes.map((v) => {
-          return <Card volume={v} />;
+          return <Card key={v.volume} volume={v} />;
         })}
       </div>
     </section>
   );
 };
 
-export default Products;
+export default Store;

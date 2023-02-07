@@ -1,7 +1,12 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
-import { Volume } from './types';
+import {
+  configureStore,
+  createSlice,
+  current,
+  PayloadAction,
+} from '@reduxjs/toolkit';
+import { IVolume } from './types';
 
-const initialState: Volume[] = [];
+const initialState: IVolume[] = [];
 
 const volumeSlice = createSlice({
   name: 'volumes',

@@ -1,4 +1,4 @@
-.products-grid {
+.store-grid {
   margin: 0 auto;
   max-width: 128rem;
   padding: 2.4rem;
@@ -6,4 +6,8 @@
   display: grid;
   gap: 2.4rem;
   grid-template-columns: repeat(4, 1fr);
+}
+
+.page-title {
+  text-align: center;
 }

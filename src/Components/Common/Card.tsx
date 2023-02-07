@@ -1,10 +1,10 @@
 import classes from './Card.module.css';
 import { Link } from 'react-router-dom';
-import { Volume } from '../../types';
+import { IVolume } from '../../types';
 
-const Card: React.FC<{ volume: Volume }> = ({ volume }) => {
+const Card: React.FC<{ volume: IVolume }> = ({ volume }) => {
   return (
-    <Link to="/details" className={classes.card}>
+    <Link to={`/store/${volume.volume}`} className={classes.card}>
       <div>
         <img src={volume.coverLink} alt="cover" />
       </div>
