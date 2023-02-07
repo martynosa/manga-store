@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { RootState } from '../../store';
+import Chapter from '../Common/Chapter/Chapter';
 
 const Volume: React.FC = () => {
   const { volumeId } = useParams();
@@ -15,7 +16,9 @@ const Volume: React.FC = () => {
       <h1>{volume?.engVolumeName}</h1>
       <div>
         {volume?.chapters.map((c) => (
-          <p>{c.engName}</p>
+          <>
+            <Chapter />
+          </>
         ))}
       </div>
     </>

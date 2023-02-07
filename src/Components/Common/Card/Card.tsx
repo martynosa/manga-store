@@ -1,6 +1,6 @@
 import classes from './Card.module.css';
 import { Link } from 'react-router-dom';
-import { IVolume } from '../../types';
+import { IVolume } from '../../../types';
 
 const Card: React.FC<{ volume: IVolume }> = ({ volume }) => {
   return (

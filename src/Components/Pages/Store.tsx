@@ -5,7 +5,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
 
 import { IVolume } from '../../types';
-import Card from '../Common/Card';
+import Card from '../Common/Card/Card';
 // Redux
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux/es/exports';
