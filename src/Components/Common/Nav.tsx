@@ -6,7 +6,7 @@ const Nav: React.FC = () => {
     <nav className={classes.nav}>
       <Link to="/signin">signin</Link>
       <Link to="/signup">signup</Link>
-      <Link to="/products">products</Link>
+      <Link to="/store">products</Link>
       <Link to="/cart">cart</Link>
     </nav>
   );

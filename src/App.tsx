@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import Cart from './Components/Pages/Cart';
 import Nav from './Components/Common/Nav';
-import Products from './Components/Pages/Products';
+import Store from './Components/Pages/Store';
 import SignIn from './Components/Auth/SignIn';
 import SignUp from './Components/Auth/SignUp';
 
@@ -15,7 +15,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
 
         <Route path="/cart" element={<Cart />} />
-        <Route path="/products" element={<Products />} />
+        <Route path="/store" element={<Store />} />
       </Routes>
     </>
   );
