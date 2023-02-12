@@ -1,4 +1,9 @@
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
+
+import { cartActions, RootState } from './store';
+
 import Cart from './Components/Pages/Cart';
 import Nav from './Components/Common/Nav/Nav';
 import Store from './Components/Pages/Store';
@@ -8,6 +13,24 @@ import Volume from './Components/Pages/Volume';
 import Error from './Components/Pages/Error';
 
 function App() {
+  const cart = useSelector((state: RootState) => state.cart);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const pastCart = localStorage.getItem('cart');
+
+    if (pastCart) {
+      const cartKeys = Object.keys(JSON.parse(pastCart));
+      if (cartKeys.length !== 0) {
+        dispatch(cartActions.initalize(JSON.parse(pastCart)));
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
+
   return (
     <>
       <Nav />

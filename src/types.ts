@@ -5,6 +5,7 @@ export interface IChapter {
 }
 
 export interface IVolume {
+  manga: string;
   volume: number;
   engVolumeName: string;
   japVolumeName: string;
@@ -15,7 +16,7 @@ export interface IVolume {
 }
 
 export interface ICartItem {
-  product: string;
+  manga: string;
   volumeId: number;
   chapterId: number;
   quantity: number;

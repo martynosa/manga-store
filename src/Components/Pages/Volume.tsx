@@ -18,12 +18,16 @@ const Volume: React.FC = () => {
   const addToCartHandler = (chapter: IChapter, volume: IVolume) => {
     dispatch(
       cartActions.add({
-        product: 'naruto',
+        manga: volume.manga,
         volumeId: volume.volume,
         chapterId: chapter.chapter,
         quantity: 1,
       })
     );
+  };
+
+  const removeFromCartHandler = (chapter: IChapter) => {
+    dispatch(cartActions.remove({ chapterId: chapter.chapter }));
   };
 
   useEffect(() => {
@@ -53,6 +57,7 @@ const Volume: React.FC = () => {
             chapter={c}
             key={c.chapter}
             addToCartHandler={() => addToCartHandler(c, volume)}
+            removeFromCartHandler={() => removeFromCartHandler(c)}
           />
         ))}
       </div>

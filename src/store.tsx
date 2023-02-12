@@ -1,4 +1,9 @@
-import { configureStore, createSlice, current } from '@reduxjs/toolkit';
+import {
+  configureStore,
+  createSlice,
+  current,
+  PayloadAction,
+} from '@reduxjs/toolkit';
 import { ICartItem, IVolume } from './types';
 
 const initialVolumesState: IVolume[] = [];
@@ -8,7 +13,7 @@ const volumesSlice = createSlice({
   name: 'volumes',
   initialState: initialVolumesState,
   reducers: {
-    initialize(state, action) {
+    initialize(state, action: PayloadAction<IVolume[]>) {
       state = action.payload;
       return state;
     },
@@ -19,7 +24,11 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState: initialCartState,
   reducers: {
-    add(state, action) {
+    initalize(state, action: PayloadAction<ICartItem[]>) {
+      state = action.payload;
+      return state;
+    },
+    add(state, action: PayloadAction<ICartItem>) {
       const currState = current(state);
       const cartItem = currState.find(
         (cartItem) => cartItem.chapterId === action.payload.chapterId
@@ -37,6 +46,26 @@ const cartSlice = createSlice({
       }
 
       return state.concat(action.payload);
+    },
+    remove(state, action: PayloadAction<{ chapterId: number }>) {
+      const currState = current(state);
+      const cartItem = currState.find(
+        (cartItem) => cartItem.chapterId === action.payload.chapterId
+      );
+
+      if (cartItem) {
+        if (cartItem.quantity > 1) {
+          const updatedCartItem = {
+            ...cartItem,
+            quantity: cartItem.quantity - 1,
+          };
+          const filteredState = currState.filter(
+            (c) => c.chapterId !== updatedCartItem.chapterId
+          );
+          return filteredState.concat(updatedCartItem);
+        }
+        return state.filter((c) => c.chapterId !== action.payload.chapterId);
+      }
     },
   },
 });
