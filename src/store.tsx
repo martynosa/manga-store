@@ -8,7 +8,7 @@ import { IVolume } from './types';
 
 const initialState: IVolume[] = [];
 
-const volumeSlice = createSlice({
+const volumesSlice = createSlice({
   name: 'volumes',
   initialState,
   reducers: {
@@ -19,6 +19,6 @@ const volumeSlice = createSlice({
   },
 });
 export type RootState = ReturnType<typeof store.getState>;
-export const store = configureStore({ reducer: volumeSlice.reducer });
+export const store = configureStore({ reducer: volumesSlice.reducer });
 
-export const volumesAction = volumeSlice.actions;
+export const volumesAction = volumesSlice.actions;

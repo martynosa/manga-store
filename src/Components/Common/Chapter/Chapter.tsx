@@ -1,17 +1,18 @@
+import { IChapter } from '../../../types';
 import classes from './Chapter.module.css';
 
-const Chapter: React.FC = () => {
+const Chapter: React.FC<{ chapter: IChapter }> = ({ chapter }) => {
   return (
     <div className={classes.chapter}>
       <div className={classes['chapter-info']}>
-        <p>Uzumaki Naruto</p>
-        <p>うずまきナルト!!</p>
+        <p>{chapter.engName}</p>
+        <p>{chapter.japName}</p>
       </div>
 
       <div className={classes['cart-buttons']}>
-        <div>5</div>
-        <div>-</div>
-        <div>+</div>
+        <button>5</button>
+        <button>-</button>
+        <button>+</button>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import Store from './Components/Pages/Store';
 import SignIn from './Components/Auth/SignIn';
 import SignUp from './Components/Auth/SignUp';
 import Volume from './Components/Pages/Volume';
+import Error from './Components/Pages/Error';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/store" element={<Store />} />
         <Route path="/store/:volumeId" element={<Volume />} />
+        <Route path="*" element={<Error />} />
       </Routes>
     </>
   );
