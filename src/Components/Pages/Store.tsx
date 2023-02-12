@@ -13,7 +13,7 @@ import { RootState, volumesAction } from '../../store';
 
 const Store: React.FC = () => {
   const dispatch = useDispatch();
-  const volumes = useSelector((state: RootState) => state);
+  const volumes = useSelector((state: RootState) => state.volumes);
 
   useEffect(() => {
     const products = collection(db, 'products', 'naruto', 'volumes');

@@ -13,3 +13,10 @@ export interface IVolume {
   coverLink: string;
   chapters: IChapter[];
 }
+
+export interface ICartItem {
+  product: string;
+  volumeId: number;
+  chapterId: number;
+  quantity: number;
+}
