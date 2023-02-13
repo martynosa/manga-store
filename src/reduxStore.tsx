@@ -31,7 +31,9 @@ const cartSlice = createSlice({
     add(state, action: PayloadAction<ICartItem>) {
       const currState = current(state);
       const cartItem = currState.find(
-        (cartItem) => cartItem.chapterId === action.payload.chapterId
+        (cartItem) =>
+          cartItem.volume === action.payload.volume &&
+          cartItem.manga === action.payload.manga
       );
 
       if (cartItem) {
@@ -40,17 +42,21 @@ const cartSlice = createSlice({
           quantity: cartItem.quantity + 1,
         };
         const filteredState = currState.filter(
-          (c) => c.chapterId !== updatedCartItem.chapterId
+          (v) =>
+            v.volume !== updatedCartItem.volume &&
+            v.manga !== updatedCartItem.manga
         );
         return filteredState.concat(updatedCartItem);
       }
 
       return state.concat(action.payload);
     },
-    remove(state, action: PayloadAction<{ chapterId: number }>) {
+    remove(state, action: PayloadAction<{ volume: number; manga: string }>) {
       const currState = current(state);
       const cartItem = currState.find(
-        (cartItem) => cartItem.chapterId === action.payload.chapterId
+        (cartItem) =>
+          cartItem.volume === action.payload.volume &&
+          cartItem.manga === action.payload.manga
       );
 
       if (cartItem) {
@@ -60,18 +66,24 @@ const cartSlice = createSlice({
             quantity: cartItem.quantity - 1,
           };
           const filteredState = currState.filter(
-            (c) => c.chapterId !== updatedCartItem.chapterId
+            (v) =>
+              v.volume !== updatedCartItem.volume &&
+              v.manga !== updatedCartItem.manga
           );
           return filteredState.concat(updatedCartItem);
         }
-        return state.filter((c) => c.chapterId !== action.payload.chapterId);
+        return state.filter(
+          (v) =>
+            v.volume !== action.payload.volume &&
+            v.manga !== action.payload.manga
+        );
       }
     },
   },
 });
 
-export type RootState = ReturnType<typeof store.getState>;
-export const store = configureStore({
+export type RootState = ReturnType<typeof reduxStore.getState>;
+export const reduxStore = configureStore({
   reducer: { volumes: volumesSlice.reducer, cart: cartSlice.reducer },
 });
 

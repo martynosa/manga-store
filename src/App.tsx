@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
-import { cartActions, RootState } from './store';
+import { cartActions, RootState } from './reduxStore';
 
 import Cart from './Components/Pages/Cart';
 import Nav from './Components/Common/Nav/Nav';
@@ -42,7 +42,7 @@ function App() {
 
         <Route path="/cart" element={<Cart />} />
         <Route path="/store" element={<Store />} />
-        <Route path="/store/:volumeId" element={<Volume />} />
+        <Route path="/store/:manga/:volumeId" element={<Volume />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </>

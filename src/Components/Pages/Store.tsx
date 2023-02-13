@@ -9,19 +9,19 @@ import Card from '../Common/Card/Card';
 // Redux
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux/es/exports';
-import { RootState, volumesAction } from '../../store';
+import { RootState, volumesAction } from '../../reduxStore';
 
 const Store: React.FC = () => {
   const dispatch = useDispatch();
   const volumes = useSelector((state: RootState) => state.volumes);
 
   useEffect(() => {
-    const products = collection(db, 'products', 'naruto', 'volumes');
+    const store = collection(db, 'store', 'naruto', 'volumes');
     const volumesArray: IVolume[] = [];
 
-    getDocs(products)
-      .then((productsSnap) => {
-        productsSnap.forEach((p) => {
+    getDocs(store)
+      .then((storeSnap) => {
+        storeSnap.forEach((p) => {
           if (p.exists()) {
             const volume = p.data() as IVolume;
             volumesArray.push(volume);

@@ -1,23 +1,8 @@
 .chapter {
   padding: 1.2rem 2.4rem;
   display: flex;
-  justify-content: space-between;
+  align-items: flex-start;
   gap: 0.6rem;
   margin-bottom: 0.6rem;
   background-color: bisque;
-}
-
-.chapter-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.cart-buttons {
-  display: flex;
-  gap: 0.6rem;
-}
-
-.cart-buttons button {
-  padding: 0.6rem 1.2rem;
 }

@@ -17,7 +17,6 @@ export interface IVolume {
 
 export interface ICartItem {
   manga: string;
-  volumeId: number;
-  chapterId: number;
+  volume: number;
   quantity: number;
 }
