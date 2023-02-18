@@ -31,7 +31,7 @@ const SignUp: React.FC = () => {
     console.log('user info =>', email, password);
   };
 
-  const validateEmailHandler = (email: string) => {
+  const validateEmail = (email: string) => {
     const error = emailValidator(email);
     if (error.status) {
       setAuthError((prevState) => {
@@ -44,7 +44,7 @@ const SignUp: React.FC = () => {
     });
   };
 
-  const validatePasswordHandler = (password: string) => {
+  const validatePassword = (password: string) => {
     const error = lengthValidator(password, 6);
     if (error.status) {
       setAuthError((prevState) => {
@@ -57,10 +57,7 @@ const SignUp: React.FC = () => {
     });
   };
 
-  const validateRepeatPasswordHandler = (
-    password: string,
-    repeatPassword: string
-  ) => {
+  const validateRepeatPassword = (password: string, repeatPassword: string) => {
     const error = repeatPasswordValidator(password, repeatPassword);
     if (error.status) {
       setAuthError((prevState) => {
@@ -75,18 +72,18 @@ const SignUp: React.FC = () => {
 
   const onChangeEmail = (email: string) => {
     setEmail(email);
-    validateEmailHandler(email);
+    validateEmail(email);
   };
 
   const onChangePassword = (password: string) => {
     setPassword(password);
-    validatePasswordHandler(password);
-    validateRepeatPasswordHandler(password, repeatPassword);
+    validatePassword(password);
+    validateRepeatPassword(password, repeatPassword);
   };
 
   const onChangeRepeatPassword = (repeatPassword: string) => {
     setRepeatPassword(repeatPassword);
-    validateRepeatPasswordHandler(password, repeatPassword);
+    validateRepeatPassword(password, repeatPassword);
   };
 
   return (

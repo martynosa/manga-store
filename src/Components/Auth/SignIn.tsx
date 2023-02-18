@@ -24,7 +24,7 @@ const SignIn: React.FC = () => {
     console.log('user info =>', email, password);
   };
 
-  const validateEmailHandler = (email: string) => {
+  const validateEmail = (email: string) => {
     const error = emailValidator(email);
     if (error.status) {
       setAuthError((prevState) => {
@@ -37,17 +37,7 @@ const SignIn: React.FC = () => {
     });
   };
 
-  const onChangeEmail = (email: string) => {
-    setEmail(email);
-    validateEmailHandler(email);
-  };
-
-  const onChangePassword = (password: string) => {
-    setPassword(password);
-    validatePasswordHandler(password);
-  };
-
-  const validatePasswordHandler = (password: string) => {
+  const validatePassword = (password: string) => {
     const error = lengthValidator(password, 6);
     if (error.status) {
       setAuthError((prevState) => {
@@ -58,6 +48,16 @@ const SignIn: React.FC = () => {
     setAuthError((prevState) => {
       return { ...prevState, password: defaultError };
     });
+  };
+
+  const onChangeEmail = (email: string) => {
+    setEmail(email);
+    validateEmail(email);
+  };
+
+  const onChangePassword = (password: string) => {
+    setPassword(password);
+    validatePassword(password);
   };
 
   return (
