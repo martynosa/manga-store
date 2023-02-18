@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
-
-import { cartActions } from '../../reduxStore';
 
 import Chapter from '../Common/Chapter/Chapter';
 import { IVolume } from '../../types';
@@ -13,23 +10,10 @@ import { IVolume } from '../../types';
 const Volume: React.FC = () => {
   const [volume, setVolume] = useState<IVolume>();
   const { manga, volumeId } = useParams();
-  const dispatch = useDispatch();
 
-  const addToCartHandler = (volume: IVolume) => {
-    dispatch(
-      cartActions.add({
-        manga: volume.manga,
-        volume: volume.volume,
-        quantity: 1,
-      })
-    );
-  };
+  const addToCartHandler = (volume: IVolume) => {};
 
-  const removeFromCartHandler = (volume: IVolume) => {
-    dispatch(
-      cartActions.remove({ volume: volume.volume, manga: volume.manga })
-    );
-  };
+  const removeFromCartHandler = (volume: IVolume) => {};
 
   useEffect(() => {
     if (volumeId && manga) {
@@ -60,7 +44,7 @@ const Volume: React.FC = () => {
         </div>
         <button onClick={() => addToCartHandler(volume)}>add to cart</button>
         <button onClick={() => removeFromCartHandler(volume)}>
-          add to cart
+          remove from cart
         </button>
       </>
     );

@@ -16,6 +16,7 @@ const Store: React.FC = () => {
   const volumes = useSelector((state: RootState) => state.volumes);
 
   useEffect(() => {
+    // naruto arg hardcoded for now
     const store = collection(db, 'store', 'naruto', 'volumes');
     const volumesArray: IVolume[] = [];
 
