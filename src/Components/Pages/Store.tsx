@@ -4,7 +4,7 @@ import classes from './Store.module.css';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
 
-import { IVolume } from '../../types';
+import { IVolume } from '../../types/manga';
 import Card from '../Common/Card/Card';
 // Redux
 import { useDispatch } from 'react-redux';

@@ -5,7 +5,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
 
 import Chapter from '../Common/Chapter/Chapter';
-import { IVolume } from '../../types';
+import { IVolume } from '../../types/manga';
 
 const Volume: React.FC = () => {
   const [volume, setVolume] = useState<IVolume>();

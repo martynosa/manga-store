@@ -1,47 +1,19 @@
 import { FormEvent, useEffect, useState } from 'react';
+import { emailValidator, lengthValidator } from '../../helpers/validators';
+import { defaultAuthError, IAuthError, defaultError } from '../../types/error';
 import classes from './Auth.module.css';
-
-interface IError {
-  status: boolean;
-  message: string;
-}
-
-const defaultError = { status: false, message: '' };
-
-const emailValidator = (email: string) => {
-  if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-    return { status: true, message: 'Please provide valid email.' };
-  }
-  return defaultError;
-};
-
-export const lengthValidator = (value: string, length: number) => {
-  if (!value || value.length < length) {
-    return {
-      status: true,
-      message: `${length} or more characters required!`,
-    };
-  }
-  return defaultError;
-};
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorObj, setErrorObj] = useState<{
-    emailError: IError;
-    passwordError: IError;
-  }>({
-    emailError: defaultError,
-    passwordError: defaultError,
-  });
+  const [authError, setAuthError] = useState<IAuthError>(defaultAuthError);
 
   const signInHandler = (event: FormEvent) => {
     event.preventDefault();
 
     if (
-      errorObj.emailError.status ||
-      errorObj.passwordError.status ||
+      authError.email.status ||
+      authError.password.status ||
       email === '' ||
       password === ''
     )
@@ -52,32 +24,32 @@ const SignIn: React.FC = () => {
   const validateEmailHandler = (email: string) => {
     const error = emailValidator(email);
     if (error.status) {
-      setErrorObj((prevState) => {
-        return { ...prevState, emailError: error };
+      setAuthError((prevState) => {
+        return { ...prevState, email: error };
       });
       return;
     }
-    setErrorObj((prevState) => {
-      return { ...prevState, emailError: defaultError };
+    setAuthError((prevState) => {
+      return { ...prevState, email: defaultError };
     });
   };
 
   const validatePasswordHandler = (password: string) => {
     const error = lengthValidator(password, 6);
     if (error.status) {
-      setErrorObj((prevState) => {
-        return { ...prevState, passwordError: error };
+      setAuthError((prevState) => {
+        return { ...prevState, password: error };
       });
       return;
     }
-    setErrorObj((prevState) => {
-      return { ...prevState, passwordError: defaultError };
+    setAuthError((prevState) => {
+      return { ...prevState, password: defaultError };
     });
   };
 
   useEffect(() => {
-    console.log(errorObj);
-  }, [errorObj]);
+    console.log(authError);
+  }, [authError]);
 
   return (
     <div className={classes['auth-container']}>
@@ -91,7 +63,7 @@ const SignIn: React.FC = () => {
             onBlur={(e) => setEmail(e.target.value)}
             onChange={(e) => validateEmailHandler(e.target.value)}
           />
-          {errorObj.emailError.status && <p>{errorObj.emailError.message}</p>}
+          {authError.email.status && <p>{authError.email.message}</p>}
         </div>
         <div>
           <label htmlFor="password">password</label>
@@ -101,9 +73,7 @@ const SignIn: React.FC = () => {
             onBlur={(e) => setPassword(e.target.value)}
             onChange={(e) => validatePasswordHandler(e.target.value)}
           />
-          {errorObj.passwordError.status && (
-            <p>{errorObj.passwordError.message}</p>
-          )}
+          {authError.password.status && <p>{authError.password.message}</p>}
         </div>
         <button>sign in</button>
       </form>

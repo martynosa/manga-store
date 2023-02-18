@@ -1,4 +1,4 @@
-import { IChapter } from '../../../types';
+import { IChapter } from '../../../types/manga';
 import classes from './Chapter.module.css';
 
 const Chapter: React.FC<{

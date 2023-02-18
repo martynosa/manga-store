@@ -1,5 +1,5 @@
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IVolume } from './types';
+import { IVolume } from './types/manga';
 
 const initialVolumesState: IVolume[] = [];
 
