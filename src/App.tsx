@@ -1,4 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase/firebase';
 
 import Cart from './Components/Pages/Cart';
 import Nav from './Components/Common/Nav/Nav';
@@ -7,8 +11,27 @@ import SignIn from './Components/Auth/SignIn';
 import SignUp from './Components/Auth/SignUp';
 import Volume from './Components/Pages/Volume';
 import Error from './Components/Pages/Error';
+import { useEffect } from 'react';
+import { authAction } from './redux/authSlice';
 
 function App() {
+  const dispatch = useDispatch();
+
+  // user persistance
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(
+          authAction.setUser({
+            id: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+          })
+        );
+      }
+    });
+  }, []);
+
   return (
     <>
       <Nav />

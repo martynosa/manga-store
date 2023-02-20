@@ -9,7 +9,7 @@ import Card from '../Common/Card/Card';
 // Redux
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux/es/exports';
-import { RootState, volumesAction } from '../../reduxStore';
+import { RootState, volumesAction } from '../../redux/reduxStore';
 
 const Store: React.FC = () => {
   const dispatch = useDispatch();

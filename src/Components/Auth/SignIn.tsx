@@ -1,4 +1,13 @@
 import { FormEvent, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { auth } from '../../firebase/firebase';
+import {
+  browserLocalPersistence,
+  setPersistence,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth';
+import { authAction } from '../../redux/authSlice';
 import { emailValidator, lengthValidator } from '../../helpers/validators';
 import { defaultAuthError, IAuthError, defaultError } from '../../types/error';
 import classes from './Auth.module.css';
@@ -7,9 +16,10 @@ const SignIn: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState<IAuthError>(defaultAuthError);
+  const dispatch = useDispatch();
 
-  const signInHandler = (event: FormEvent) => {
-    event.preventDefault();
+  const signInHandler = async (e: FormEvent) => {
+    e.preventDefault();
 
     if (
       authError.email.status ||
@@ -21,7 +31,21 @@ const SignIn: React.FC = () => {
       return;
     }
 
-    console.log('user info =>', email, password);
+    try {
+      await setPersistence(auth, browserLocalPersistence);
+      const user = await signInWithEmailAndPassword(auth, email, password);
+      console.log(user);
+
+      dispatch(
+        authAction.setUser({
+          id: user.user.uid,
+          email: user.user.email,
+          displayName: user.user.displayName,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const validateEmail = (email: string) => {

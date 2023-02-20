@@ -1,4 +1,14 @@
 import { FormEvent, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { auth } from '../../firebase/firebase';
+import {
+  browserLocalPersistence,
+  createUserWithEmailAndPassword,
+  setPersistence,
+  updateProfile,
+} from 'firebase/auth';
+import { authAction } from '../../redux/authSlice';
+
 import {
   emailValidator,
   lengthValidator,
@@ -9,15 +19,18 @@ import classes from './Auth.module.css';
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState('');
+  const [displayName, setDisplayName] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const [authError, setAuthError] = useState<IAuthError>(defaultAuthError);
+  const dispatch = useDispatch();
 
-  const signUpHandler = (e: FormEvent) => {
+  const signUpHandler = async (e: FormEvent) => {
     e.preventDefault();
 
     if (
       authError.email.status ||
+      authError.displayName.status ||
       authError.password.status ||
       authError.repeatPassword.status ||
       email === '' ||
@@ -28,7 +41,24 @@ const SignUp: React.FC = () => {
       return;
     }
 
-    console.log('user info =>', email, password);
+    try {
+      await setPersistence(auth, browserLocalPersistence);
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+
+      if (user) {
+        await updateProfile(user.user, { displayName: displayName });
+      }
+
+      dispatch(
+        authAction.setUser({
+          id: user.user.uid,
+          email: user.user.email,
+          displayName: user.user.displayName,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const validateEmail = (email: string) => {
@@ -41,6 +71,19 @@ const SignUp: React.FC = () => {
     }
     setAuthError((prevState) => {
       return { ...prevState, email: defaultError };
+    });
+  };
+
+  const validateDisplayName = (displayName: string) => {
+    const error = lengthValidator(displayName, 3);
+    if (error.status) {
+      setAuthError((prevState) => {
+        return { ...prevState, displayName: error };
+      });
+      return;
+    }
+    setAuthError((prevState) => {
+      return { ...prevState, displayName: defaultError };
     });
   };
 
@@ -75,6 +118,11 @@ const SignUp: React.FC = () => {
     validateEmail(email);
   };
 
+  const onChangeDisplayName = (displayName: string) => {
+    setDisplayName(displayName);
+    validateDisplayName(displayName);
+  };
+
   const onChangePassword = (password: string) => {
     setPassword(password);
     validatePassword(password);
@@ -100,10 +148,21 @@ const SignUp: React.FC = () => {
           {authError.email.status && <p>{authError.email.message}</p>}
         </div>
         <div>
+          <label htmlFor="displayName">Name</label>
+          <input
+            id="displayName"
+            type="text"
+            onChange={(e) => onChangeDisplayName(e.target.value)}
+          />
+          {authError.displayName.status && (
+            <p>{authError.displayName.message}</p>
+          )}
+        </div>
+        <div>
           <label htmlFor="password">password</label>
           <input
             id="password"
-            type="text"
+            type="password"
             onChange={(e) => onChangePassword(e.target.value)}
           />
           {authError.password.status && <p>{authError.password.message}</p>}
@@ -112,7 +171,7 @@ const SignUp: React.FC = () => {
           <label htmlFor="repeatPassword">repeat password</label>
           <input
             id="repeatPassword"
-            type="text"
+            type="password"
             onChange={(e) => onChangeRepeatPassword(e.target.value)}
           />
           {authError.repeatPassword.status && (
