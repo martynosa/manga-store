@@ -1,7 +1,10 @@
 :root {
   /* GENERAL */
   --animation: all 0.3s ease-in-out;
-  --shadow: -4px 4px 0 #0f172a;
+
+  /* SHADOWS */
+  --shadow: 4px 4px 0 #f97316;
+  --sm-shadow: 2px 2px 0 #f97316;
 
   /* FONT_SIZE */
   --fs-52: 5.2rem;
@@ -15,4 +18,5 @@
   --font-color: #0f172a;
   --bg-color: #fff7ed;
   --primary-color: #f97316;
+  --light-orange-color: #fed7aa;
 }

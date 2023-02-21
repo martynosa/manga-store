@@ -5,14 +5,17 @@ import {
   browserLocalPersistence,
   setPersistence,
   signInWithEmailAndPassword,
-  updateProfile,
 } from 'firebase/auth';
 import { authAction } from '../../redux/authSlice';
 import { emailValidator, lengthValidator } from '../../helpers/validators';
 import { defaultAuthError, IAuthError, defaultError } from '../../types/error';
 import classes from './Auth.module.css';
 
-const SignIn: React.FC = () => {
+interface IProps {
+  closeModal: () => void;
+}
+
+const SignIn: React.FC<IProps> = ({ closeModal }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState<IAuthError>(defaultAuthError);
@@ -43,6 +46,7 @@ const SignIn: React.FC = () => {
           displayName: user.user.displayName,
         })
       );
+      closeModal();
     } catch (error) {
       console.log(error);
     }
@@ -86,27 +90,34 @@ const SignIn: React.FC = () => {
 
   return (
     <div className={classes['auth-container']}>
-      <h1>SignIn</h1>
-      <form onSubmit={signInHandler}>
-        <div>
-          <label htmlFor="email">email</label>
-          <input
-            id="email"
-            type="text"
-            onChange={(e) => onChangeEmail(e.target.value)}
-          />
-          {authError.email.status && <p>{authError.email.message}</p>}
+      <form onSubmit={signInHandler} className={classes.form}>
+        <h1 className={classes.title}>SignIn</h1>
+        <div className={classes.group}>
+          <div className={classes['input-group']}>
+            <label htmlFor="email">email</label>
+            <input
+              id="email"
+              type="text"
+              onChange={(e) => onChangeEmail(e.target.value)}
+            />
+            {authError.email.status && <p>{authError.email.message}</p>}
+          </div>
+          <div className={classes['input-group']}>
+            <label htmlFor="password">password</label>
+            <input
+              id="password"
+              type="password"
+              onChange={(e) => onChangePassword(e.target.value)}
+            />
+            {authError.password.status && <p>{authError.password.message}</p>}
+          </div>
+          <div className={classes['button-group']}>
+            <button className={classes.btn}>sign in</button>
+            <button type="button" onClick={closeModal} className={classes.btn}>
+              Cancel
+            </button>
+          </div>
         </div>
-        <div>
-          <label htmlFor="password">password</label>
-          <input
-            id="password"
-            type="password"
-            onChange={(e) => onChangePassword(e.target.value)}
-          />
-          {authError.password.status && <p>{authError.password.message}</p>}
-        </div>
-        <button>sign in</button>
       </form>
     </div>
   );

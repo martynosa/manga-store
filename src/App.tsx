@@ -7,12 +7,11 @@ import { auth } from './firebase/firebase';
 import Cart from './Components/Pages/Cart';
 import Nav from './Components/Common/Nav/Nav';
 import Store from './Components/Pages/Store';
-import SignIn from './Components/Auth/SignIn';
-import SignUp from './Components/Auth/SignUp';
 import Volume from './Components/Pages/Volume';
 import Error from './Components/Pages/Error';
 import { useEffect } from 'react';
 import { authAction } from './redux/authSlice';
+import Home from './Components/Pages/Home';
 
 function App() {
   const dispatch = useDispatch();
@@ -37,10 +36,7 @@ function App() {
       <Nav />
 
       <Routes>
-        <Route path="/" element={<Store />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-
+        <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/store" element={<Store />} />
         <Route path="/store/:manga/:volumeId" element={<Volume />} />

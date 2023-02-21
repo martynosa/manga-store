@@ -17,7 +17,11 @@ import {
 import { defaultAuthError, defaultError, IAuthError } from '../../types/error';
 import classes from './Auth.module.css';
 
-const SignUp: React.FC = () => {
+interface IProps {
+  closeModal: () => void;
+}
+
+const SignUp: React.FC<IProps> = ({ closeModal }) => {
   const [email, setEmail] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [password, setPassword] = useState('');
@@ -56,6 +60,7 @@ const SignUp: React.FC = () => {
           displayName: user.user.displayName,
         })
       );
+      closeModal();
     } catch (error) {
       console.log(error);
     }
@@ -179,6 +184,9 @@ const SignUp: React.FC = () => {
           )}
         </div>
         <button>sign up</button>
+        <button type="button" onClick={closeModal}>
+          Cancel
+        </button>
       </form>
     </div>
   );
