@@ -22,10 +22,10 @@ const Store: React.FC = () => {
 
     getDocs(store)
       .then((storeSnap) => {
-        storeSnap.forEach((p) => {
-          if (p.exists()) {
-            const volume = p.data() as IVolume;
-            volumesArray.push(volume);
+        storeSnap.forEach((volumeSnap) => {
+          if (volumeSnap.exists()) {
+            const volume = { ...volumeSnap.data(), id: volumeSnap.id };
+            volumesArray.push(volume as IVolume);
           }
         });
         dispatch(volumesAction.initialize(volumesArray));

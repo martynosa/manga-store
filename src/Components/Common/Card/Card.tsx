@@ -4,10 +4,7 @@ import { IVolume } from '../../../types/manga';
 
 const Card: React.FC<{ volume: IVolume }> = ({ volume }) => {
   return (
-    <Link
-      to={`/store/${volume.manga}/${volume.volume}`}
-      className={classes.card}
-    >
+    <Link to={`/store/${volume.manga}/${volume.id}`} className={classes.card}>
       <div>
         <img src={volume.coverLink} alt="cover" />
       </div>

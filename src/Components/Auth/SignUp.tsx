@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { auth } from '../../firebase/firebase';
+import { auth, db } from '../../firebase/firebase';
 import {
   browserLocalPersistence,
   createUserWithEmailAndPassword,
@@ -16,6 +16,7 @@ import {
 } from '../../helpers/validators';
 import { defaultAuthError, defaultError, IAuthError } from '../../types/error';
 import classes from './Auth.module.css';
+import { doc, setDoc, collection, addDoc } from 'firebase/firestore';
 
 interface IProps {
   closeModal: () => void;
@@ -51,6 +52,14 @@ const SignUp: React.FC<IProps> = ({ closeModal }) => {
 
       if (user) {
         await updateProfile(user.user, { displayName: displayName });
+        const profileInfo = doc(db, 'users', user.user.uid);
+        await setDoc(profileInfo, {
+          country: '',
+          city: '',
+          postCode: '',
+          address: '',
+          phoneNumber: '',
+        });
       }
 
       dispatch(

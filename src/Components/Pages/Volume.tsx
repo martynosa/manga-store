@@ -1,26 +1,71 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { doc, getDoc } from 'firebase/firestore';
+import {
+  deleteDoc,
+  doc,
+  getDoc,
+  increment,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
 
 import Chapter from '../Common/Chapter/Chapter';
 import { IVolume } from '../../types/manga';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/reduxStore';
 
 const Volume: React.FC = () => {
   const [volume, setVolume] = useState<IVolume>();
   const { manga, volumeId } = useParams();
 
-  const addToCartHandler = (volume: IVolume) => {};
+  const user = useSelector((state: RootState) => state.user.user);
 
-  const removeFromCartHandler = (volume: IVolume) => {};
+  const addToCartHandler = async (volume: IVolume) => {
+    if (user) {
+      const cartItemRef = doc(db, 'users', user.id, 'cart', volume.id);
+      // increments item's quantity
+      const cartItemSnap = await getDoc(cartItemRef);
+      if (cartItemSnap.exists()) {
+        await updateDoc(cartItemRef, {
+          quantity: increment(1),
+        });
+        return;
+      }
+
+      // adds the item to the cart
+      await setDoc(cartItemRef, { quantity: 1 });
+    }
+  };
+
+  const removeFromCartHandler = async (volume: IVolume) => {
+    if (user) {
+      const cartItemRef = doc(db, 'users', user.id, 'cart', volume.id);
+      // deletes the item if quantity's lower than 1
+      const cartItemSnap = await getDoc(cartItemRef);
+      if (cartItemSnap.exists()) {
+        const cartItemQuantity = cartItemSnap.data().quantity;
+        if (cartItemQuantity <= 1) {
+          await deleteDoc(cartItemRef);
+          return;
+        }
+      }
+
+      // decerements item's quantity
+      await updateDoc(cartItemRef, {
+        quantity: increment(-1),
+      });
+    }
+  };
 
   useEffect(() => {
     if (volumeId && manga) {
       getDoc(doc(db, 'store', manga, 'volumes', volumeId))
         .then((volumeSnap) => {
           if (volumeSnap.exists()) {
-            setVolume(volumeSnap.data() as IVolume);
+            const volume = { ...volumeSnap.data(), id: volumeSnap.id };
+            setVolume(volume as IVolume);
           } else {
             // error handling
             console.log('no data for this volumeId');

@@ -5,6 +5,7 @@ export interface IChapter {
 }
 
 export interface IVolume {
+  id: string;
   manga: string;
   volume: number;
   engVolumeName: string;
