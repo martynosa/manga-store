@@ -51,19 +51,31 @@ const Nav: React.FC = () => {
     <>
       <Link to="/">home</Link>
       <Link to="/store">store</Link>
-      <button onClick={openSignInModal}>signInModal</button>
-      <button onClick={openSignUpModal}>signUpModal</button>
+      <div className={classes.group}>
+        <button onClick={openSignInModal} className={classes['sign-in']}>
+          sign in
+        </button>
+        <button onClick={openSignUpModal} className={classes['sign-up']}>
+          sign up
+        </button>
+      </div>
     </>
   );
 
   const authenticatedNav = (
     <>
       <Link to="/store">store</Link>
-      <Link to="/cart">cart</Link>
-      <p>{user?.displayName}</p>
-      {user?.email !== null && (
-        <button onClick={signOutHandler}>signout</button>
-      )}
+      <div className={classes.group}>
+        <p className={classes.displayname}>{user?.displayName}</p>
+        <Link to="/cart" className={classes.cart}>
+          cart
+        </Link>
+        {user?.email !== null && (
+          <button onClick={signOutHandler} className={classes['sign-out']}>
+            sign out
+          </button>
+        )}
+      </div>
     </>
   );
 
