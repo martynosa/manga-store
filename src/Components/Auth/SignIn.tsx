@@ -91,7 +91,7 @@ const SignIn: React.FC<IProps> = ({ closeModal }) => {
   return (
     <div className={classes['auth-container']}>
       <form onSubmit={signInHandler} className={classes.form}>
-        <h1 className={classes.title}>SignIn</h1>
+        <h1>Sign In</h1>
         <div className={classes.group}>
           <div className={classes['input-group']}>
             <label htmlFor="email">email</label>
@@ -112,10 +112,14 @@ const SignIn: React.FC<IProps> = ({ closeModal }) => {
             {authError.password.status && <p>{authError.password.message}</p>}
           </div>
           <div className={classes['button-group']}>
-            <button className={classes.btn}>sign in</button>
-            <button type="button" onClick={closeModal} className={classes.btn}>
-              Cancel
+            <button
+              type="button"
+              onClick={closeModal}
+              className={`${classes.btn} ${classes.close}`}
+            >
+              Close
             </button>
+            <button className={classes.btn}>sign in</button>
           </div>
         </div>
       </form>

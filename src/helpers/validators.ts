@@ -2,7 +2,7 @@ import { defaultError } from '../types/error';
 
 export const emailValidator = (email: string) => {
   if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-    return { status: true, message: 'Please provide valid email.' };
+    return { status: true, message: 'Please provide a valid email.' };
   }
   return defaultError;
 };

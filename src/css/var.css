@@ -1,6 +1,7 @@
 :root {
   /* GENERAL */
   --animation: all 0.3s ease-in-out;
+  --border-radius: 4px;
 
   /* SHADOWS */
   --shadow: 4px 4px 0 #f97316;
@@ -19,4 +20,5 @@
   --bg-color: #fff7ed;
   --primary-color: #f97316;
   --light-orange-color: #fed7aa;
+  --red-color: #b91c1c;
 }
