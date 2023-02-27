@@ -16,7 +16,7 @@
   width: 32rem;
   padding: 1.2rem 2.4rem;
   background-color: var(--light-orange-color);
-  background-color: var(--bg-color);
+  background-color: var(--light-bg-color);
   box-shadow: var(--shadow);
   border: 2px solid var(--primary-color);
   border-radius: var(--border-radius);

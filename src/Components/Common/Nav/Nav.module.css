@@ -1,9 +1,15 @@
 .nav {
+  z-index: 9999;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  right: 0;
   padding: 0.6rem 1.2rem;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   gap: 0.6rem;
+  background-color: var(--light-orange-color);
 }
 
 .nav a,

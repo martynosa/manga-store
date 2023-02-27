@@ -36,8 +36,8 @@ const Store: React.FC = () => {
   }, []);
 
   return (
-    <section>
-      <h1 className={classes['page-title']}>Store</h1>
+    <section className={classes['store-section']}>
+      <h1 className={classes['page-title']}>Manga</h1>
       <div className={classes['store-grid']}>
         {volumes.map((v) => {
           return <Card key={v.volume} volume={v} />;
