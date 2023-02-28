@@ -18,14 +18,17 @@ import { RootState } from '../../redux/reduxStore';
 
 const Volume: React.FC = () => {
   const [volume, setVolume] = useState<IVolume>();
-  const { manga, volumeId } = useParams();
+  const { mangaParam, volumeParam } = useParams();
 
   const user = useSelector((state: RootState) => state.auth.user);
 
   const addToCartHandler = async (volume: IVolume) => {
+    console.log(volume.id);
+
     if (user) {
       const cartItemRef = doc(db, 'users', user.id, 'cart', volume.id);
       // increments item's quantity
+
       const cartItemSnap = await getDoc(cartItemRef);
       if (cartItemSnap.exists()) {
         await updateDoc(cartItemRef, {
@@ -60,11 +63,12 @@ const Volume: React.FC = () => {
   };
 
   useEffect(() => {
-    if (volumeId && manga) {
-      getDoc(doc(db, 'store', manga, 'volumes', volumeId))
+    if (mangaParam && volumeParam) {
+      getDoc(doc(db, 'store', mangaParam, 'volumes', volumeParam))
         .then((volumeSnap) => {
+          console.log(volumeSnap.data());
           if (volumeSnap.exists()) {
-            const volume = { ...volumeSnap.data(), id: volumeSnap.id };
+            const volume = volumeSnap.data();
             setVolume(volume as IVolume);
           } else {
             // error handling
@@ -76,7 +80,7 @@ const Volume: React.FC = () => {
           console.log(error);
         });
     }
-  }, [volumeId]);
+  }, [mangaParam, volumeParam]);
 
   if (volume) {
     return (

@@ -8,10 +8,16 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     initalize(state, action: PayloadAction<ICartItem[]>) {
-      console.log(action.payload);
-
       state = action.payload;
       return state;
+    },
+    add(state, action: PayloadAction<ICartItem>) {
+      // add item to the cart
+      // if item already exists increment
+    },
+    remove(state, action: PayloadAction<ICartItem>) {
+      // if item already exists decrement
+      // if quantity === 0 remove
     },
   },
 });
