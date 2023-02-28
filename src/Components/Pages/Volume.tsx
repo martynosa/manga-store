@@ -13,60 +13,66 @@ import { db } from '../../firebase/firebase';
 
 import Chapter from '../Common/Chapter/Chapter';
 import { IVolume } from '../../types/manga';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/reduxStore';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartActions, RootState } from '../../redux/reduxStore';
+import { ICartItem } from '../../types/cart';
 
 const Volume: React.FC = () => {
   const [volume, setVolume] = useState<IVolume>();
   const { mangaParam, volumeParam } = useParams();
 
   const user = useSelector((state: RootState) => state.auth.user);
+  // test
+  const cart = useSelector((state: RootState) => state.cart);
+  const dispatch = useDispatch();
 
   const addToCartHandler = async (volume: IVolume) => {
-    console.log(volume.id);
+    // if (user) {
+    //   const cartItemRef = doc(db, 'users', user.id, 'cart', volume.id);
+    //   // increments item's quantity
 
-    if (user) {
-      const cartItemRef = doc(db, 'users', user.id, 'cart', volume.id);
-      // increments item's quantity
+    //   const cartItemSnap = await getDoc(cartItemRef);
+    //   if (cartItemSnap.exists()) {
+    //     await updateDoc(cartItemRef, {
+    //       quantity: increment(1),
+    //     });
+    //     dispatch(cartActions.increment({ id: volume.id }));
+    //     return;
+    //   }
 
-      const cartItemSnap = await getDoc(cartItemRef);
-      if (cartItemSnap.exists()) {
-        await updateDoc(cartItemRef, {
-          quantity: increment(1),
-        });
-        return;
-      }
+    //   // adds the item to the cart
+    //   await setDoc(cartItemRef, { quantity: 1 });
+    //   dispatch(cartActions.add({ id: volume.id, quantity: 1 }));
+    // }
 
-      // adds the item to the cart
-      await setDoc(cartItemRef, { quantity: 1 });
-    }
+    dispatch(cartActions.add({ id: volume.id, quantity: 1 }));
   };
 
   const removeFromCartHandler = async (volume: IVolume) => {
-    if (user) {
-      const cartItemRef = doc(db, 'users', user.id, 'cart', volume.id);
-      // deletes the item if quantity's lower than 1
-      const cartItemSnap = await getDoc(cartItemRef);
-      if (cartItemSnap.exists()) {
-        const cartItemQuantity = cartItemSnap.data().quantity;
-        if (cartItemQuantity <= 1) {
-          await deleteDoc(cartItemRef);
-          return;
-        }
-      }
+    // if (user) {
+    //   const cartItemRef = doc(db, 'users', user.id, 'cart', volume.id);
+    //   // deletes the item if quantity's lower than 1
+    //   const cartItemSnap = await getDoc(cartItemRef);
+    //   if (cartItemSnap.exists()) {
+    //     const cartItemQuantity = cartItemSnap.data().quantity;
+    //     if (cartItemQuantity <= 1) {
+    //       await deleteDoc(cartItemRef);
+    //       return;
+    //     }
+    //   }
 
-      // decerements item's quantity
-      await updateDoc(cartItemRef, {
-        quantity: increment(-1),
-      });
-    }
+    //   // decerements item's quantity
+    //   await updateDoc(cartItemRef, {
+    //     quantity: increment(-1),
+    //   });
+    // }
+    dispatch(cartActions.remove({ id: volume.id, quantity: 1 }));
   };
 
   useEffect(() => {
     if (mangaParam && volumeParam) {
       getDoc(doc(db, 'store', mangaParam, 'volumes', volumeParam))
         .then((volumeSnap) => {
-          console.log(volumeSnap.data());
           if (volumeSnap.exists()) {
             const volume = volumeSnap.data();
             setVolume(volume as IVolume);
@@ -95,6 +101,7 @@ const Volume: React.FC = () => {
         <button onClick={() => removeFromCartHandler(volume)}>
           remove from cart
         </button>
+        {JSON.stringify(cart)}
       </>
     );
   }
