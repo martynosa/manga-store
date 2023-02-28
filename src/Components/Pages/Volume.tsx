@@ -20,7 +20,7 @@ const Volume: React.FC = () => {
   const [volume, setVolume] = useState<IVolume>();
   const { manga, volumeId } = useParams();
 
-  const user = useSelector((state: RootState) => state.user.user);
+  const user = useSelector((state: RootState) => state.auth.user);
 
   const addToCartHandler = async (volume: IVolume) => {
     if (user) {

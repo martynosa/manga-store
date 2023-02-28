@@ -7,7 +7,7 @@ import {
   setPersistence,
   updateProfile,
 } from 'firebase/auth';
-import { authAction } from '../../redux/authSlice';
+import { authActions } from '../../redux/reduxStore';
 
 import {
   emailValidator,
@@ -63,7 +63,7 @@ const SignUp: React.FC<IProps> = ({ closeModal }) => {
       }
 
       dispatch(
-        authAction.setUser({
+        authActions.setUser({
           id: user.user.uid,
           email: user.user.email,
           displayName: user.user.displayName,

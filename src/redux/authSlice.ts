@@ -16,10 +16,9 @@ export const authSlice = createSlice({
       return state;
     },
     unsetUser(state) {
+      localStorage.removeItem('cart');
       state.user = null;
       return state;
     },
   },
 });
-
-export const authAction = authSlice.actions;

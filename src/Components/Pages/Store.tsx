@@ -9,7 +9,7 @@ import Card from '../Common/Card/Card';
 // Redux
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux/es/exports';
-import { RootState, volumesAction } from '../../redux/reduxStore';
+import { RootState, volumesActions } from '../../redux/reduxStore';
 
 const Store: React.FC = () => {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const Store: React.FC = () => {
             volumesArray.push(volume as IVolume);
           }
         });
-        dispatch(volumesAction.initialize(volumesArray));
+        dispatch(volumesActions.initialize(volumesArray));
       })
       .catch((error) => {
         console.log(error);
@@ -37,7 +37,7 @@ const Store: React.FC = () => {
 
   return (
     <section className={classes['store-section']}>
-      <h1 className={classes['page-title']}>Manga</h1>
+      <h1 className={classes['page-title']}>Store</h1>
       <div className={classes['store-grid']}>
         {volumes.map((v) => {
           return <Card key={v.volume} volume={v} />;

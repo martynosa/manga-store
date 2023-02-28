@@ -15,8 +15,3 @@ export interface IVolume {
   coverLink: string;
   chapters: IChapter[];
 }
-
-export interface ICartItem {
-  item: IVolume;
-  quantity: number;
-}

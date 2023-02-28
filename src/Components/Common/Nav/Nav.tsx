@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { RootState } from '../../../redux/reduxStore';
 
 import classes from './Nav.module.css';
-import { authAction } from '../../../redux/authSlice';
+import { authActions } from '../../../redux/reduxStore';
 import {
   browserLocalPersistence,
   setPersistence,
@@ -16,7 +16,7 @@ import SignIn from '../../Auth/SignIn';
 import SignUp from '../../Auth/SignUp';
 
 const Nav: React.FC = () => {
-  const user = useSelector((state: RootState) => state.user.user);
+  const user = useSelector((state: RootState) => state.auth.user);
   const dispatch = useDispatch();
 
   const [isSignInOpen, setIsSignInOpen] = useState(false);
@@ -41,7 +41,7 @@ const Nav: React.FC = () => {
     try {
       await setPersistence(auth, browserLocalPersistence);
       await signOut(auth);
-      dispatch(authAction.unsetUser());
+      dispatch(authActions.unsetUser());
     } catch (error) {
       console.log(error);
     }

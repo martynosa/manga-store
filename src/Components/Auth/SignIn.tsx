@@ -6,11 +6,11 @@ import {
   setPersistence,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { authAction } from '../../redux/authSlice';
+import { authActions } from '../../redux/reduxStore';
 import { emailValidator, lengthValidator } from '../../helpers/validators';
 import { defaultAuthError, IAuthError, defaultError } from '../../types/error';
 import classes from './Auth.module.css';
-
+//
 interface IProps {
   closeModal: () => void;
 }
@@ -37,10 +37,8 @@ const SignIn: React.FC<IProps> = ({ closeModal }) => {
     try {
       await setPersistence(auth, browserLocalPersistence);
       const user = await signInWithEmailAndPassword(auth, email, password);
-      console.log(user);
-
       dispatch(
-        authAction.setUser({
+        authActions.setUser({
           id: user.user.uid,
           email: user.user.email,
           displayName: user.user.displayName,
