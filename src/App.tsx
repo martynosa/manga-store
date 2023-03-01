@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/firebase';
@@ -29,10 +29,6 @@ function App() {
         );
       }
     });
-  }, []);
-
-  useEffect(() => {
-    // if there is user fetch cart items
   }, []);
 
   return (

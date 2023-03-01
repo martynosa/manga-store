@@ -1,4 +1,4 @@
-import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ICartItem } from '../types/cart';
 
 const initialState: ICartItem[] = [];
@@ -7,25 +7,31 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    initalize(state, action: PayloadAction<ICartItem[]>) {
+    initialize(state, action: PayloadAction<ICartItem[]>) {
       state = action.payload;
       return state;
     },
     add(state, action: PayloadAction<ICartItem>) {
-      // must check if already exists
-
-      // add
-      state.push(action.payload);
+      const cartItem = state.find((item) => action.payload.id === item.id);
+      if (cartItem) {
+        cartItem.quantity++;
+      } else {
+        state.push(action.payload);
+      }
     },
     remove(state, action: PayloadAction<ICartItem>) {
-      // must check if quantity === 1
-      const currState = current(state);
-      const mutatedState = currState.filter(
-        (cartItem) => cartItem.id !== action.payload.id
-      );
-      return mutatedState;
+      const cartItem = state.find((item) => action.payload.id === item.id);
 
-      // decrement
+      if (cartItem) {
+        if (cartItem.quantity <= 1) {
+          const mutatedState = state.filter(
+            (item) => item.id !== action.payload.id
+          );
+          return mutatedState;
+        } else {
+          cartItem.quantity--;
+        }
+      }
     },
   },
 });

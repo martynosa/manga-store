@@ -17,10 +17,10 @@ const Store: React.FC = () => {
 
   useEffect(() => {
     // naruto arg hardcoded for now
-    const store = collection(db, 'store', 'naruto', 'volumes');
+    const storeRef = collection(db, 'store', 'naruto', 'volumes');
     const volumesArray: IVolume[] = [];
 
-    getDocs(store)
+    getDocs(storeRef)
       .then((storeSnap) => {
         storeSnap.forEach((volumeSnap) => {
           const volume = { ...volumeSnap.data() };

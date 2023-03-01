@@ -27,46 +27,45 @@ const Volume: React.FC = () => {
   const dispatch = useDispatch();
 
   const addToCartHandler = async (volume: IVolume) => {
-    // if (user) {
-    //   const cartItemRef = doc(db, 'users', user.id, 'cart', volume.id);
-    //   // increments item's quantity
+    if (user) {
+      const cartItemRef = doc(db, 'users', user.id, 'cart', volume.id);
+      // increments item's quantity
+      const cartItemSnap = await getDoc(cartItemRef);
+      if (cartItemSnap.exists()) {
+        await updateDoc(cartItemRef, {
+          quantity: increment(1),
+        });
+        dispatch(cartActions.add({ id: volume.id, quantity: 1 }));
+        return;
+      }
 
-    //   const cartItemSnap = await getDoc(cartItemRef);
-    //   if (cartItemSnap.exists()) {
-    //     await updateDoc(cartItemRef, {
-    //       quantity: increment(1),
-    //     });
-    //     dispatch(cartActions.increment({ id: volume.id }));
-    //     return;
-    //   }
-
-    //   // adds the item to the cart
-    //   await setDoc(cartItemRef, { quantity: 1 });
-    //   dispatch(cartActions.add({ id: volume.id, quantity: 1 }));
-    // }
-
-    dispatch(cartActions.add({ id: volume.id, quantity: 1 }));
+      // adds the item to the cart
+      await setDoc(cartItemRef, { quantity: 1 });
+      dispatch(cartActions.add({ id: volume.id, quantity: 1 }));
+    }
   };
 
   const removeFromCartHandler = async (volume: IVolume) => {
-    // if (user) {
-    //   const cartItemRef = doc(db, 'users', user.id, 'cart', volume.id);
-    //   // deletes the item if quantity's lower than 1
-    //   const cartItemSnap = await getDoc(cartItemRef);
-    //   if (cartItemSnap.exists()) {
-    //     const cartItemQuantity = cartItemSnap.data().quantity;
-    //     if (cartItemQuantity <= 1) {
-    //       await deleteDoc(cartItemRef);
-    //       return;
-    //     }
-    //   }
+    if (user) {
+      const cartItemRef = doc(db, 'users', user.id, 'cart', volume.id);
+      // deletes the item if quantity's lower than 1
+      const cartItemSnap = await getDoc(cartItemRef);
+      if (cartItemSnap.exists()) {
+        const cartItemQuantity = cartItemSnap.data().quantity;
+        if (cartItemQuantity <= 1) {
+          await deleteDoc(cartItemRef);
+          dispatch(cartActions.remove({ id: volume.id, quantity: 1 }));
 
-    //   // decerements item's quantity
-    //   await updateDoc(cartItemRef, {
-    //     quantity: increment(-1),
-    //   });
-    // }
-    dispatch(cartActions.remove({ id: volume.id, quantity: 1 }));
+          return;
+        }
+      }
+
+      // decerements item's quantity
+      await updateDoc(cartItemRef, {
+        quantity: increment(-1),
+      });
+      dispatch(cartActions.remove({ id: volume.id, quantity: 1 }));
+    }
   };
 
   useEffect(() => {
