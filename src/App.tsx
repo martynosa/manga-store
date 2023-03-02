@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
+// redux
 import { useDispatch, useSelector } from 'react-redux';
-
+import { authActions, RootState } from './redux/reduxStore';
+// firebase
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/firebase';
 
@@ -12,7 +14,6 @@ import Cart from './Components/Pages/Cart';
 import Store from './Components/Pages/Store';
 import Volume from './Components/Pages/Volume';
 import Error from './Components/Pages/Error';
-import { authActions, RootState } from './redux/reduxStore';
 
 function App() {
   const modal = useSelector((state: RootState) => state.modal);
