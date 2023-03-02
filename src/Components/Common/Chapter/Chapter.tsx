@@ -1,5 +1,6 @@
-import { IChapter } from '../../../types/manga';
 import classes from './Chapter.module.css';
+// typescript
+import { IChapter } from '../../../types/manga';
 
 const Chapter: React.FC<{
   chapter: IChapter;

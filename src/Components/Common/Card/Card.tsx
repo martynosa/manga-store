@@ -1,5 +1,6 @@
-import classes from './Card.module.css';
 import { Link } from 'react-router-dom';
+import classes from './Card.module.css';
+// typescript
 import { IVolume } from '../../../types/manga';
 
 const Card: React.FC<{ volume: IVolume }> = ({ volume }) => {

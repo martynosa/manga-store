@@ -3,7 +3,7 @@ import { IVolume } from '../types/manga';
 
 const initialState: IVolume[] = [];
 
-export const volumesSlice = createSlice({
+const volumesSlice = createSlice({
   name: 'volumes',
   initialState,
   reducers: {
@@ -14,4 +14,4 @@ export const volumesSlice = createSlice({
   },
 });
 
-export const volumesAction = volumesSlice.actions;
+export default volumesSlice;

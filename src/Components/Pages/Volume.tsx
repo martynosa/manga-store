@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+import { cartActions, RootState } from '../../redux/reduxStore';
+// firebase
 import {
   deleteDoc,
   doc,
@@ -10,12 +13,9 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
-
+// typescript
 import Chapter from '../Common/Chapter/Chapter';
 import { IVolume } from '../../types/manga';
-import { useDispatch, useSelector } from 'react-redux';
-import { cartActions, RootState } from '../../redux/reduxStore';
-import { ICartItem } from '../../types/cart';
 
 const Volume: React.FC = () => {
   const [volume, setVolume] = useState<IVolume>();

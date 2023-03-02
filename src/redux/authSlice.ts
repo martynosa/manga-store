@@ -7,18 +7,17 @@ interface IAuthState {
 
 const initialState: IAuthState = { user: null };
 
-export const authSlice = createSlice({
-  name: 'user',
+const authSlice = createSlice({
+  name: 'auth',
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<IUser>) {
       state.user = action.payload;
-      return state;
     },
     unsetUser(state) {
-      localStorage.removeItem('cart');
       state.user = null;
-      return state;
     },
   },
 });
+
+export default authSlice;

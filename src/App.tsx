@@ -1,19 +1,21 @@
 import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/firebase';
 
+import Modal from './Components/Common/Modal/Modal';
+import Nav from './Components/Common/Nav/Nav';
 import Home from './Components/Pages/Home';
 import Cart from './Components/Pages/Cart';
-import Nav from './Components/Common/Nav/Nav';
 import Store from './Components/Pages/Store';
 import Volume from './Components/Pages/Volume';
 import Error from './Components/Pages/Error';
-import { authActions } from './redux/reduxStore';
+import { authActions, RootState } from './redux/reduxStore';
 
 function App() {
+  const modal = useSelector((state: RootState) => state.modal);
   const dispatch = useDispatch();
 
   // user persistance
@@ -31,12 +33,20 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    modal.isOpen
+      ? document.body.classList.add('no-scroll')
+      : document.body.classList.remove('no-scroll');
+  }, [modal.isOpen]);
+
   return (
     <>
+      {modal.isOpen && <Modal />}
       <Nav />
 
       <Routes>
         <Route path="/" element={<Home />} />
+
         <Route path="/cart" element={<Cart />} />
         <Route path="/store" element={<Store />} />
         <Route path="/store/:mangaParam/:volumeParam" element={<Volume />} />

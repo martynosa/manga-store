@@ -1,47 +1,33 @@
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { cartActions, RootState } from '../../../redux/reduxStore';
-
 import classes from './Nav.module.css';
-import { authActions } from '../../../redux/reduxStore';
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  cartActions,
+  modalActions,
+  RootState,
+  authActions,
+} from '../../../redux/reduxStore';
+import { IModalPayload } from '../../../redux/modalSlice';
+// firebase
 import {
   browserLocalPersistence,
   setPersistence,
   signOut,
 } from 'firebase/auth';
 import { auth, db } from '../../../firebase/firebase';
-import { useEffect, useState } from 'react';
-import SignIn from '../../Auth/SignIn';
-import SignUp from '../../Auth/SignUp';
 import { collection, getDocs } from 'firebase/firestore';
+// typescript
 import { ICartItem } from '../../../types/cart';
 
 const Nav: React.FC = () => {
   const user = useSelector((state: RootState) => state.auth.user);
+  const cart = useSelector((state: RootState) => state.cart);
+  const [totalCartItemCount, setTotalCartItemCount] = useState(0);
   const dispatch = useDispatch();
 
-  // cart
-  const [totalCartItemCount, setTotalCartItemCount] = useState(0);
-  const cart = useSelector((state: RootState) => state.cart);
-
-  const [isSignInOpen, setIsSignInOpen] = useState(false);
-  const [isSignUpOpen, setIsSignUpOpen] = useState(false);
-
-  const openSignInModal = () => {
-    setIsSignInOpen(true);
-    setIsSignUpOpen(false);
-  };
-
-  const openSignUpModal = () => {
-    setIsSignUpOpen(true);
-    setIsSignInOpen(false);
-  };
-
-  const closeModal = () => {
-    setIsSignInOpen(false);
-    setIsSignUpOpen(false);
-  };
+  const openModal = (form: IModalPayload) => dispatch(modalActions.open(form));
 
   const signOutHandler = async () => {
     try {
@@ -85,10 +71,16 @@ const Nav: React.FC = () => {
       <Link to="/">home</Link>
       <Link to="/store">store</Link>
       <div className={classes.group}>
-        <button onClick={openSignInModal} className={classes['sign-in']}>
+        <button
+          onClick={() => openModal('signin')}
+          className={classes['sign-in']}
+        >
           sign in
         </button>
-        <button onClick={openSignUpModal} className={classes['sign-up']}>
+        <button
+          onClick={() => openModal('signup')}
+          className={classes['sign-up']}
+        >
           sign up
         </button>
       </div>
@@ -114,14 +106,10 @@ const Nav: React.FC = () => {
   );
 
   return (
-    <>
-      <nav className={classes.nav}>
-        {user && authenticatedNav}
-        {!user && unauthenticatedNav}
-      </nav>
-      {isSignInOpen && <SignIn closeModal={closeModal} />}
-      {isSignUpOpen && <SignUp closeModal={closeModal} />}
-    </>
+    <nav className={classes.nav}>
+      {user && authenticatedNav}
+      {!user && unauthenticatedNav}
+    </nav>
   );
 };
 export default Nav;
