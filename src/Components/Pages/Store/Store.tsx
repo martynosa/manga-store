@@ -8,8 +8,9 @@ import { RootState, volumesActions } from '../../../redux/reduxStore';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../firebase/firebase';
 // typescript
-import { IVolume } from '../../../types/manga';
+import { IVolume } from '../../../typescript/interfaces';
 import Card from './Card/Card';
+import Search from './Search/Search';
 
 const Store: React.FC = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const Store: React.FC = () => {
   return (
     <section className={classes['store-section']}>
       <h1 className={classes['page-title']}>Store</h1>
+      <Search />
       <div className={classes['store-grid']}>
         {volumes.map((v) => {
           return <Card key={v.volume} volume={v} />;

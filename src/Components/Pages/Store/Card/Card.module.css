@@ -5,8 +5,21 @@
   border-radius: var(--border-radius);
 }
 
+a.card:link,
+a.card:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+.card img {
+  margin-bottom: 0.6rem;
+}
+
+.card p span {
+  font-weight: 700;
+}
+
 .card:hover {
-  box-shadow: var(--shadow);
   transform: translate(-4px, -4px);
   background-color: var(--primary-color);
 }

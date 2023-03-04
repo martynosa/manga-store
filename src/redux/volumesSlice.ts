@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IVolume } from '../types/manga';
+import { IVolume } from '../typescript/interfaces';
 
 const initialState: IVolume[] = [];
 

@@ -9,11 +9,11 @@ import { auth } from './firebase/firebase';
 
 import Modal from './Components/Common/Modal/Modal';
 import Nav from './Components/Common/Nav/Nav';
-import Home from './Components/Pages/Home';
-import Cart from './Components/Pages/Cart';
+import Home from './Components/Pages/Home/Home';
+import Cart from './Components/Pages/Cart/Cart';
 import Store from './Components/Pages/Store/Store';
 import Volume from './Components/Pages/Volume/Volume';
-import Error from './Components/Pages/Error';
+import Error from './Components/Pages/Error/Error';
 
 function App() {
   const modal = useSelector((state: RootState) => state.modal);

@@ -19,7 +19,7 @@ import {
 import { auth, db } from '../../../firebase/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 // typescript
-import { ICartItem } from '../../../types/cart';
+import { ICartItem } from '../../../typescript/interfaces';
 
 const Nav: React.FC = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -68,9 +68,8 @@ const Nav: React.FC = () => {
 
   const unauthenticatedNav = (
     <>
-      <Link to="/">home</Link>
       <Link to="/store">store</Link>
-      <div className={classes.group}>
+      <div>
         <button
           onClick={() => openModal('signin')}
           className={classes['sign-in']}
@@ -90,7 +89,7 @@ const Nav: React.FC = () => {
   const authenticatedNav = (
     <>
       <Link to="/store">store</Link>
-      <div className={classes.group}>
+      <div>
         <p className={classes.displayname}>{user?.displayName}</p>
         <Link to="/cart" className={classes.cart}>
           <span>{totalCartItemCount} </span>
@@ -107,6 +106,9 @@ const Nav: React.FC = () => {
 
   return (
     <nav className={classes.nav}>
+      <Link to="/" className={classes.logo}>
+        naruto
+      </Link>
       {user && authenticatedNav}
       {!user && unauthenticatedNav}
     </nav>

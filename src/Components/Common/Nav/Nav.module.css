@@ -5,11 +5,24 @@
   top: 0;
   right: 0;
   padding: 0.6rem 1.2rem;
+  background-color: var(--light-orange-color);
+
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   gap: 0.6rem;
-  background-color: var(--light-orange-color);
+}
+
+.logo {
+  font-weight: 700;
+  font-size: var(--fs-32);
+}
+
+.nav div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
 }
 
 .nav a,
@@ -24,15 +37,9 @@
   cursor: pointer;
 }
 
-.group {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2.4rem;
-}
-
 .displayname {
   font-size: var(--fs-24);
+  font-weight: 700;
   border-radius: var(--border-radius);
   background-color: var(--amber-color);
   padding: 0.3rem 0.6rem;

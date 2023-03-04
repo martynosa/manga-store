@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import classes from './Card.module.css';
 // typescript
-import { IVolume } from '../../../../types/manga';
+import { IVolume } from '../../../../typescript/interfaces';
 
 const Card: React.FC<{ volume: IVolume }> = ({ volume }) => {
   return (
@@ -9,11 +9,10 @@ const Card: React.FC<{ volume: IVolume }> = ({ volume }) => {
       to={`/store/${volume.manga}/${volume.volume}`}
       className={classes.card}
     >
-      <div>
-        <img src={volume.coverLink} alt="cover" />
-      </div>
-      <p>{volume.engRelease}</p>
-      <h3>{`${volume.volume} ${volume.engVolumeName}`}</h3>
+      <img src={volume.coverLink} alt="cover" />
+      <p>
+        <span>{volume.volume}</span> {volume.engVolumeName}
+      </p>
     </Link>
   );
 };

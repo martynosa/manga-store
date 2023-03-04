@@ -13,7 +13,11 @@ import {
 import { auth, db } from '../../firebase/firebase';
 import { doc, setDoc } from 'firebase/firestore';
 // typescript
-import { defaultAuthError, defaultError, IAuthError } from '../../types/error';
+import {
+  defaultAuthError,
+  defaultError,
+  IAuthError,
+} from '../../typescript/interfaces';
 import {
   emailValidator,
   lengthValidator,

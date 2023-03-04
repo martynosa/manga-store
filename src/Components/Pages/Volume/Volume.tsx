@@ -15,7 +15,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '../../../firebase/firebase';
 // typescript
-import { IVolume } from '../../../types/manga';
+import { IVolume } from '../../../typescript/interfaces';
 import Info from './Info/Info';
 import ChapterList from './ChapterList/ChapterList';
 

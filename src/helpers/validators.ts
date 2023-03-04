@@ -1,4 +1,4 @@
-import { defaultError } from '../types/error';
+import { defaultError } from '../typescript/interfaces';
 
 export const emailValidator = (email: string) => {
   if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {

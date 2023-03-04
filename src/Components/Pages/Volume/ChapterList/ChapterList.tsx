@@ -1,7 +1,7 @@
 import classes from './ChapterList.module.css';
 import Chapter from '../Chapter/Chapter';
 // typescript
-import { IChapter } from '../../../../types/manga';
+import { IChapter } from '../../../../typescript/interfaces';
 
 const ChapterList: React.FC<{ chapters: IChapter[] }> = ({ chapters }) => {
   return (

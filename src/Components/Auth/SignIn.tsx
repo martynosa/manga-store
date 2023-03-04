@@ -11,7 +11,11 @@ import {
   signInWithEmailAndPassword,
 } from 'firebase/auth';
 // typescript
-import { defaultAuthError, IAuthError, defaultError } from '../../types/error';
+import {
+  defaultAuthError,
+  IAuthError,
+  defaultError,
+} from '../../typescript/interfaces';
 import { emailValidator, lengthValidator } from '../../helpers/validators';
 
 interface IProps {

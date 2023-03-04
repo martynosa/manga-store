@@ -1,6 +1,6 @@
 import classes from './Info.module.css';
 // typescript
-import { IVolume } from '../../../../types/manga';
+import { IVolume } from '../../../../typescript/interfaces';
 
 interface IProps {
   addToCartHandler: (volume: IVolume) => void;

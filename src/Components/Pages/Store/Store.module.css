@@ -1,19 +1,20 @@
 .store-section {
-  margin-top: 4.2rem;
+  margin-top: 5.2rem;
 }
 
 .store-grid {
-  margin: 0 auto;
   max-width: 128rem;
-  padding: 2.4rem;
+  margin: 0 auto;
+  padding: 1.2rem 2.4rem;
 
   display: grid;
   gap: 2.4rem;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
 }
 
 .page-title {
   text-align: center;
   font-size: var(--fs-52);
   padding: 0.6rem 1.2rem;
+  margin-bottom: 1.2rem;
 }
