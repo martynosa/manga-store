@@ -64,21 +64,3 @@
   align-items: center;
   justify-content: space-between;
 }
-
-.button-group button {
-  color: inherit;
-  font-size: var(--fs-18);
-  text-transform: uppercase;
-  border-radius: var(--border-radius);
-  padding: 0.3rem 0.6rem;
-  background-color: var(--amber-color);
-  transition: all 0.2s ease-in-out;
-}
-
-.button-group button.close {
-  background-color: transparent;
-}
-
-.button-group button:hover {
-  background-color: var(--primary-color);
-}

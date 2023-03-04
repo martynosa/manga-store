@@ -199,14 +199,10 @@ const SignUp: React.FC<IProps> = ({ closeModal }) => {
           )}
         </div>
         <div className={classes['button-group']}>
-          <button
-            type="button"
-            onClick={closeModal}
-            className={`${classes.btn} ${classes.close}`}
-          >
-            Cancel
+          <button type="button" onClick={closeModal} className="close">
+            close
           </button>
-          <button className={classes.btn}>sign up</button>
+          <button className="sign-up">sign up</button>
         </div>
       </div>
     </form>

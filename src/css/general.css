@@ -1,0 +1,49 @@
+/* links and buttons */
+a,
+button {
+  color: inherit;
+  text-transform: uppercase;
+  font-size: var(--fs-24);
+  border-radius: var(--border-radius);
+  padding: 0.3rem 0.6rem;
+  transition: var(--animation);
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+button.sign-in,
+button.sign-up {
+  font-size: var(--fs-18);
+  background-color: var(--amber-color);
+}
+
+button.nav-sign-in,
+button.nav-sign-up {
+  background-color: var(--amber-color);
+}
+
+button.nav-sign-out {
+  background-color: var(--red-color);
+}
+
+button.close {
+  font-size: var(--fs-18);
+  background-color: var(--red-color);
+}
+
+a.nav-cart {
+  background-color: var(--green-color);
+  border: 2px solid black;
+}
+
+a:hover,
+a:hover.cart,
+button:hover.sign-in,
+button:hover.sign-ip,
+button:hover.sign-out,
+button:hover {
+  background-color: var(--primary-color);
+}

@@ -70,16 +70,10 @@ const Nav: React.FC = () => {
     <>
       <Link to="/store">store</Link>
       <div>
-        <button
-          onClick={() => openModal('signin')}
-          className={classes['sign-in']}
-        >
+        <button onClick={() => openModal('signin')} className="nav-sign-in">
           sign in
         </button>
-        <button
-          onClick={() => openModal('signup')}
-          className={classes['sign-up']}
-        >
+        <button onClick={() => openModal('signup')} className="nav-sign-up">
           sign up
         </button>
       </div>
@@ -91,12 +85,12 @@ const Nav: React.FC = () => {
       <Link to="/store">store</Link>
       <div>
         <p className={classes.displayname}>{user?.displayName}</p>
-        <Link to="/cart" className={classes.cart}>
+        <Link to="/cart" className="nav-cart">
           <span>{totalCartItemCount} </span>
           cart
         </Link>
         {user?.email !== null && (
-          <button onClick={signOutHandler} className={classes['sign-out']}>
+          <button onClick={signOutHandler} className="nav-sign-out">
             sign out
           </button>
         )}

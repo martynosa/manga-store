@@ -25,7 +25,15 @@
   gap: 1.2rem;
 }
 
-.nav a,
+.displayname {
+  font-size: var(--fs-24);
+  font-weight: 700;
+  border-radius: var(--border-radius);
+  background-color: var(--amber-color);
+  padding: 0.3rem 0.6rem;
+}
+
+/* .nav a,
 .nav button {
   color: inherit;
   text-transform: uppercase;
@@ -35,14 +43,6 @@
   padding: 0.3rem 0.6rem;
   transition: var(--animation);
   cursor: pointer;
-}
-
-.displayname {
-  font-size: var(--fs-24);
-  font-weight: 700;
-  border-radius: var(--border-radius);
-  background-color: var(--amber-color);
-  padding: 0.3rem 0.6rem;
 }
 
 .nav a {
@@ -70,4 +70,4 @@
 .nav button:hover.sign-out,
 .nav button:hover {
   background-color: var(--primary-color);
-}
+} */

@@ -116,10 +116,10 @@ const SignIn: React.FC<IProps> = ({ closeModal }) => {
           {authError.password.status && <p>{authError.password.message}</p>}
         </div>
         <div className={classes['button-group']}>
-          <button type="button" onClick={closeModal} className={classes.close}>
-            Close
+          <button type="button" onClick={closeModal} className="close">
+            close
           </button>
-          <button>sign in</button>
+          <button className="sign-in">sign in</button>
         </div>
       </div>
     </form>

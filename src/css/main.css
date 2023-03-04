@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
 @import url('./var.css');
+@import url('./general.css');
 
 * {
   padding: 0;
