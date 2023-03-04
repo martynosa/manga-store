@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import classes from './Store.module.css';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, volumesActions } from '../../redux/reduxStore';
+import { RootState, volumesActions } from '../../../redux/reduxStore';
 
 // firebase
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../firebase/firebase';
+import { db } from '../../../firebase/firebase';
 // typescript
-import { IVolume } from '../../types/manga';
-import Card from '../Common/Card/Card';
+import { IVolume } from '../../../types/manga';
+import Card from './Card/Card';
 
 const Store: React.FC = () => {
   const dispatch = useDispatch();

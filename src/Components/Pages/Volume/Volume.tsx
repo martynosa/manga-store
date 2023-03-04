@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import classes from './Volume.module.css';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { cartActions, RootState } from '../../redux/reduxStore';
+import { cartActions, RootState } from '../../../redux/reduxStore';
 // firebase
 import {
   deleteDoc,
@@ -12,10 +13,11 @@ import {
   setDoc,
   updateDoc,
 } from 'firebase/firestore';
-import { db } from '../../firebase/firebase';
+import { db } from '../../../firebase/firebase';
 // typescript
-import Chapter from '../Common/Chapter/Chapter';
-import { IVolume } from '../../types/manga';
+import { IVolume } from '../../../types/manga';
+import Info from './Info/Info';
+import ChapterList from './ChapterList/ChapterList';
 
 const Volume: React.FC = () => {
   const [volume, setVolume] = useState<IVolume>();
@@ -89,19 +91,19 @@ const Volume: React.FC = () => {
 
   if (volume) {
     return (
-      <>
-        <h1>{volume?.engVolumeName}</h1>
-        <div>
-          {volume?.chapters.map((c) => (
-            <Chapter chapter={c} key={c.chapter} />
-          ))}
+      <section className={classes['volume-section']}>
+        <h1 className={classes['eng-title']}>{volume?.engVolumeName}</h1>
+        <h1 className={classes['jap-title']}>{volume?.japVolumeName}</h1>
+        <div className={classes.content}>
+          <ChapterList chapters={volume.chapters} />
+          <Info volume={volume} addToCartHandler={addToCartHandler} />
+          {/* <button onClick={() => removeFromCartHandler(volume)}>
+            remove from cart
+          </button> */}
         </div>
-        <button onClick={() => addToCartHandler(volume)}>add to cart</button>
-        <button onClick={() => removeFromCartHandler(volume)}>
-          remove from cart
-        </button>
-        {JSON.stringify(cart)}
-      </>
+        {/* {JSON.stringify(cart)}
+        {JSON.stringify(volume)} */}
+      </section>
     );
   }
 

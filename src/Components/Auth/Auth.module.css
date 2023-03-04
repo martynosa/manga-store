@@ -24,7 +24,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1.2rem;
+  gap: 2.4rem;
 }
 
 .input-group {
@@ -65,21 +65,20 @@
   justify-content: space-between;
 }
 
-.btn {
+.button-group button {
   color: inherit;
   font-size: var(--fs-18);
   text-transform: uppercase;
-  border: none;
   border-radius: var(--border-radius);
   padding: 0.3rem 0.6rem;
   background-color: var(--amber-color);
   transition: all 0.2s ease-in-out;
 }
 
-.btn.close {
+.button-group button.close {
   background-color: transparent;
 }
 
-.btn:hover {
+.button-group button:hover {
   background-color: var(--primary-color);
 }

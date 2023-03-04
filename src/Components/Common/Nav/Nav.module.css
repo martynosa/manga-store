@@ -42,13 +42,9 @@
   text-decoration: none;
 }
 
-.nav button {
-  text-decoration: none;
-  border: none;
-}
-
 .nav a.cart {
-  background-color: var(--dark-green-color);
+  background-color: var(--green-color);
+  border: 2px solid black;
 }
 
 .nav button.sign-in,

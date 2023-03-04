@@ -11,8 +11,8 @@ import Modal from './Components/Common/Modal/Modal';
 import Nav from './Components/Common/Nav/Nav';
 import Home from './Components/Pages/Home';
 import Cart from './Components/Pages/Cart';
-import Store from './Components/Pages/Store';
-import Volume from './Components/Pages/Volume';
+import Store from './Components/Pages/Store/Store';
+import Volume from './Components/Pages/Volume/Volume';
 import Error from './Components/Pages/Error';
 
 function App() {

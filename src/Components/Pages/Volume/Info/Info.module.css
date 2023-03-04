@@ -1,0 +1,36 @@
+.info {
+  padding: 1.2rem 2.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.6rem;
+  align-items: center;
+  background-color: var(--light-orange-color);
+  border-radius: var(--border-radius);
+}
+
+.info h2 {
+  font-size: var(--fs-24);
+}
+
+.info span {
+  font-weight: 700;
+}
+
+.info img {
+  max-width: 160px;
+  border: 2px solid black;
+  border-radius: var(--border-radius);
+}
+
+.info button {
+  margin-top: 2.4rem;
+  color: inherit;
+  text-transform: uppercase;
+  font-size: var(--fs-24);
+  background-color: var(--green-color);
+  border-radius: var(--border-radius);
+  padding: 0.3rem 0.6rem;
+  transition: var(--animation);
+  cursor: pointer;
+}

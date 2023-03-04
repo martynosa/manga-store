@@ -14,4 +14,5 @@ export interface IVolume {
   japRelease: string;
   coverLink: string;
   chapters: IChapter[];
+  price: number;
 }
