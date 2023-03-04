@@ -31,7 +31,7 @@ button.nav-sign-out {
 
 button.close {
   font-size: var(--fs-18);
-  background-color: var(--red-color);
+  background-color: transparent;
 }
 
 a.nav-cart {
