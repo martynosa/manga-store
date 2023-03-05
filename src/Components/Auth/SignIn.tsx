@@ -4,7 +4,7 @@ import classes from './Auth.module.css';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../../redux/reduxStore';
 // firebase
-import { auth } from '../../firebase/firebase';
+import { auth, db } from '../../firebase/firebase';
 import {
   browserLocalPersistence,
   setPersistence,
@@ -15,8 +15,10 @@ import {
   defaultAuthError,
   IAuthError,
   defaultError,
+  IShippingAddress,
 } from '../../typescript/interfaces';
 import { emailValidator, lengthValidator } from '../../helpers/validators';
+import { doc, getDoc } from 'firebase/firestore';
 
 interface IProps {
   closeModal: () => void;
@@ -42,6 +44,7 @@ const SignIn: React.FC<IProps> = ({ closeModal }) => {
     }
 
     try {
+      // logs the user
       await setPersistence(auth, browserLocalPersistence);
       const user = await signInWithEmailAndPassword(auth, email, password);
       dispatch(
@@ -51,6 +54,15 @@ const SignIn: React.FC<IProps> = ({ closeModal }) => {
           displayName: user.user.displayName,
         })
       );
+      // gets the shipping address
+      const userShippingAddressRef = doc(db, 'users', user.user.uid);
+      const shippingAddressSnap = await getDoc(userShippingAddressRef);
+
+      if (shippingAddressSnap.exists()) {
+        const shippingAddress = shippingAddressSnap.data() as IShippingAddress;
+        dispatch(authActions.setShippingAddress(shippingAddress));
+      }
+
       closeModal();
     } catch (error) {
       console.log(error);

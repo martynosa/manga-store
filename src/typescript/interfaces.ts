@@ -18,6 +18,14 @@ export interface IVolume {
   price: number;
 }
 
+// shippingAddress
+export interface IShippingAddress {
+  address: string;
+  city: string;
+  postCode: string;
+  phoneNumber: string;
+}
+
 // user
 export interface IUser {
   id: string;

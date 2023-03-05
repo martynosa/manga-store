@@ -3,6 +3,7 @@ import classes from './Auth.module.css';
 // redux
 import { useDispatch } from 'react-redux';
 import { authActions } from '../../redux/reduxStore';
+import { initialShippingAddress } from '../../redux/authSlice';
 // firebase
 import {
   browserLocalPersistence,
@@ -59,13 +60,7 @@ const SignUp: React.FC<IProps> = ({ closeModal }) => {
       if (user) {
         await updateProfile(user.user, { displayName: displayName });
         const profileInfo = doc(db, 'users', user.user.uid);
-        await setDoc(profileInfo, {
-          country: '',
-          city: '',
-          postCode: '',
-          address: '',
-          phoneNumber: '',
-        });
+        await setDoc(profileInfo, initialShippingAddress);
       }
 
       dispatch(
