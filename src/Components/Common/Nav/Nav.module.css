@@ -13,11 +13,6 @@
   gap: 0.6rem;
 }
 
-.logo {
-  font-weight: 700;
-  font-size: var(--fs-32);
-}
-
 .nav div {
   display: flex;
   align-items: center;

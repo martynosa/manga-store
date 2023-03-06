@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import classes from './Nav.module.css';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -67,7 +67,13 @@ const Nav: React.FC = () => {
 
   const unauthenticatedNav = (
     <>
-      <Link to="/store">store</Link>
+      <NavLink
+        to="/store"
+        className={({ isActive }) => (isActive ? 'active-link' : '')}
+        end
+      >
+        store
+      </NavLink>
       <div>
         <button onClick={() => openModal('signin')} className="nav-sign-in">
           sign in
@@ -81,13 +87,24 @@ const Nav: React.FC = () => {
 
   const authenticatedNav = (
     <>
-      <Link to="/store">store</Link>
+      <NavLink
+        to="/store"
+        className={({ isActive }) => (isActive ? 'active-link' : '')}
+        end
+      >
+        store
+      </NavLink>
       <div>
         <p className={classes.displayname}>{user?.displayName}</p>
-        <Link to="/cart" className="nav-cart">
+        <NavLink
+          to="/cart"
+          className={({ isActive }) =>
+            isActive ? 'nav-cart active-link' : 'nav-cart'
+          }
+        >
           <span>{totalCartItemCount} </span>
           cart
-        </Link>
+        </NavLink>
         {user?.email !== null && (
           <button onClick={signOutHandler} className="nav-sign-out">
             sign out
@@ -99,9 +116,14 @@ const Nav: React.FC = () => {
 
   return (
     <nav className={classes.nav}>
-      <Link to="/" className={classes.logo}>
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          isActive ? 'nav-logo active-link' : 'nav-logo'
+        }
+      >
         naruto
-      </Link>
+      </NavLink>
       {user && authenticatedNav}
       {!user && unauthenticatedNav}
     </nav>

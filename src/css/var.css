@@ -16,8 +16,12 @@
   /* COLORS */
   --dark-font-color: #0f172a;
   --light-font-color: #f8fafc;
+
   --dark-bg-color: #171717;
   --light-bg-color: #fff7ed;
+
+  --active-link-color: #ea580c;
+
   --primary-color: #f97316;
   --light-orange-color: #fed7aa;
   --red-color: #b91c1c;

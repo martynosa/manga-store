@@ -7,7 +7,7 @@ import { authActions, RootState } from './redux/reduxStore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/firebase';
 // components
-import Modal from './Components/Common/Modal/Modal';
+import ModalBackdrop from './Components/Common/Modal/ModalBackdrop';
 import Nav from './Components/Common/Nav/Nav';
 import Home from './Components/Pages/Home/Home';
 import Cart from './Components/Pages/Cart/Cart';
@@ -42,7 +42,7 @@ function App() {
 
   return (
     <>
-      {modal.isOpen && <Modal />}
+      {modal.isOpen && <ModalBackdrop />}
       <Nav />
 
       <Routes>

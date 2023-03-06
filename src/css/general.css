@@ -51,6 +51,11 @@ a.nav-cart {
   border: 2px solid black;
 }
 
+a.nav-logo {
+  font-weight: 700;
+  font-size: var(--fs-32);
+}
+
 a:hover,
 a:hover.cart,
 button:hover.sign-in,
@@ -58,4 +63,8 @@ button:hover.sign-ip,
 button:hover.sign-out,
 button:hover {
   background-color: var(--primary-color);
+}
+
+.active-link {
+  background-color: var(--active-link-color) !important;
 }
