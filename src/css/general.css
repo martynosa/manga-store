@@ -1,11 +1,11 @@
 /* links and buttons */
 a,
 button {
+  padding: 0.3rem 0.6rem;
   color: inherit;
   text-transform: uppercase;
   font-size: var(--fs-24);
   border-radius: var(--border-radius);
-  padding: 0.3rem 0.6rem;
   transition: var(--animation);
   cursor: pointer;
 }
