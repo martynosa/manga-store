@@ -58,4 +58,5 @@ export const defaultAuthError = {
 export interface ICartItem {
   id: string;
   quantity: number;
+  volume?: IVolume;
 }

@@ -18,7 +18,7 @@ import {
   defaultError,
   IShippingAddress,
 } from '../../typescript/interfaces';
-// validators
+// helpers
 import { emailValidator, lengthValidator } from '../../helpers/validators';
 
 interface IProps {

@@ -1,5 +1,4 @@
 export const firebaseConfig = {
-  // must go into env variable
   apiKey: 'AIzaSyAauZQ46a7q2JVRecf5t3_HcB7Z3Kvfpr4',
   authDomain: 'manga-store-a8951.firebaseapp.com',
   projectId: 'manga-store-a8951',

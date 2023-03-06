@@ -20,6 +20,7 @@ import { auth, db } from '../../../firebase/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 // typescript
 import { ICartItem } from '../../../typescript/interfaces';
+import { cartItemCountReducer } from '../../../helpers/cartItemCountReducer';
 
 const Nav: React.FC = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -40,10 +41,7 @@ const Nav: React.FC = () => {
   };
 
   useEffect(() => {
-    // counts the total item count
-    const count = cart.reduce((accumulator, item) => {
-      return accumulator + item.quantity;
-    }, 0);
+    const count = cartItemCountReducer(cart);
     setTotalCartItemCount(count);
   }, [cart]);
 

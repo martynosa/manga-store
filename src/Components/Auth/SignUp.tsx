@@ -19,7 +19,7 @@ import {
   defaultError,
   IAuthError,
 } from '../../typescript/interfaces';
-// validators
+// helpers
 import {
   emailValidator,
   lengthValidator,
