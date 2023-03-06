@@ -36,7 +36,9 @@ const Order: React.FC<{ totalPrice: number }> = ({ totalPrice }) => {
             <span>Phone number:</span> 0877066008
           </p>
         </div>
-        <p className={classes['total-price']}>Total price: $US {totalPrice}</p>
+        <p className={classes['total-price']}>
+          Total price: <span>$US {totalPrice.toFixed(2)}</span>
+        </p>
         <button className="order" onClick={() => openModal('order')}>
           Order
         </button>

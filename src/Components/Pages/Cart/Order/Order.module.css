@@ -36,5 +36,9 @@
 }
 
 .order .content .total-price {
+  font-weight: 700;
+}
+
+.order .content .total-price span {
   font-size: var(--fs-24);
 }

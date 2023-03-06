@@ -20,7 +20,8 @@ import { auth, db } from '../../../firebase/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 // typescript
 import { ICartItem } from '../../../typescript/interfaces';
-import { cartItemCountReducer } from '../../../helpers/cartItemCountReducer';
+// helpers
+import { cartItemCountReducer } from '../../../helpers/cartReducers';
 
 const Nav: React.FC = () => {
   const user = useSelector((state: RootState) => state.auth.user);

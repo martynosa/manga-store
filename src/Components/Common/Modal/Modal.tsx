@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 // redux
 import { modalActions, RootState } from '../../../redux/reduxStore';
 // components
-import SignIn from '../../Auth/SignIn';
-import SignUp from '../../Auth/SignUp';
+import SignInModal from '../AuthModal/SignInModal';
+import SignUpModal from '../AuthModal/SignUpModal';
 import OrderModal from '../OrderModal/OrderModal';
 
 import classes from './Modal.module.css';
@@ -16,8 +16,8 @@ const Modal: React.FC<PropsWithChildren> = () => {
 
   return (
     <div className={classes.modal}>
-      {modal.content === 'signin' && <SignIn closeModal={closeModal} />}
-      {modal.content === 'signup' && <SignUp closeModal={closeModal} />}
+      {modal.content === 'signin' && <SignInModal closeModal={closeModal} />}
+      {modal.content === 'signup' && <SignUpModal closeModal={closeModal} />}
       {modal.content === 'order' && <OrderModal closeModal={closeModal} />}
     </div>
   );

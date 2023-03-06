@@ -1,9 +1,9 @@
 import { FormEvent, useState } from 'react';
-import classes from './Auth.module.css';
+import classes from './AuthModal.module.css';
 // redux
 import { useDispatch } from 'react-redux';
-import { authActions } from '../../redux/reduxStore';
-import { initialShippingAddress } from '../../redux/authSlice';
+import { authActions } from '../../../redux/reduxStore';
+import { initialShippingAddress } from '../../../redux/authSlice';
 // firebase
 import {
   browserLocalPersistence,
@@ -11,26 +11,26 @@ import {
   setPersistence,
   updateProfile,
 } from 'firebase/auth';
-import { auth, db } from '../../firebase/firebase';
+import { auth, db } from '../../../firebase/firebase';
 import { doc, setDoc } from 'firebase/firestore';
 // typescript
 import {
   defaultAuthError,
   defaultError,
   IAuthError,
-} from '../../typescript/interfaces';
+} from '../../../typescript/interfaces';
 // helpers
 import {
   emailValidator,
   lengthValidator,
   repeatPasswordValidator,
-} from '../../helpers/validators';
+} from '../../../helpers/validators';
 
 interface IProps {
   closeModal: () => void;
 }
 
-const SignUp: React.FC<IProps> = ({ closeModal }) => {
+const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
   const [email, setEmail] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [password, setPassword] = useState('');
@@ -205,4 +205,4 @@ const SignUp: React.FC<IProps> = ({ closeModal }) => {
   );
 };
 
-export default SignUp;
+export default SignUpModal;

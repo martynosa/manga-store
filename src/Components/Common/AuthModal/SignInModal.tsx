@@ -1,10 +1,10 @@
 import { FormEvent, useState } from 'react';
-import classes from './Auth.module.css';
+import classes from './AuthModal.module.css';
 // redux
 import { useDispatch } from 'react-redux';
-import { authActions } from '../../redux/reduxStore';
+import { authActions } from '../../../redux/reduxStore';
 // firebase
-import { auth, db } from '../../firebase/firebase';
+import { auth, db } from '../../../firebase/firebase';
 import {
   browserLocalPersistence,
   setPersistence,
@@ -17,15 +17,15 @@ import {
   IAuthError,
   defaultError,
   IShippingAddress,
-} from '../../typescript/interfaces';
+} from '../../../typescript/interfaces';
 // helpers
-import { emailValidator, lengthValidator } from '../../helpers/validators';
+import { emailValidator, lengthValidator } from '../../../helpers/validators';
 
 interface IProps {
   closeModal: () => void;
 }
 
-const SignIn: React.FC<IProps> = ({ closeModal }) => {
+const SignInModal: React.FC<IProps> = ({ closeModal }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState<IAuthError>(defaultAuthError);
@@ -139,4 +139,4 @@ const SignIn: React.FC<IProps> = ({ closeModal }) => {
   );
 };
 
-export default SignIn;
+export default SignInModal;

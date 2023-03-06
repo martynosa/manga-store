@@ -12,8 +12,10 @@ import { IVolume } from '../../../typescript/interfaces';
 import CartItem from './CartItem/CartItem';
 import List from '../../Common/List/List';
 // helpers
-import { cartItemModifier } from '../../../helpers/cartItemModifier';
-import { totalPriceReducer } from '../../../helpers/totalPriceReducer';
+import {
+  cartItemModifier,
+  totalPriceReducer,
+} from '../../../helpers/cartReducers';
 import Order from './Order/Order';
 
 const Cart: React.FC = () => {
@@ -58,7 +60,6 @@ const Cart: React.FC = () => {
           ))}
         </List>
         <Order totalPrice={totalPrice} />
-        <p>US$ {totalPrice.toFixed(2)}</p>
       </div>
     </section>
   );
