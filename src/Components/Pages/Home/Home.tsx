@@ -3,7 +3,7 @@ import classes from './Home.module.css';
 const Home: React.FC = () => {
   return (
     <section className={classes['home-section']}>
-      <div className={classes.naruto}>
+      <div className={classes['naruto-grid']}>
         <img src="letter_n.webp" alt="n" />
         <img src="letter_a.webp" alt="a" />
         <img src="letter_r.webp" alt="r" />

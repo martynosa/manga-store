@@ -1,5 +1,4 @@
 .home-section {
-  padding: 3.2rem 6.4rem;
   min-height: 100vh;
   background-color: var(--dark-bg-color);
   display: flex;
@@ -8,10 +7,13 @@
   justify-content: center;
 }
 
-.naruto {
+.naruto-grid {
+  padding: 3.2rem 6.4rem;
+  padding: 1.2rem 2.4rem;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
 }
+
 .footer {
   position: fixed;
   bottom: 0;
@@ -19,4 +21,16 @@
   text-align: center;
   background-color: var(--light-orange-color);
   padding: 0.6rem 1.2rem;
+}
+
+@media (-webkit-device-pixel-ratio: 1.25) {
+  .naruto-grid {
+    padding: 3.2rem 6.4rem;
+  }
+}
+
+@media (-webkit-device-pixel-ratio: 1.5) {
+  .naruto-grid {
+    padding: 3.2rem 6.4rem;
+  }
 }
