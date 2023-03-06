@@ -9,17 +9,11 @@ import {
   RootState,
 } from '../../../redux/reduxStore';
 // firebase
-import {
-  deleteDoc,
-  doc,
-  getDoc,
-  increment,
-  setDoc,
-  updateDoc,
-} from 'firebase/firestore';
+import { doc, getDoc, increment, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/firebase';
 // typescript
 import { IVolume } from '../../../typescript/interfaces';
+// components
 import Info from './Info/Info';
 import ChapterList from '../../Common/List/List';
 import Chapter from './Chapter/Chapter';

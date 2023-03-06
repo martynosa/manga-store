@@ -1,7 +1,8 @@
 import { PropsWithChildren } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+// redux
 import { modalActions, RootState } from '../../../redux/reduxStore';
-
+// components
 import SignIn from '../../Auth/SignIn';
 import SignUp from '../../Auth/SignUp';
 

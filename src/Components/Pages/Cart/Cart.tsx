@@ -2,6 +2,7 @@ import classes from './Cart.module.css';
 // redux
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/reduxStore';
+// components
 import CartItem from './CartItem/CartItem';
 import List from '../../Common/List/List';
 

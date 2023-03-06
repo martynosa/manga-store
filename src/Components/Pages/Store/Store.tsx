@@ -3,12 +3,12 @@ import classes from './Store.module.css';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, volumesActions } from '../../../redux/reduxStore';
-
 // firebase
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../firebase/firebase';
 // typescript
 import { IVolume } from '../../../typescript/interfaces';
+// components
 import Card from './Card/Card';
 import Search from './Search/Search';
 

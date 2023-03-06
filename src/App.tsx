@@ -6,7 +6,7 @@ import { authActions, RootState } from './redux/reduxStore';
 // firebase
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/firebase';
-
+// components
 import Modal from './Components/Common/Modal/Modal';
 import Nav from './Components/Common/Nav/Nav';
 import Home from './Components/Pages/Home/Home';

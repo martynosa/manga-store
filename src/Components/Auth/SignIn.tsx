@@ -10,6 +10,7 @@ import {
   setPersistence,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
 // typescript
 import {
   defaultAuthError,
@@ -17,8 +18,8 @@ import {
   defaultError,
   IShippingAddress,
 } from '../../typescript/interfaces';
+// validators
 import { emailValidator, lengthValidator } from '../../helpers/validators';
-import { doc, getDoc } from 'firebase/firestore';
 
 interface IProps {
   closeModal: () => void;
