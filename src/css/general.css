@@ -34,6 +34,14 @@ button.close {
   background-color: transparent;
 }
 
+button.plus-one {
+  background-color: var(--amber-color);
+}
+
+button.minus-one {
+  background-color: transparent;
+}
+
 a.nav-cart {
   background-color: var(--green-color);
   border: 2px solid black;

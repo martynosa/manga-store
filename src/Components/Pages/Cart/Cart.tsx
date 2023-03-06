@@ -52,14 +52,13 @@ const Cart: React.FC = () => {
       )}
       <div className={classes.content}>
         <List>
-          {cart.map((c) => (
+          {fullCart.map((c) => (
             <CartItem cartItem={c} key={c.id} />
           ))}
         </List>
         <div className={classes['shipping-address']}>shipping address</div>
         <p>US$ {totalPrice.toFixed(2)}</p>
       </div>
-      {fullCart.length}
     </section>
   );
 };
