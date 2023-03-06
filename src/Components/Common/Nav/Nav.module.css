@@ -19,11 +19,3 @@
   justify-content: center;
   gap: 1.2rem;
 }
-
-.displayname {
-  font-size: var(--fs-24);
-  font-weight: 700;
-  border-radius: var(--border-radius);
-  background-color: var(--amber-color);
-  padding: 0.3rem 0.6rem;
-}

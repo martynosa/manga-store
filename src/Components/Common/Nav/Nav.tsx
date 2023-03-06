@@ -95,7 +95,15 @@ const Nav: React.FC = () => {
         store
       </NavLink>
       <div>
-        <p className={classes.displayname}>{user?.displayName}</p>
+        <p className={classes.displayname}></p>
+        <NavLink
+          to="/profile"
+          className={({ isActive }) =>
+            isActive ? 'nav-displayname active-link' : 'nav-displayname'
+          }
+        >
+          {user?.displayName}
+        </NavLink>
         <NavLink
           to="/cart"
           className={({ isActive }) =>

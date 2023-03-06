@@ -56,6 +56,14 @@ a.nav-logo {
   font-size: var(--fs-32);
 }
 
+a.nav-displayname {
+  padding: 0.3rem 0.6rem;
+  font-size: var(--fs-24);
+  font-weight: 700;
+  border-radius: var(--border-radius);
+  background-color: var(--amber-color);
+}
+
 a:hover,
 a:hover.cart,
 button:hover.sign-in,
