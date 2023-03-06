@@ -1,4 +1,5 @@
 .home-section {
+  padding: 1.2rem 2.4rem;
   min-height: 100vh;
   background-color: var(--dark-bg-color);
   display: flex;
@@ -8,8 +9,6 @@
 }
 
 .naruto-grid {
-  padding: 3.2rem 6.4rem;
-  padding: 1.2rem 2.4rem;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
 }
@@ -24,13 +23,13 @@
 }
 
 @media (-webkit-device-pixel-ratio: 1.25) {
-  .naruto-grid {
+  .home-section {
     padding: 3.2rem 6.4rem;
   }
 }
 
 @media (-webkit-device-pixel-ratio: 1.5) {
-  .naruto-grid {
+  .home-section {
     padding: 3.2rem 6.4rem;
   }
 }

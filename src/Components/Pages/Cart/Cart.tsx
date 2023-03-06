@@ -3,7 +3,7 @@ import classes from './Cart.module.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/reduxStore';
 import CartItem from './CartItem/CartItem';
-import List from '../../Common/ChapterList/List';
+import List from '../../Common/List/List';
 
 const Cart: React.FC = () => {
   const cart = useSelector((state: RootState) => state.cart);

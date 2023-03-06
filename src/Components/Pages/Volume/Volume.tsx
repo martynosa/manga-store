@@ -21,7 +21,7 @@ import { db } from '../../../firebase/firebase';
 // typescript
 import { IVolume } from '../../../typescript/interfaces';
 import Info from './Info/Info';
-import ChapterList from '../../Common/ChapterList/List';
+import ChapterList from '../../Common/List/List';
 import Chapter from './Chapter/Chapter';
 
 const Volume: React.FC = () => {
