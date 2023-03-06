@@ -2,14 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface IModalState {
   isOpen: boolean;
-  content: null | 'signin' | 'signup';
+  content: null | 'signin' | 'signup' | 'order';
 }
 
-export type IModalPayload = null | 'signin' | 'signup';
+export type IModalPayload = null | 'signin' | 'signup' | 'order';
 
 const initialState: IModalState = {
   isOpen: false,
-  content: 'signin',
+  content: null,
 };
 
 const modalSlice = createSlice({

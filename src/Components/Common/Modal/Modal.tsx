@@ -5,6 +5,7 @@ import { modalActions, RootState } from '../../../redux/reduxStore';
 // components
 import SignIn from '../../Auth/SignIn';
 import SignUp from '../../Auth/SignUp';
+import OrderModal from '../OrderModal/OrderModal';
 
 import classes from './Modal.module.css';
 const Modal: React.FC<PropsWithChildren> = () => {
@@ -17,6 +18,7 @@ const Modal: React.FC<PropsWithChildren> = () => {
     <div className={classes.modal}>
       {modal.content === 'signin' && <SignIn closeModal={closeModal} />}
       {modal.content === 'signup' && <SignUp closeModal={closeModal} />}
+      {modal.content === 'order' && <OrderModal closeModal={closeModal} />}
     </div>
   );
 };

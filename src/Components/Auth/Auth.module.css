@@ -1,7 +1,6 @@
 .form {
   width: 32rem;
   padding: 1.2rem 2.4rem;
-  background-color: var(--light-orange-color);
   background-color: var(--light-bg-color);
   border: 2px solid var(--primary-color);
   border-radius: var(--border-radius);

@@ -14,6 +14,7 @@ import List from '../../Common/List/List';
 // helpers
 import { cartItemModifier } from '../../../helpers/cartItemModifier';
 import { totalPriceReducer } from '../../../helpers/totalPriceReducer';
+import Order from './Order/Order';
 
 const Cart: React.FC = () => {
   const cart = useSelector((state: RootState) => state.cart);
@@ -50,13 +51,13 @@ const Cart: React.FC = () => {
           className={classes['page-title']}
         >{`${auth.user?.displayName}'s cart`}</h1>
       )}
-      <div className={classes.content}>
+      <div className={classes['content-grid']}>
         <List>
           {fullCart.map((c) => (
             <CartItem cartItem={c} key={c.id} />
           ))}
         </List>
-        <div className={classes['shipping-address']}>shipping address</div>
+        <Order totalPrice={totalPrice} />
         <p>US$ {totalPrice.toFixed(2)}</p>
       </div>
     </section>

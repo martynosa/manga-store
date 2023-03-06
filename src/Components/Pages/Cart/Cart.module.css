@@ -10,14 +10,10 @@
   margin-bottom: 1.2rem;
 }
 
-.content {
+.content-grid {
   max-width: 128rem;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 3fr 1fr;
   gap: 2.4rem;
-}
-
-.shipping-address {
-  background-color: blanchedalmond;
 }
