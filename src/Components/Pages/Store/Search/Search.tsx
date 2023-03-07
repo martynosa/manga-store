@@ -4,7 +4,7 @@ const Search: React.FC = () => {
   return (
     <div className={classes.search}>
       <label htmlFor="search">&#128269;</label>
-      <input id="search" type="text" />
+      <input id="search" type="text" placeholder="not implemented..." />
     </div>
   );
 };
