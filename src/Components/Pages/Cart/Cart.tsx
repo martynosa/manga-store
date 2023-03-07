@@ -28,6 +28,7 @@ import List from '../../Common/List/List';
 import Order from './Order/Order';
 // helpers
 import {
+  cartItemCountReducer,
   cartItemModifier,
   totalPriceReducer,
 } from '../../../helpers/cartReducers';
@@ -41,6 +42,7 @@ const Cart: React.FC = () => {
 
   const fullCart = cartItemModifier(volumes, cart);
   const totalPrice = totalPriceReducer(fullCart);
+  const cartItemCount = cartItemCountReducer(cart);
 
   const addToCartHandler = async (volume: IVolume) => {
     if (auth.user) {
@@ -122,7 +124,7 @@ const Cart: React.FC = () => {
             />
           ))}
         </List>
-        <Order totalPrice={totalPrice} />
+        <Order totalPrice={totalPrice} cartItemCount={cartItemCount} />
       </div>
     </section>
   );

@@ -35,10 +35,12 @@
   font-weight: 700;
 }
 
-.order .content .total-price {
+.order .content .total-price,
+.order .content .item-count {
   font-weight: 700;
 }
 
-.order .content .total-price span {
+.order .content .total-price span,
+.order .content .item-count span {
   font-size: var(--fs-24);
 }

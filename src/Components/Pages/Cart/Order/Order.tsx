@@ -4,7 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IModalPayload } from '../../../../redux/modalSlice';
 import { modalActions, RootState } from '../../../../redux/reduxStore';
 
-const Order: React.FC<{ totalPrice: number }> = ({ totalPrice }) => {
+interface IProps {
+  cartItemCount: number;
+  totalPrice: number;
+}
+
+const Order: React.FC<IProps> = ({ cartItemCount, totalPrice }) => {
   const user = useSelector((state: RootState) => state.auth.user);
   const dispatch = useDispatch();
 
@@ -41,6 +46,9 @@ const Order: React.FC<{ totalPrice: number }> = ({ totalPrice }) => {
             <span>Phone number:</span> 0877066008
           </p>
         </div>
+        <p className={classes['item-count']}>
+          Items: <span>{cartItemCount}</span>
+        </p>
         <p className={classes['total-price']}>
           Total price: <span>$US {totalPrice.toFixed(2)}</span>
         </p>
