@@ -46,6 +46,10 @@ button.minus-one {
   background-color: transparent;
 }
 
+button.disabled {
+  background-color: var(--disabled-color);
+}
+
 a.nav-cart {
   background-color: var(--green-color);
   border: 2px solid black;
@@ -65,14 +69,14 @@ a.nav-displayname {
 }
 
 a:hover,
-a:hover.cart,
-button:hover.sign-in,
-button:hover.sign-ip,
-button:hover.sign-out,
 button:hover {
   background-color: var(--primary-color);
 }
 
+button.disabled:hover {
+  background-color: var(--disabled-color);
+}
+
 .active-link {
-  background-color: var(--active-link-color) !important;
+  background-color: var(--active-color) !important;
 }

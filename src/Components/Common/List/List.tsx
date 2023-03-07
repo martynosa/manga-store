@@ -3,6 +3,6 @@ import classes from './List.module.css';
 import { PropsWithChildren } from 'react';
 
 const List: React.FC<PropsWithChildren> = ({ children }) => {
-  return <div className={classes['chapter-list']}>{children}</div>;
+  return <div className={classes.list}>{children}</div>;
 };
 export default List;

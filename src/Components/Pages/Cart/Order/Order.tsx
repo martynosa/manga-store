@@ -14,6 +14,11 @@ const Order: React.FC<{ totalPrice: number }> = ({ totalPrice }) => {
       return;
     }
 
+    if (!totalPrice) {
+      console.log('no items in the cart');
+      return;
+    }
+
     dispatch(modalActions.open(form));
   };
 
@@ -39,7 +44,11 @@ const Order: React.FC<{ totalPrice: number }> = ({ totalPrice }) => {
         <p className={classes['total-price']}>
           Total price: <span>$US {totalPrice.toFixed(2)}</span>
         </p>
-        <button className="order" onClick={() => openModal('order')}>
+        <button
+          className={totalPrice ? 'order' : 'disabled'}
+          onClick={() => openModal('order')}
+          disabled={!totalPrice}
+        >
           Order
         </button>
       </div>

@@ -1,16 +1,26 @@
 import classes from './CartItem.module.css';
 // typescript
-import { ICartItem } from '../../../../typescript/interfaces';
+import { ICartItem, IVolume } from '../../../../typescript/interfaces';
 
-const CartItem: React.FC<{ cartItem: ICartItem }> = ({ cartItem }) => {
+interface IProps {
+  cartItem: ICartItem;
+  addToCartHandler: (volume: IVolume) => void;
+  removeFromCartHandler: (volume: IVolume) => void;
+}
+
+const CartItem: React.FC<IProps> = ({
+  cartItem,
+  addToCartHandler,
+  removeFromCartHandler,
+}) => {
   if (cartItem.volume) {
     return (
       <div className={classes['cart-item']}>
         <img src={cartItem.volume.coverLink} alt="cover" />
         <div className={classes.content}>
           <div className={classes.details}>
-            <p>Vol. {cartItem.volume?.volume}</p>
-            <p>{cartItem.volume?.engVolumeName}</p>
+            <p>Vol. {cartItem.volume.volume}</p>
+            <p>{cartItem.volume.engVolumeName}</p>
             <p>
               <span>Price: </span>US$ {cartItem.volume?.price}
             </p>
@@ -23,9 +33,19 @@ const CartItem: React.FC<{ cartItem: ICartItem }> = ({ cartItem }) => {
             <p>=</p>
             <p>US$ {cartItem.quantity * cartItem.volume.price}</p>
           </div>
-          <div className={classes.buttons}>
-            <button className="minus-one">- 1</button>
-            <button className="plus-one">+ 1</button>
+          <div className={classes['button-group']}>
+            <button
+              className="minus-one"
+              onClick={() => removeFromCartHandler(cartItem.volume!)}
+            >
+              - 1
+            </button>
+            <button
+              className="plus-one"
+              onClick={() => addToCartHandler(cartItem.volume!)}
+            >
+              + 1
+            </button>
           </div>
         </div>
       </div>

@@ -20,7 +20,8 @@
   --dark-bg-color: #171717;
   --light-bg-color: #fff7ed;
 
-  --active-link-color: #ea580c;
+  --active-color: #ea580c;
+  --disabled-color: #64748b;
 
   --primary-color: #f97316;
   --light-orange-color: #fed7aa;

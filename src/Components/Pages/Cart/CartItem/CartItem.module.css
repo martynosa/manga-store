@@ -4,9 +4,8 @@
   border-radius: var(--border-radius);
 
   display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 1.2rem;
+  width: 100%;
 }
 
 .cart-item img {
@@ -16,7 +15,7 @@
 }
 
 .cart-item .content {
-  height: 100%;
+  width: inherit;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -26,7 +25,7 @@
 
 .cart-item .content .details,
 .cart-item .content .price,
-.cart-item .content .buttons {
+.cart-item .content .button-group {
   display: flex;
   gap: 1.2rem;
 }

@@ -46,29 +46,6 @@ const Volume: React.FC = () => {
     dispatch(modalActions.open('signin'));
   };
 
-  // const removeFromCartHandler = async (volume: IVolume) => {
-  //   if (user) {
-  //     const cartItemRef = doc(db, 'users', user.id, 'cart', volume.id);
-  //     // deletes the item if quantity's lower than 1
-  //     const cartItemSnap = await getDoc(cartItemRef);
-  //     if (cartItemSnap.exists()) {
-  //       const cartItemQuantity = cartItemSnap.data().quantity;
-  //       if (cartItemQuantity <= 1) {
-  //         await deleteDoc(cartItemRef);
-  //         dispatch(cartActions.remove({ id: volume.id, quantity: 1 }));
-
-  //         return;
-  //       }
-  //     }
-
-  //     // decerements item's quantity
-  //     await updateDoc(cartItemRef, {
-  //       quantity: increment(-1),
-  //     });
-  //     dispatch(cartActions.remove({ id: volume.id, quantity: 1 }));
-  //   }
-  // };
-
   useEffect(() => {
     if (mangaParam && volumeParam) {
       getDoc(doc(db, 'store', mangaParam, 'volumes', volumeParam))

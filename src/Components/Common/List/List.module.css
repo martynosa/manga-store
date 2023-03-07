@@ -1,7 +1,7 @@
-.chapter-list {
+.list {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 1.2rem;
 }
