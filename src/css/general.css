@@ -38,12 +38,16 @@ button.plus-one {
   background-color: var(--amber-color);
 }
 
+button.minus-one {
+  background-color: transparent;
+}
+
 button.order {
   background-color: var(--green-color);
 }
 
-button.minus-one {
-  background-color: transparent;
+button.update {
+  background-color: var(--amber-color);
 }
 
 button.disabled {

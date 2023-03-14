@@ -14,7 +14,7 @@
 .form h1 {
   margin-bottom: 1.2rem;
   text-transform: uppercase;
-  font-size: var(--fs-48);
+  font-size: var(--fs-32);
 }
 
 .group {

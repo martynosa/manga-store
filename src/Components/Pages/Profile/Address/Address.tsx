@@ -23,7 +23,7 @@ const Address: React.FC = () => {
         <label htmlFor="phone">phone number</label>
         <input id="phone" type="text" />
       </div>
-      <button className="sign-in">update</button>
+      <button className="update">update</button>
     </form>
   );
 };
