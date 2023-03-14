@@ -1,12 +1,11 @@
 import { useSelector } from 'react-redux';
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import classes from './Profile.module.css';
 // redux
 import { RootState } from '../../../redux/reduxStore';
 
 const Profile: React.FC = () => {
   const auth = useSelector((state: RootState) => state.auth);
-
   return (
     <section className={classes['profile-section']}>
       {auth.user && (
@@ -15,6 +14,13 @@ const Profile: React.FC = () => {
         >{`${auth.user.displayName}'s profile`}</h1>
       )}
       <nav className={classes['profile-nav']}>
+        <NavLink
+          to="overview"
+          className={({ isActive }) => (isActive ? 'active-link' : '')}
+        >
+          overview
+        </NavLink>
+
         <NavLink
           to="shippingAddress"
           className={({ isActive }) => (isActive ? 'active-link' : '')}
