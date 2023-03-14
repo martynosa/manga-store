@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions, RootState } from './redux/reduxStore';
@@ -15,6 +15,8 @@ import Store from './Components/Pages/Store/Store';
 import Volume from './Components/Pages/Volume/Volume';
 import Error from './Components/Pages/Error/Error';
 import Profile from './Components/Pages/Profile/Profile';
+import Address from './Components/Pages/Profile/Address/Address';
+import History from './Components/Pages/Profile/History/History';
 
 function App() {
   const modal = useSelector((state: RootState) => state.modal);
@@ -53,8 +55,9 @@ function App() {
         <Route path="/store" element={<Store />} />
         <Route path="/store/:mangaParam/:volumeParam" element={<Volume />} />
         <Route path="/profile" element={<Profile />}>
-          <Route path="address" element={<h2>address</h2>} />
-          <Route path="history" element={<h2>purchase history</h2>} />
+          <Route path="" element={<Navigate to="address" />} />
+          <Route path="address" element={<Address />} />
+          <Route path="history" element={<History />} />
         </Route>
         <Route path="*" element={<Error />} />
       </Routes>
