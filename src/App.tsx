@@ -15,8 +15,8 @@ import Store from './Components/Pages/Store/Store';
 import Volume from './Components/Pages/Volume/Volume';
 import Error from './Components/Pages/Error/Error';
 import Profile from './Components/Pages/Profile/Profile';
-import Address from './Components/Pages/Profile/Address/Address';
-import History from './Components/Pages/Profile/History/History';
+import ShippingAddress from './Components/Pages/Profile/ShippingAddress/ShippingAddress';
+import PurchaseHistory from './Components/Pages/Profile/PurchaseHistory/PurchaseHistory';
 
 function App() {
   const modal = useSelector((state: RootState) => state.modal);
@@ -56,8 +56,8 @@ function App() {
         <Route path="/store/:mangaParam/:volumeParam" element={<Volume />} />
         <Route path="/profile" element={<Profile />}>
           <Route path="" element={<Navigate to="address" />} />
-          <Route path="address" element={<Address />} />
-          <Route path="history" element={<History />} />
+          <Route path="address" element={<ShippingAddress />} />
+          <Route path="history" element={<PurchaseHistory />} />
         </Route>
         <Route path="*" element={<Error />} />
       </Routes>

@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Action } from '@remix-run/router';
 import { IShippingAddress, IUser } from '../typescript/interfaces';
 
 interface IAuthState {

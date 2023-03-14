@@ -1,15 +1,17 @@
-import classes from './Address.module.css';
+import { useState } from 'react';
+import classes from './ShippingAddress.module.css';
 
-const Address: React.FC = () => {
+const ShippingAddress: React.FC = () => {
+  const [city, setCity] = useState('');
+  const [address, setAddress] = useState('');
+  const [postCode, setPostCode] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+
   return (
     <form className={classes.form}>
       <div className={classes['input-group']}>
         <label htmlFor="city">city</label>
         <input id="city" type="text" />
-      </div>
-      <div className={classes['input-group']}>
-        <label htmlFor="address">address</label>
-        <input id="address" type="text" />
       </div>
       <div className={classes['input-group']}>
         <label htmlFor="address">address</label>
@@ -27,4 +29,4 @@ const Address: React.FC = () => {
     </form>
   );
 };
-export default Address;
+export default ShippingAddress;
