@@ -5,6 +5,7 @@
 
 .page-title {
   text-align: center;
+  text-transform: uppercase;
   font-size: var(--fs-52);
   padding: 0.6rem 1.2rem;
   margin-bottom: 1.2rem;

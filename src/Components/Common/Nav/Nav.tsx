@@ -70,7 +70,6 @@ const Nav: React.FC = () => {
       <NavLink
         to="/store"
         className={({ isActive }) => (isActive ? 'active-link' : '')}
-        end
       >
         store
       </NavLink>

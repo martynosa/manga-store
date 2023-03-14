@@ -14,6 +14,7 @@ import Cart from './Components/Pages/Cart/Cart';
 import Store from './Components/Pages/Store/Store';
 import Volume from './Components/Pages/Volume/Volume';
 import Error from './Components/Pages/Error/Error';
+import Profile from './Components/Pages/Profile/Profile';
 
 function App() {
   const modal = useSelector((state: RootState) => state.modal);
@@ -51,6 +52,10 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/store" element={<Store />} />
         <Route path="/store/:mangaParam/:volumeParam" element={<Volume />} />
+        <Route path="/profile" element={<Profile />}>
+          <Route path="address" element={<h2>address</h2>} />
+          <Route path="history" element={<h2>purchase history</h2>} />
+        </Route>
         <Route path="*" element={<Error />} />
       </Routes>
     </>

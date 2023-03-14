@@ -1,15 +1,6 @@
-.store-section {
+.profile-section {
   padding: 1.2rem 2.4rem;
   margin-top: 6.4rem;
-}
-
-.store-grid {
-  max-width: 128rem;
-  margin: 0 auto;
-
-  display: grid;
-  gap: 2.4rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
 }
 
 .page-title {
@@ -18,4 +9,11 @@
   font-size: var(--fs-52);
   padding: 0.6rem 1.2rem;
   margin-bottom: 1.2rem;
+}
+
+.profile-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
 }
