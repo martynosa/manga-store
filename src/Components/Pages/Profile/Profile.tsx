@@ -16,14 +16,14 @@ const Profile: React.FC = () => {
       )}
       <nav className={classes['profile-nav']}>
         <NavLink
-          to="address"
+          to="shippingAddress"
           className={({ isActive }) => (isActive ? 'active-link' : '')}
         >
           shipping address
         </NavLink>
 
         <NavLink
-          to="history"
+          to="purchaseHistory"
           className={({ isActive }) => (isActive ? 'active-link' : '')}
         >
           purchase history

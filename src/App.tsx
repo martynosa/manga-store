@@ -55,9 +55,9 @@ function App() {
         <Route path="/store" element={<Store />} />
         <Route path="/store/:mangaParam/:volumeParam" element={<Volume />} />
         <Route path="/profile" element={<Profile />}>
-          <Route path="" element={<Navigate to="address" />} />
-          <Route path="address" element={<ShippingAddress />} />
-          <Route path="history" element={<PurchaseHistory />} />
+          <Route path="" element={<Navigate to="shippingAddress" />} />
+          <Route path="shippingAddress" element={<ShippingAddress />} />
+          <Route path="purchaseHistory" element={<PurchaseHistory />} />
         </Route>
         <Route path="*" element={<Error />} />
       </Routes>
