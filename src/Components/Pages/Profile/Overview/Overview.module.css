@@ -1,7 +1,46 @@
-.page-title {
-  text-align: center;
-  text-transform: uppercase;
-  font-size: var(--fs-52);
-  padding: 0.6rem 1.2rem;
-  margin-bottom: 1.2rem;
+.overview-content {
+  margin: 0 auto;
+  width: 32rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
+}
+
+.overview-content .user-info {
+  width: inherit;
+  padding: 1.2rem 2.4rem;
+  background-color: var(--light-orange-color);
+  border-radius: var(--border-radius);
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.4rem;
+}
+
+.overview-content .user-info div p:nth-child(1) {
+  font-weight: 700;
+}
+
+.overview-content .shipping-info {
+  width: inherit;
+  padding: 1.2rem 2.4rem;
+  background-color: var(--light-orange-color);
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.overview-content .shipping-info h3 {
+  align-self: center;
+  font-weight: 700;
+}
+
+.overview-content .shipping-info p span {
+  font-weight: 700;
 }

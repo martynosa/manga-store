@@ -1,9 +1,9 @@
+import { Link } from 'react-router-dom';
 import classes from './Order.module.css';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { IModalPayload } from '../../../../redux/modalSlice';
 import { modalActions, RootState } from '../../../../redux/reduxStore';
-import { Link } from 'react-router-dom';
 
 interface IProps {
   cartItemCount: number;

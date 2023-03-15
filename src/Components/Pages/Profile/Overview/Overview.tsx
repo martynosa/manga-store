@@ -1,14 +1,75 @@
+import { useEffect } from 'react';
 import classes from './Overview.module.css';
+// firebase
+import { db } from '../../../../firebase/firebase';
+import { doc, getDoc } from 'firebase/firestore';
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+import { authActions, RootState } from '../../../../redux/reduxStore';
+// typescript
+import { IShippingAddress } from '../../../../typescript/interfaces';
 
 const Overview: React.FC = () => {
+  const dispatch = useDispatch();
+  const auth = useSelector((state: RootState) => state.auth);
+
+  useEffect(() => {
+    if (auth.user) {
+      const userShippingAddressRef = doc(db, 'users', auth.user.id);
+
+      getDoc(userShippingAddressRef)
+        .then((shippingAddressSnap) => {
+          if (shippingAddressSnap.exists()) {
+            const shippingAddress =
+              shippingAddressSnap.data() as IShippingAddress;
+            dispatch(authActions.setShippingAddress(shippingAddress));
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [auth.user]);
+
   return (
     <>
-      <h2 className={classes['page-title']}>Under construction</h2>
-      <p>display name</p>
-      <p>email</p>
-      <p>shipping address</p>
-      <p>purchase history count (not sure about this one)</p>
-      <p>overall money spen on manga (not sure about this one)</p>
+      {auth.user && (
+        <div className={classes['overview-content']}>
+          <div className={classes['user-info']}>
+            <div>
+              <p>Display name:</p>
+              <p>{auth.user.displayName}</p>
+            </div>
+            <div>
+              <p>Email:</p>
+              <p>{auth.user.email}</p>
+            </div>
+            <div>
+              <p>Orders:</p>
+              <p>3</p>
+            </div>
+            <div>
+              <p>Money spent:</p>
+              <p>3</p>
+            </div>
+          </div>
+          <div className={classes['shipping-info']}>
+            <h3>Shipping info</h3>
+            <p>
+              <span>City:</span> {auth.shippingAddress.city}
+            </p>
+            <p>
+              <span>Address:</span> {auth.shippingAddress.address}
+            </p>
+            <p>
+              <span>Postal:</span> {auth.shippingAddress.postCode}
+            </p>
+            <p>
+              <span>Phone number:</span> {auth.shippingAddress.phoneNumber}
+            </p>
+          </div>
+        </div>
+      )}
     </>
   );
 };

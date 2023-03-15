@@ -1,10 +1,14 @@
-import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { FormEvent, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { db } from '../../../../firebase/firebase';
-import { authActions, RootState } from '../../../../redux/reduxStore';
-import { IShippingAddress } from '../../../../typescript/interfaces';
+import { useNavigate } from 'react-router-dom';
 import classes from './ShippingAddress.module.css';
+// firebase
+import { db } from '../../../../firebase/firebase';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+import { authActions, RootState } from '../../../../redux/reduxStore';
+// typescript
+import { IShippingAddress } from '../../../../typescript/interfaces';
 
 const ShippingAddress: React.FC = () => {
   const [city, setCity] = useState('');
@@ -13,6 +17,7 @@ const ShippingAddress: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const auth = useSelector((state: RootState) => state.auth);
 
   const onChangeCity = (city: string) => {
@@ -56,6 +61,7 @@ const ShippingAddress: React.FC = () => {
           postCode,
           phoneNumber,
         });
+        navigate('/profile/overview');
       }
     } catch (error) {
       console.log(error);
@@ -81,7 +87,7 @@ const ShippingAddress: React.FC = () => {
   }, [auth.user]);
 
   return (
-    <form onSubmit={updateHandler} className={classes.form}>
+    <form onSubmit={updateHandler} className={classes['shipping-address-form']}>
       <div className={classes['input-group']}>
         <label htmlFor="city">city</label>
         <input
