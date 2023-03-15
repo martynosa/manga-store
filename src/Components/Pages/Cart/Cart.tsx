@@ -199,7 +199,6 @@ const Cart: React.FC = () => {
           orderHandler={orderHandler}
         />
       </div>
-      {JSON.stringify(auth.purchaseHistory)}
     </section>
   );
 };
