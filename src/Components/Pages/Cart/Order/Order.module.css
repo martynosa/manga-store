@@ -21,17 +21,21 @@
   gap: 2.4rem;
 }
 
-.order .content .address h3 {
+.order .content .shipping-info {
+  width: 100%;
+}
+
+.order .content .shipping-info h3 {
   text-align: center;
   font-weight: 700;
   margin-bottom: 2.4rem;
 }
 
-.order .content .address p:not(:last-child) {
+.order .content .shipping-info p:not(:last-child) {
   margin-bottom: 1.2rem;
 }
 
-.order .content .address p span {
+.order .content .shipping-info p span {
   font-weight: 700;
 }
 

@@ -72,6 +72,11 @@ a.nav-displayname {
   background-color: var(--amber-color);
 }
 
+a.to-shipping-address {
+  background-color: var(--amber-color);
+  font-size: var(--fs-default);
+}
+
 a:hover,
 button:hover {
   background-color: var(--primary-color);

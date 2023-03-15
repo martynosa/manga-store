@@ -3,6 +3,7 @@ import classes from './Cart.module.css';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  authActions,
   cartActions,
   modalActions,
   RootState,
@@ -21,7 +22,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '../../../firebase/firebase';
 // typescript
-import { IVolume } from '../../../typescript/interfaces';
+import { IShippingAddress, IVolume } from '../../../typescript/interfaces';
 // components
 import CartItem from './CartItem/CartItem';
 import List from '../../Common/List/List';
@@ -89,6 +90,7 @@ const Cart: React.FC = () => {
   };
 
   useEffect(() => {
+    // volumes
     // naruto arg hardcoded for now
     const storeRef = collection(db, 'store', 'naruto', 'volumes');
     const volumesArray: IVolume[] = [];
@@ -104,6 +106,23 @@ const Cart: React.FC = () => {
       .catch((error) => {
         console.log(error);
       });
+
+    // shipping address
+    if (auth.user) {
+      const userShippingAddressRef = doc(db, 'users', auth.user.id);
+
+      getDoc(userShippingAddressRef)
+        .then((shippingAddressSnap) => {
+          if (shippingAddressSnap.exists()) {
+            const shippingAddress =
+              shippingAddressSnap.data() as IShippingAddress;
+            dispatch(authActions.setShippingAddress(shippingAddress));
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }, []);
 
   return (
