@@ -1,4 +1,8 @@
-import { ICartItem, IVolume } from '../typescript/interfaces';
+import {
+  ICartItem,
+  IPurchaseHistoryItem,
+  IVolume,
+} from '../typescript/interfaces';
 
 export const cartItemModifier = (
   volumes: IVolume[],
@@ -24,12 +28,30 @@ export const cartItemCountReducer = (cart: ICartItem[]) => {
 };
 
 export const totalPriceReducer = (cart: ICartItem[]): number => {
-  const count = cart.reduce((accumulator, item) => {
+  const totalPrice = cart.reduce((accumulator, item) => {
     if (item.volume) {
       return accumulator + item.quantity * item.volume.price;
     }
     return 0;
   }, 0);
 
-  return count;
+  return totalPrice;
+};
+
+export const totalMoneySpentReducer = (
+  purchaseHistory: IPurchaseHistoryItem[]
+): number => {
+  let totalMoneySpent = 0;
+
+  for (let item of purchaseHistory) {
+    const totalPriceOfEachItem = item.order.reduce((accumulator, item) => {
+      if (item.volume) {
+        return accumulator + item.quantity * item.volume.price;
+      }
+      return 0;
+    }, 0);
+
+    totalMoneySpent += totalPriceOfEachItem;
+  }
+  return totalMoneySpent;
 };

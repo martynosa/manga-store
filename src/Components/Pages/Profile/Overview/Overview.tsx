@@ -8,10 +8,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authActions, RootState } from '../../../../redux/reduxStore';
 // typescript
 import { IShippingAddress } from '../../../../typescript/interfaces';
+import { totalMoneySpentReducer } from '../../../../helpers/cartReducers';
 
 const Overview: React.FC = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state: RootState) => state.auth);
+
+  const totalMoneySpent = totalMoneySpentReducer(auth.purchaseHistory);
 
   useEffect(() => {
     if (auth.user) {
@@ -46,11 +49,11 @@ const Overview: React.FC = () => {
             </div>
             <div>
               <p>Orders:</p>
-              <p>3</p>
+              <p>{auth.purchaseHistory.length}</p>
             </div>
             <div>
               <p>Money spent:</p>
-              <p>3</p>
+              <p>{totalMoneySpent}</p>
             </div>
           </div>
           <div className={classes['shipping-info']}>

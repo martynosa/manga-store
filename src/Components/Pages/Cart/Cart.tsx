@@ -14,6 +14,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  addDoc,
   getDoc,
   getDocs,
   increment,
@@ -41,9 +42,15 @@ const Cart: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const fullCart = cartItemModifier(volumes, cart);
-  const totalPrice = totalPriceReducer(fullCart);
+  const modifiedCart = cartItemModifier(volumes, cart);
+  const totalPrice = totalPriceReducer(modifiedCart);
   const cartItemCount = cartItemCountReducer(cart);
+
+  const addressError =
+    auth.shippingAddress.city === '' ||
+    auth.shippingAddress.address === '' ||
+    auth.shippingAddress.postCode === '' ||
+    auth.shippingAddress.phoneNumber === '';
 
   const addToCartHandler = async (volume: IVolume) => {
     if (auth.user) {
@@ -89,9 +96,50 @@ const Cart: React.FC = () => {
     }
   };
 
+  const orderHandler = async () => {
+    console.log(auth.shippingAddress);
+
+    // order validation
+    if (!auth.user) {
+      dispatch(modalActions.open('signin'));
+      return;
+    }
+
+    if (!totalPrice) {
+      console.log('no items in the cart');
+      return;
+    }
+
+    if (addressError) {
+      console.log('invalid address');
+      return;
+    }
+
+    // adds to firebase purchase history
+    const purchaseHistoryItem = {
+      orderedOn: new Date().toLocaleString(),
+      order: modifiedCart,
+    };
+    try {
+      if (auth.user) {
+        const purchaseHistoryCollection = collection(
+          db,
+          'users',
+          auth.user.id,
+          'purchaseHistory'
+        );
+        await addDoc(purchaseHistoryCollection, purchaseHistoryItem);
+        // adds to redux and opens modal
+        dispatch(authActions.addToPurchaseHistory(purchaseHistoryItem));
+        dispatch(modalActions.open('order'));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     // volumes
-    // naruto arg hardcoded for now
     const storeRef = collection(db, 'store', 'naruto', 'volumes');
     const volumesArray: IVolume[] = [];
 
@@ -106,7 +154,9 @@ const Cart: React.FC = () => {
       .catch((error) => {
         console.log(error);
       });
+  }, []);
 
+  useEffect(() => {
     // shipping address
     if (auth.user) {
       const userShippingAddressRef = doc(db, 'users', auth.user.id);
@@ -123,7 +173,7 @@ const Cart: React.FC = () => {
           console.log(error);
         });
     }
-  }, []);
+  }, [auth.user]);
 
   return (
     <section className={classes['cart-section']}>
@@ -134,7 +184,7 @@ const Cart: React.FC = () => {
       )}
       <div className={classes['content-grid']}>
         <List>
-          {fullCart.map((c) => (
+          {modifiedCart.map((c) => (
             <CartItem
               cartItem={c}
               key={c.id}
@@ -143,8 +193,13 @@ const Cart: React.FC = () => {
             />
           ))}
         </List>
-        <Order totalPrice={totalPrice} cartItemCount={cartItemCount} />
+        <Order
+          totalPrice={totalPrice}
+          cartItemCount={cartItemCount}
+          orderHandler={orderHandler}
+        />
       </div>
+      {JSON.stringify(auth.purchaseHistory)}
     </section>
   );
 };

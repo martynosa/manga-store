@@ -60,3 +60,9 @@ export interface ICartItem {
   quantity: number;
   volume?: IVolume;
 }
+
+// purchase history item
+export interface IPurchaseHistoryItem {
+  orderedOn: string;
+  order: ICartItem[];
+}

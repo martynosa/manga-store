@@ -8,9 +8,14 @@ import { modalActions, RootState } from '../../../../redux/reduxStore';
 interface IProps {
   cartItemCount: number;
   totalPrice: number;
+  orderHandler: () => void;
 }
 
-const Order: React.FC<IProps> = ({ cartItemCount, totalPrice }) => {
+const Order: React.FC<IProps> = ({
+  cartItemCount,
+  totalPrice,
+  orderHandler,
+}) => {
   const auth = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
 
@@ -76,7 +81,7 @@ const Order: React.FC<IProps> = ({ cartItemCount, totalPrice }) => {
         </p>
         <button
           className={totalPrice ? 'order' : 'disabled'}
-          onClick={() => openModal('order')}
+          onClick={orderHandler}
           disabled={!totalPrice}
         >
           Order
