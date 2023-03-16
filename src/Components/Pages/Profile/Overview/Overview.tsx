@@ -53,7 +53,7 @@ const Overview: React.FC = () => {
             </div>
             <div>
               <p>Money spent:</p>
-              <p>$us {totalMoneySpent}</p>
+              <p>${totalMoneySpent}</p>
             </div>
           </div>
           <div className={classes['shipping-info']}>

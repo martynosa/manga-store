@@ -22,7 +22,7 @@ const CartItem: React.FC<IProps> = ({
             <p>Vol. {cartItem.volume.volume}</p>
             <p>{cartItem.volume.engVolumeName}</p>
             <p>
-              <span>Price: </span>US$ {cartItem.volume?.price}
+              <span>Price: </span>${cartItem.volume?.price}
             </p>
           </div>
           <div className={classes.price}>
@@ -31,7 +31,7 @@ const CartItem: React.FC<IProps> = ({
               {cartItem.quantity} x {cartItem.volume.price}
             </p>
             <p>=</p>
-            <p>US$ {cartItem.quantity * cartItem.volume.price}</p>
+            <p>${cartItem.quantity * cartItem.volume.price}</p>
           </div>
           <div className={classes['button-group']}>
             <button

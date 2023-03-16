@@ -14,7 +14,7 @@ const Info: React.FC<IProps> = ({ volume, addToCartHandler }) => {
         Vol. <span>{volume.volume}</span>
       </h2>
       <p>
-        Price: <span>US$ {volume.price}</span>
+        Price: <span>${volume.price}</span>
       </p>
       <img src={volume.coverLink}></img>
 

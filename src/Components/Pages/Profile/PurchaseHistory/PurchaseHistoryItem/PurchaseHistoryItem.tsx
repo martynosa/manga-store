@@ -24,7 +24,7 @@ const PurchaseHistoryItem: React.FC<{
         <span>Ordered on: </span> {purchaseHistoryItem.orderedOn}
       </p>
       <p>
-        <span>Price: </span> $us {totalPriceReducer(purchaseHistoryItem.order)}
+        <span>Price: </span>${totalPriceReducer(purchaseHistoryItem.order)}
       </p>
     </div>
   );

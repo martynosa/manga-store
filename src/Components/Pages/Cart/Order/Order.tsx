@@ -56,7 +56,7 @@ const Order: React.FC<IProps> = ({
           Items: <span>{cartItemCount}</span>
         </p>
         <p className={classes['total-price']}>
-          Total price: <span>$US {totalPrice.toFixed(2)}</span>
+          Total price: <span>${totalPrice.toFixed(2)}</span>
         </p>
         <button
           className={totalPrice ? 'order' : 'disabled'}
