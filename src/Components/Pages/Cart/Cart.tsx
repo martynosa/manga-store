@@ -20,6 +20,7 @@ import {
   increment,
   setDoc,
   updateDoc,
+  Timestamp,
 } from 'firebase/firestore';
 import { db } from '../../../firebase/firebase';
 // typescript
@@ -97,8 +98,6 @@ const Cart: React.FC = () => {
   };
 
   const orderHandler = async () => {
-    console.log(auth.shippingAddress);
-
     // order validation
     if (!auth.user) {
       dispatch(modalActions.open('signin'));

@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
 import classes from './Order.module.css';
 // redux
-import { useDispatch, useSelector } from 'react-redux';
-import { IModalPayload } from '../../../../redux/modalSlice';
-import { modalActions, RootState } from '../../../../redux/reduxStore';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/reduxStore';
 
 interface IProps {
   cartItemCount: number;
@@ -17,32 +16,12 @@ const Order: React.FC<IProps> = ({
   orderHandler,
 }) => {
   const auth = useSelector((state: RootState) => state.auth);
-  const dispatch = useDispatch();
 
   const addressError =
     auth.shippingAddress.city === '' ||
     auth.shippingAddress.address === '' ||
     auth.shippingAddress.postCode === '' ||
     auth.shippingAddress.phoneNumber === '';
-
-  const openModal = (form: IModalPayload) => {
-    if (!auth.user) {
-      dispatch(modalActions.open('signin'));
-      return;
-    }
-
-    if (!totalPrice) {
-      console.log('no items in the cart');
-      return;
-    }
-
-    if (addressError) {
-      console.log('invalid address');
-      return;
-    }
-
-    dispatch(modalActions.open(form));
-  };
 
   const shippingInfo = (
     <div className={classes['shipping-info']}>

@@ -1,0 +1,24 @@
+.order {
+  width: 100%;
+  background-color: var(--light-orange-color);
+  border-radius: var(--border-radius);
+  padding: 0.6rem 1.2rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.order-mangas {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.order span {
+  font-weight: 700;
+}
