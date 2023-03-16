@@ -9,8 +9,8 @@ import {
   RootState,
 } from '../../../redux/reduxStore';
 // firebase
-import { doc, getDoc, increment, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/firebase';
+import { doc, getDoc, increment, setDoc, updateDoc } from 'firebase/firestore';
 // typescript
 import { IVolume } from '../../../typescript/interfaces';
 // components

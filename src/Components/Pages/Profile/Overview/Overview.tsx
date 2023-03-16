@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authActions, RootState } from '../../../../redux/reduxStore';
 // typescript
 import { IShippingAddress } from '../../../../typescript/interfaces';
+// helpers
 import { totalMoneySpentReducer } from '../../../../helpers/cartReducers';
 
 const Overview: React.FC = () => {

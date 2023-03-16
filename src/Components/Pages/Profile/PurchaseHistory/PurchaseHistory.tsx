@@ -5,7 +5,6 @@ import classes from './PurchaseHistory.module.css';
 import { db } from '../../../../firebase/firebase';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 // redux
-import { totalPriceReducer } from '../../../../helpers/cartReducers';
 import { authActions, RootState } from '../../../../redux/reduxStore';
 // typescript
 import { IPurchaseHistoryItem } from '../../../../typescript/interfaces';
