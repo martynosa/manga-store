@@ -9,12 +9,12 @@ const PurchaseHistoryItem: React.FC<{
 }> = ({ purchaseHistoryItem }) => {
   return (
     <div className={classes.order}>
-      <div className={classes['order-mangas']}>
-        {purchaseHistoryItem.order.map((manga) => {
-          if (manga.volume) {
+      <div className={classes['order-volumes']}>
+        {purchaseHistoryItem.order.map((volume) => {
+          if (volume.volume) {
             return (
               <p>
-                <span>{manga.quantity}</span> x {manga.volume.engVolumeName}
+                <span>{volume.quantity}</span> x {volume.volume.engVolumeName}
               </p>
             );
           }

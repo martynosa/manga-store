@@ -4,7 +4,14 @@ import classes from './Store.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, volumesActions } from '../../../redux/reduxStore';
 // firebase
-import { collection, getDocs } from 'firebase/firestore';
+import {
+  collection,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  startAfter,
+} from 'firebase/firestore';
 import { db } from '../../../firebase/firebase';
 // typescript
 import { IVolume } from '../../../typescript/interfaces';
@@ -16,12 +23,55 @@ const Store: React.FC = () => {
   const dispatch = useDispatch();
   const volumes = useSelector((state: RootState) => state.volumes);
 
-  useEffect(() => {
-    // naruto arg hardcoded for now
+  // useEffect(() => {
+  //   // naruto arg hardcoded for now
+  //   const storeRef = collection(db, 'store', 'naruto', 'volumes');
+  //   const volumesArray: IVolume[] = [];
+
+  //   getDocs(storeRef)
+  //     .then((storeSnap) => {
+  //       storeSnap.forEach((volumeSnap) => {
+  //         const volume = { ...volumeSnap.data() };
+  //         volumesArray.push(volume as IVolume);
+  //       });
+  //       dispatch(volumesActions.initialize(volumesArray));
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
+
+  const loadMoreHandler = async () => {
     const storeRef = collection(db, 'store', 'naruto', 'volumes');
     const volumesArray: IVolume[] = [];
 
-    getDocs(storeRef)
+    const moreVolumes = query(
+      storeRef,
+      orderBy('volume'),
+      startAfter(volumes.length),
+      limit(5)
+    );
+
+    getDocs(moreVolumes)
+      .then((storeSnap) => {
+        storeSnap.forEach((volumeSnap) => {
+          const volume = { ...volumeSnap.data() };
+          volumesArray.push(volume as IVolume);
+        });
+        dispatch(volumesActions.addMore(volumesArray));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    const storeRef = collection(db, 'store', 'naruto', 'volumes');
+    const volumesArray: IVolume[] = [];
+
+    const first = query(storeRef, orderBy('volume'), limit(5));
+
+    getDocs(first)
       .then((storeSnap) => {
         storeSnap.forEach((volumeSnap) => {
           const volume = { ...volumeSnap.data() };
@@ -43,6 +93,7 @@ const Store: React.FC = () => {
           return <Card key={v.volume} volume={v} />;
         })}
       </div>
+      <button onClick={loadMoreHandler}>load 5 more</button>
     </section>
   );
 };

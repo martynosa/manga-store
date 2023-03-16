@@ -11,6 +11,10 @@ const volumesSlice = createSlice({
       state = action.payload;
       return state;
     },
+    addMore(state, action: PayloadAction<IVolume[]>) {
+      state = [...state, ...action.payload];
+      return state;
+    },
   },
 });
 
