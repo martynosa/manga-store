@@ -106,18 +106,16 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
 
   const validatePassword = (password: string) => {
     const error = lengthValidator(password, 6);
-    console.log(error);
-
     if (error.status) {
       setAuthError((prevState) => {
         return { ...prevState, password: error };
       });
-      return error;
+      return;
     }
     setAuthError((prevState) => {
       return { ...prevState, password: defaultError };
     });
-    return error;
+    return;
   };
 
   const validateRepeatPassword = (password: string, repeatPassword: string) => {
@@ -145,10 +143,8 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
 
   const onChangePassword = (password: string) => {
     setPassword(password);
-    const passwordError = validatePassword(password);
-    if (!passwordError.status) {
-      validateRepeatPassword(password, repeatPassword);
-    }
+    validatePassword(password);
+    validateRepeatPassword(password, repeatPassword);
   };
 
   const onChangeRepeatPassword = (repeatPassword: string) => {
