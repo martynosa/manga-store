@@ -7,9 +7,8 @@
   padding: 0.6rem 1.2rem;
   background-color: var(--light-orange-color);
 
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 0.6rem;
 }
 

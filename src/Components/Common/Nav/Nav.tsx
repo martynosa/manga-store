@@ -67,12 +67,14 @@ const Nav: React.FC = () => {
 
   const unauthenticatedNav = (
     <>
-      <NavLink
-        to="/store"
-        className={({ isActive }) => (isActive ? 'active-link' : '')}
-      >
-        store
-      </NavLink>
+      <div>
+        <NavLink
+          to="/store"
+          className={({ isActive }) => (isActive ? 'active-link' : '')}
+        >
+          store
+        </NavLink>
+      </div>
       <div>
         <button onClick={() => openModal('signin')} className="nav-sign-in">
           sign in
@@ -86,13 +88,15 @@ const Nav: React.FC = () => {
 
   const authenticatedNav = (
     <>
-      <NavLink
-        to="/store"
-        className={({ isActive }) => (isActive ? 'active-link' : '')}
-        end
-      >
-        store
-      </NavLink>
+      <div>
+        <NavLink
+          to="/store"
+          className={({ isActive }) => (isActive ? 'active-link' : '')}
+          end
+        >
+          store
+        </NavLink>
+      </div>
       <div>
         <p className={classes.displayname}></p>
         <NavLink
@@ -123,14 +127,16 @@ const Nav: React.FC = () => {
 
   return (
     <nav className={classes.nav}>
-      <NavLink
-        to="/"
-        className={({ isActive }) =>
-          isActive ? 'nav-logo active-link' : 'nav-logo'
-        }
-      >
-        naruto
-      </NavLink>
+      <div>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive ? 'nav-logo active-link' : 'nav-logo'
+          }
+        >
+          naruto
+        </NavLink>
+      </div>
       {user && authenticatedNav}
       {!user && unauthenticatedNav}
     </nav>
