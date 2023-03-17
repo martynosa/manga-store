@@ -54,6 +54,10 @@ button.disabled {
   background-color: var(--disabled-color);
 }
 
+button.load-more {
+  background-color: var(--amber-color);
+}
+
 a.nav-cart {
   background-color: var(--green-color);
   border: 2px solid black;

@@ -31,7 +31,7 @@ const Store: React.FC = () => {
       storeRef,
       orderBy('volume'),
       startAfter(volumes.length),
-      limit(5)
+      limit(10)
     );
 
     getDocs(subsequentBatches)
@@ -51,7 +51,7 @@ const Store: React.FC = () => {
     const storeRef = collection(db, 'store', 'naruto', 'volumes');
     const tempVolumes: IVolume[] = [];
 
-    const firstBatch = query(storeRef, orderBy('volume'), limit(5));
+    const firstBatch = query(storeRef, orderBy('volume'), limit(10));
 
     getDocs(firstBatch)
       .then((storeSnap) => {
@@ -75,7 +75,11 @@ const Store: React.FC = () => {
           return <Card key={v.volume} volume={v} />;
         })}
       </div>
-      <button onClick={loadMoreHandler}>load 5 more</button>
+      <div className={classes['button-group']}>
+        <button onClick={loadMoreHandler} className="load-more">
+          load more
+        </button>
+      </div>
     </section>
   );
 };

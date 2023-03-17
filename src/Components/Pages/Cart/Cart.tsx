@@ -129,7 +129,7 @@ const Cart: React.FC = () => {
         await addDoc(purchaseHistoryCollection, purchaseHistoryItem);
         // adds to redux and opens modal
         dispatch(authActions.addToPurchaseHistory(purchaseHistoryItem));
-        dispatch(modalActions.open('order'));
+        dispatch(modalActions.open('checkout'));
       }
     } catch (error) {
       console.log(error);

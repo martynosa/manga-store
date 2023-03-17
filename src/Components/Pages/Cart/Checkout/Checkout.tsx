@@ -49,7 +49,7 @@ const Checkout: React.FC<IProps> = ({
 
   return (
     <div className={classes.checkout}>
-      <h2>Order</h2>
+      <h2>Checkout</h2>
       <div className={classes.content}>
         {addressError ? toShippingAddress : shippingInfo}
         <p className={classes['item-count']}>
@@ -63,7 +63,7 @@ const Checkout: React.FC<IProps> = ({
           onClick={checkoutHandler}
           disabled={!totalPrice}
         >
-          Order
+          Checkout
         </button>
       </div>
     </div>

@@ -10,6 +10,7 @@
   display: grid;
   gap: 2.4rem;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  margin-bottom: 2.4rem;
 }
 
 .page-title {
@@ -18,4 +19,10 @@
   font-size: var(--fs-52);
   padding: 0.6rem 1.2rem;
   margin-bottom: 1.2rem;
+}
+
+.button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
