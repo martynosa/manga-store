@@ -1,22 +1,20 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import classes from './Profile.module.css';
 // redux
+import { useDispatch, useSelector } from 'react-redux';
 import { authActions, RootState } from '../../../redux/reduxStore';
-import { useEffect } from 'react';
+// firebase
+import { getDoc, getDocs, orderBy, query } from 'firebase/firestore';
 import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  orderBy,
-  query,
-} from 'firebase/firestore';
+  getPurchaseHistoryRef,
+  getShippingAddressRef,
+} from '../../../firebase/firestoreReferences';
+// typescript
 import {
   IPurchaseHistoryItem,
   IShippingAddress,
 } from '../../../typescript/interfaces';
-import { db } from '../../../firebase/firebase';
 
 const Profile: React.FC = () => {
   const dispatch = useDispatch();
@@ -25,9 +23,7 @@ const Profile: React.FC = () => {
   useEffect(() => {
     // initializes the shipping address
     if (auth.user) {
-      const userShippingAddressRef = doc(db, 'users', auth.user.id);
-
-      getDoc(userShippingAddressRef)
+      getDoc(getShippingAddressRef(auth.user.id))
         .then((shippingAddressSnap) => {
           if (shippingAddressSnap.exists()) {
             const shippingAddress =
@@ -43,17 +39,21 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     // initializes the purchase history
-    const purchaseHistory: IPurchaseHistoryItem[] = [];
+    const tempPurchaseHistory: IPurchaseHistoryItem[] = [];
     if (auth.user) {
-      const cartRef = collection(db, 'users', auth.user.id, 'purchaseHistory');
-      const q = query(cartRef, orderBy('orderedOn', 'desc'));
-      getDocs(q)
+      const purchaseHistoryQ = query(
+        getPurchaseHistoryRef(auth.user.id),
+        orderBy('orderedOn', 'desc')
+      );
+
+      getDocs(purchaseHistoryQ)
         .then((purchaseHistorySnap) => {
           purchaseHistorySnap.forEach((purchaseHistoryItemSnap) => {
-            const purchaseHistoryItem = purchaseHistoryItemSnap.data();
-            purchaseHistory.push(purchaseHistoryItem as IPurchaseHistoryItem);
+            const purchaseHistoryItem =
+              purchaseHistoryItemSnap.data() as IPurchaseHistoryItem;
+            tempPurchaseHistory.push(purchaseHistoryItem);
           });
-          dispatch(authActions.setPurchaseHistory(purchaseHistory));
+          dispatch(authActions.setPurchaseHistory(tempPurchaseHistory));
         })
         .catch((error) => {
           console.log(error);
@@ -63,11 +63,7 @@ const Profile: React.FC = () => {
 
   return (
     <section className={classes['profile-section']}>
-      {auth.user && (
-        <h1
-          className={classes['page-title']}
-        >{`${auth.user.displayName}'s profile`}</h1>
-      )}
+      <h1 className={classes['page-title']}>Profile</h1>
       <nav className={classes['profile-nav']}>
         <NavLink
           to="overview"

@@ -11,9 +11,7 @@ import {
 } from '../../../redux/reduxStore';
 // firebase
 import {
-  collection,
   deleteDoc,
-  doc,
   addDoc,
   getDoc,
   getDocs,
@@ -21,7 +19,12 @@ import {
   setDoc,
   updateDoc,
 } from 'firebase/firestore';
-import { db } from '../../../firebase/firebase';
+import {
+  getCartItemRef,
+  getMangaStoreRef,
+  getPurchaseHistoryRef,
+  getShippingAddressRef,
+} from '../../../firebase/firestoreReferences';
 // typescript
 import { IShippingAddress, IVolume } from '../../../typescript/interfaces';
 // components
@@ -54,7 +57,7 @@ const Cart: React.FC = () => {
 
   const addToCartHandler = async (volume: IVolume) => {
     if (auth.user) {
-      const cartItemRef = doc(db, 'users', auth.user.id, 'cart', volume.id);
+      const cartItemRef = getCartItemRef(auth.user.id, volume.id);
       // increments item's quantity
       const cartItemSnap = await getDoc(cartItemRef);
       if (cartItemSnap.exists()) {
@@ -75,7 +78,7 @@ const Cart: React.FC = () => {
 
   const removeFromCartHandler = async (volume: IVolume) => {
     if (auth.user) {
-      const cartItemRef = doc(db, 'users', auth.user.id, 'cart', volume.id);
+      const cartItemRef = getCartItemRef(auth.user.id, volume.id);
       // deletes the item if quantity's lower than 1
       const cartItemSnap = await getDoc(cartItemRef);
       if (cartItemSnap.exists()) {
@@ -120,13 +123,7 @@ const Cart: React.FC = () => {
     };
     try {
       if (auth.user) {
-        const purchaseHistoryCollection = collection(
-          db,
-          'users',
-          auth.user.id,
-          'purchaseHistory'
-        );
-        await addDoc(purchaseHistoryCollection, purchaseHistoryItem);
+        await addDoc(getPurchaseHistoryRef(auth.user.id), purchaseHistoryItem);
         // adds to redux and opens modal
         dispatch(authActions.addToPurchaseHistory(purchaseHistoryItem));
         dispatch(modalActions.open('checkout'));
@@ -137,17 +134,14 @@ const Cart: React.FC = () => {
   };
 
   useEffect(() => {
-    // volumes
-    const storeRef = collection(db, 'store', 'naruto', 'volumes');
-    const volumesArray: IVolume[] = [];
-
-    getDocs(storeRef)
+    const tempVolumes: IVolume[] = [];
+    getDocs(getMangaStoreRef('naruto'))
       .then((storeSnap) => {
         storeSnap.forEach((volumeSnap) => {
-          const volume = { ...volumeSnap.data() };
-          volumesArray.push(volume as IVolume);
+          const volume = volumeSnap.data() as IVolume;
+          tempVolumes.push(volume);
         });
-        dispatch(volumesActions.initialize(volumesArray));
+        dispatch(volumesActions.initialize(tempVolumes));
       })
       .catch((error) => {
         console.log(error);
@@ -155,11 +149,9 @@ const Cart: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // shipping address
+    // initializes the shipping address
     if (auth.user) {
-      const userShippingAddressRef = doc(db, 'users', auth.user.id);
-
-      getDoc(userShippingAddressRef)
+      getDoc(getShippingAddressRef(auth.user.id))
         .then((shippingAddressSnap) => {
           if (shippingAddressSnap.exists()) {
             const shippingAddress =
@@ -175,11 +167,7 @@ const Cart: React.FC = () => {
 
   return (
     <section className={classes['cart-section']}>
-      {auth.user && (
-        <h1
-          className={classes['page-title']}
-        >{`${auth.user.displayName}'s cart`}</h1>
-      )}
+      <h1 className={classes['page-title']}>Cart</h1>
       <div className={classes['content-grid']}>
         <List>
           {modifiedCart.map((c) => (

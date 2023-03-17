@@ -4,19 +4,17 @@ import classes from './AuthModal.module.css';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../../../redux/reduxStore';
 // firebase
-import { auth, db } from '../../../firebase/firebase';
+import { auth } from '../../../firebase/firebase';
 import {
   browserLocalPersistence,
   setPersistence,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
 // typescript
 import {
   defaultAuthError,
   IAuthError,
   defaultError,
-  IShippingAddress,
 } from '../../../typescript/interfaces';
 // helpers
 import { emailValidator, lengthValidator } from '../../../helpers/validators';
@@ -45,9 +43,9 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
     }
 
     try {
-      // logs the user
       await setPersistence(auth, browserLocalPersistence);
       const user = await signInWithEmailAndPassword(auth, email, password);
+
       dispatch(
         authActions.setUser({
           id: user.user.uid,
@@ -55,14 +53,6 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
           displayName: user.user.displayName,
         })
       );
-      // gets the shipping address
-      const userShippingAddressRef = doc(db, 'users', user.user.uid);
-      const shippingAddressSnap = await getDoc(userShippingAddressRef);
-
-      if (shippingAddressSnap.exists()) {
-        const shippingAddress = shippingAddressSnap.data() as IShippingAddress;
-        dispatch(authActions.setShippingAddress(shippingAddress));
-      }
 
       closeModal();
     } catch (error) {

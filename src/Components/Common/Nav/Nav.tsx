@@ -16,8 +16,9 @@ import {
   setPersistence,
   signOut,
 } from 'firebase/auth';
-import { auth, db } from '../../../firebase/firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { getCartRef } from '../../../firebase/firestoreReferences';
+import { auth } from '../../../firebase/firebase';
+import { getDocs } from 'firebase/firestore';
 // typescript
 import { ICartItem } from '../../../typescript/interfaces';
 // helpers
@@ -48,16 +49,15 @@ const Nav: React.FC = () => {
 
   useEffect(() => {
     // initializes the cart
-    const cartItemArray: ICartItem[] = [];
+    const tempCartItems: ICartItem[] = [];
     if (user) {
-      const cartRef = collection(db, 'users', user.id, 'cart');
-      getDocs(cartRef)
+      getDocs(getCartRef(user.id))
         .then((cartSnap) => {
           cartSnap.forEach((cartItemSnap) => {
             const cartItem = { id: cartItemSnap.id, ...cartItemSnap.data() };
-            cartItemArray.push(cartItem as ICartItem);
+            tempCartItems.push(cartItem as ICartItem);
           });
-          dispatch(cartActions.initialize(cartItemArray));
+          dispatch(cartActions.initialize(tempCartItems));
         })
         .catch((error) => {
           console.log(error);

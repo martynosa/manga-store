@@ -11,8 +11,9 @@ import {
   setPersistence,
   updateProfile,
 } from 'firebase/auth';
-import { auth, db } from '../../../firebase/firebase';
-import { doc, setDoc } from 'firebase/firestore';
+import { auth } from '../../../firebase/firebase';
+import { setDoc } from 'firebase/firestore';
+import { getProfileRef } from '../../../firebase/firestoreReferences';
 // typescript
 import {
   defaultAuthError,
@@ -60,8 +61,7 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
 
       if (user) {
         await updateProfile(user.user, { displayName: displayName });
-        const profileInfo = doc(db, 'users', user.user.uid);
-        await setDoc(profileInfo, initialShippingAddress);
+        await setDoc(getProfileRef(user.user.uid), initialShippingAddress);
       }
 
       dispatch(
@@ -71,6 +71,7 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
           displayName: user.user.displayName,
         })
       );
+
       closeModal();
     } catch (error) {
       console.log(error);

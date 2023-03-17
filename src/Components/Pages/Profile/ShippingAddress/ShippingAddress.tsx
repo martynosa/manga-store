@@ -2,11 +2,11 @@ import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './ShippingAddress.module.css';
 // firebase
-import { db } from '../../../../firebase/firebase';
-import { doc, setDoc } from 'firebase/firestore';
+import { setDoc } from 'firebase/firestore';
 // redux
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../../redux/reduxStore';
+import { useDispatch, useSelector } from 'react-redux';
+import { authActions, RootState } from '../../../../redux/reduxStore';
+import { getProfileRef } from '../../../../firebase/firestoreReferences';
 
 const ShippingAddress: React.FC = () => {
   const [city, setCity] = useState('');
@@ -15,6 +15,7 @@ const ShippingAddress: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const auth = useSelector((state: RootState) => state.auth);
 
   const onChangeCity = (city: string) => {
@@ -37,27 +38,20 @@ const ShippingAddress: React.FC = () => {
     // validate here
   };
 
-  const updateHandler = async (e: FormEvent) => {
+  const updateShippingAddressHandler = async (e: FormEvent) => {
     e.preventDefault();
-    if (
-      city === '' ||
-      address === '' ||
-      postCode === '' ||
-      phoneNumber === ''
-    ) {
-      console.log('missing input data');
-      return;
-    }
+
+    const newShippingAddress = {
+      city,
+      address,
+      postCode,
+      phoneNumber,
+    };
 
     try {
       if (auth.user) {
-        const profileInfo = doc(db, 'users', auth.user.id);
-        await setDoc(profileInfo, {
-          city,
-          address,
-          postCode,
-          phoneNumber,
-        });
+        await setDoc(getProfileRef(auth.user.id), newShippingAddress);
+        dispatch(authActions.setShippingAddress(newShippingAddress));
         navigate('/profile/overview');
       }
     } catch (error) {
@@ -66,7 +60,10 @@ const ShippingAddress: React.FC = () => {
   };
 
   return (
-    <form onSubmit={updateHandler} className={classes['shipping-address-form']}>
+    <form
+      onSubmit={updateShippingAddressHandler}
+      className={classes['shipping-address-form']}
+    >
       <div className={classes['input-group']}>
         <label htmlFor="city">city</label>
         <input

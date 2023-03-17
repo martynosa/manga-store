@@ -4,31 +4,23 @@ import classes from './Store.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, volumesActions } from '../../../redux/reduxStore';
 // firebase
-import { db } from '../../../firebase/firebase';
-import {
-  collection,
-  getDocs,
-  limit,
-  orderBy,
-  query,
-  startAfter,
-} from 'firebase/firestore';
+import { getDocs, limit, orderBy, query, startAfter } from 'firebase/firestore';
 // typescript
 import { IVolume } from '../../../typescript/interfaces';
 // components
 import Card from './Card/Card';
 import Search from './Search/Search';
+import { getMangaStoreRef } from '../../../firebase/firestoreReferences';
 
 const Store: React.FC = () => {
   const dispatch = useDispatch();
   const volumes = useSelector((state: RootState) => state.volumes);
 
   const loadMoreHandler = async () => {
-    const storeRef = collection(db, 'store', 'naruto', 'volumes');
     const tempVolumes: IVolume[] = [];
 
     const subsequentBatches = query(
-      storeRef,
+      getMangaStoreRef('naruto'),
       orderBy('volume'),
       startAfter(volumes.length),
       limit(10)
@@ -37,8 +29,8 @@ const Store: React.FC = () => {
     getDocs(subsequentBatches)
       .then((storeSnap) => {
         storeSnap.forEach((volumeSnap) => {
-          const volume = volumeSnap.data();
-          tempVolumes.push(volume as IVolume);
+          const volume = volumeSnap.data() as IVolume;
+          tempVolumes.push(volume);
         });
         dispatch(volumesActions.addMore(tempVolumes));
       })
@@ -48,16 +40,19 @@ const Store: React.FC = () => {
   };
 
   useEffect(() => {
-    const storeRef = collection(db, 'store', 'naruto', 'volumes');
     const tempVolumes: IVolume[] = [];
 
-    const firstBatch = query(storeRef, orderBy('volume'), limit(10));
+    const firstBatchQ = query(
+      getMangaStoreRef('naruto'),
+      orderBy('volume'),
+      limit(10)
+    );
 
-    getDocs(firstBatch)
+    getDocs(firstBatchQ)
       .then((storeSnap) => {
         storeSnap.forEach((volumeSnap) => {
-          const volume = volumeSnap.data();
-          tempVolumes.push(volume as IVolume);
+          const volume = volumeSnap.data() as IVolume;
+          tempVolumes.push(volume);
         });
         dispatch(volumesActions.initialize(tempVolumes));
       })

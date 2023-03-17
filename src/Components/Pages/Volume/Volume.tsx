@@ -9,8 +9,11 @@ import {
   RootState,
 } from '../../../redux/reduxStore';
 // firebase
-import { db } from '../../../firebase/firebase';
-import { doc, getDoc, increment, setDoc, updateDoc } from 'firebase/firestore';
+import { getDoc, increment, setDoc, updateDoc } from 'firebase/firestore';
+import {
+  getCartItemRef,
+  getVolumeRef,
+} from '../../../firebase/firestoreReferences';
 // typescript
 import { IVolume } from '../../../typescript/interfaces';
 // components
@@ -27,7 +30,7 @@ const Volume: React.FC = () => {
 
   const addToCartHandler = async (volume: IVolume) => {
     if (user) {
-      const cartItemRef = doc(db, 'users', user.id, 'cart', volume.id);
+      const cartItemRef = getCartItemRef(user.id, volume.id);
       // increments item's quantity
       const cartItemSnap = await getDoc(cartItemRef);
       if (cartItemSnap.exists()) {
@@ -48,7 +51,7 @@ const Volume: React.FC = () => {
 
   useEffect(() => {
     if (mangaParam && volumeParam) {
-      getDoc(doc(db, 'store', mangaParam, 'volumes', volumeParam))
+      getDoc(getVolumeRef(mangaParam, volumeParam))
         .then((volumeSnap) => {
           if (volumeSnap.exists()) {
             const volume = volumeSnap.data();
