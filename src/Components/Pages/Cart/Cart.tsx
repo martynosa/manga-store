@@ -20,7 +20,6 @@ import {
   increment,
   setDoc,
   updateDoc,
-  Timestamp,
 } from 'firebase/firestore';
 import { db } from '../../../firebase/firebase';
 // typescript
@@ -28,7 +27,7 @@ import { IShippingAddress, IVolume } from '../../../typescript/interfaces';
 // components
 import CartItem from './CartItem/CartItem';
 import List from '../../Common/List/List';
-import Order from './Order/Order';
+import Checkout from './Checkout/Checkout';
 // helpers
 import {
   cartItemCountReducer,
@@ -97,8 +96,8 @@ const Cart: React.FC = () => {
     }
   };
 
-  const orderHandler = async () => {
-    // order validation
+  const checkoutHandler = async () => {
+    // checkout validation
     if (!auth.user) {
       dispatch(modalActions.open('signin'));
       return;
@@ -192,10 +191,10 @@ const Cart: React.FC = () => {
             />
           ))}
         </List>
-        <Order
+        <Checkout
           totalPrice={totalPrice}
           cartItemCount={cartItemCount}
-          orderHandler={orderHandler}
+          checkoutHandler={checkoutHandler}
         />
       </div>
     </section>

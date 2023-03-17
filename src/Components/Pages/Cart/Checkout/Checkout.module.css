@@ -1,15 +1,15 @@
-.order {
+.checkout {
   padding: 1.2rem 2.4rem;
 }
 
-.order h2 {
+.checkout h2 {
   text-align: center;
   font-size: var(--fs-24);
   font-weight: 700;
   margin-bottom: 3.2rem;
 }
 
-.order .content {
+.checkout .content {
   padding: 1.2rem 2.4rem;
   border-radius: var(--border-radius);
   background-color: var(--light-orange-color);
@@ -21,30 +21,30 @@
   gap: 2.4rem;
 }
 
-.order .content .shipping-info {
+.checkout .content .shipping-info {
   width: 100%;
 }
 
-.order .content .shipping-info h3 {
+.checkout .content .shipping-info h3 {
   text-align: center;
   font-weight: 700;
   margin-bottom: 2.4rem;
 }
 
-.order .content .shipping-info p:not(:last-child) {
+.checkout .content .shipping-info p:not(:last-child) {
   margin-bottom: 1.2rem;
 }
 
-.order .content .shipping-info p span {
+.checkout .content .shipping-info p span {
   font-weight: 700;
 }
 
-.order .content .total-price,
-.order .content .item-count {
+.checkout .content .total-price,
+.checkout .content .item-count {
   font-weight: 700;
 }
 
-.order .content .total-price span,
-.order .content .item-count span {
+.checkout .content .total-price span,
+.checkout .content .item-count span {
   font-size: var(--fs-24);
 }

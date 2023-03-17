@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import classes from './Order.module.css';
+import classes from './Checkout.module.css';
 // redux
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/reduxStore';
@@ -7,13 +7,13 @@ import { RootState } from '../../../../redux/reduxStore';
 interface IProps {
   cartItemCount: number;
   totalPrice: number;
-  orderHandler: () => void;
+  checkoutHandler: () => void;
 }
 
-const Order: React.FC<IProps> = ({
+const Checkout: React.FC<IProps> = ({
   cartItemCount,
   totalPrice,
-  orderHandler,
+  checkoutHandler,
 }) => {
   const auth = useSelector((state: RootState) => state.auth);
 
@@ -48,7 +48,7 @@ const Order: React.FC<IProps> = ({
   );
 
   return (
-    <div className={classes.order}>
+    <div className={classes.checkout}>
       <h2>Order</h2>
       <div className={classes.content}>
         {addressError ? toShippingAddress : shippingInfo}
@@ -59,8 +59,8 @@ const Order: React.FC<IProps> = ({
           Total price: <span>${totalPrice.toFixed(2)}</span>
         </p>
         <button
-          className={totalPrice ? 'order' : 'disabled'}
-          onClick={orderHandler}
+          className={totalPrice ? 'checkout' : 'disabled'}
+          onClick={checkoutHandler}
           disabled={!totalPrice}
         >
           Order
@@ -69,4 +69,4 @@ const Order: React.FC<IProps> = ({
     </div>
   );
 };
-export default Order;
+export default Checkout;
