@@ -4,36 +4,15 @@ import classes from './Overview.module.css';
 import { db } from '../../../../firebase/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 // redux
-import { useDispatch, useSelector } from 'react-redux';
-import { authActions, RootState } from '../../../../redux/reduxStore';
-// typescript
-import { IShippingAddress } from '../../../../typescript/interfaces';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/reduxStore';
 // helpers
 import { totalMoneySpentReducer } from '../../../../helpers/cartReducers';
 
 const Overview: React.FC = () => {
-  const dispatch = useDispatch();
   const auth = useSelector((state: RootState) => state.auth);
 
   const totalMoneySpent = totalMoneySpentReducer(auth.purchaseHistory);
-
-  useEffect(() => {
-    if (auth.user) {
-      const userShippingAddressRef = doc(db, 'users', auth.user.id);
-
-      getDoc(userShippingAddressRef)
-        .then((shippingAddressSnap) => {
-          if (shippingAddressSnap.exists()) {
-            const shippingAddress =
-              shippingAddressSnap.data() as IShippingAddress;
-            dispatch(authActions.setShippingAddress(shippingAddress));
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [auth.user]);
 
   return (
     <>
@@ -54,7 +33,7 @@ const Overview: React.FC = () => {
             </div>
             <div>
               <p>Money spent:</p>
-              <p>${totalMoneySpent}</p>
+              <p>${totalMoneySpent.toFixed(2)}</p>
             </div>
           </div>
           <div className={classes['shipping-info']}>

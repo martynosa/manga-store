@@ -1,14 +1,12 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './ShippingAddress.module.css';
 // firebase
 import { db } from '../../../../firebase/firebase';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 // redux
-import { useDispatch, useSelector } from 'react-redux';
-import { authActions, RootState } from '../../../../redux/reduxStore';
-// typescript
-import { IShippingAddress } from '../../../../typescript/interfaces';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/reduxStore';
 
 const ShippingAddress: React.FC = () => {
   const [city, setCity] = useState('');
@@ -16,7 +14,6 @@ const ShippingAddress: React.FC = () => {
   const [postCode, setPostCode] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const auth = useSelector((state: RootState) => state.auth);
 
@@ -67,24 +64,6 @@ const ShippingAddress: React.FC = () => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (auth.user) {
-      const userShippingAddressRef = doc(db, 'users', auth.user.id);
-
-      getDoc(userShippingAddressRef)
-        .then((shippingAddressSnap) => {
-          if (shippingAddressSnap.exists()) {
-            const shippingAddress =
-              shippingAddressSnap.data() as IShippingAddress;
-            dispatch(authActions.setShippingAddress(shippingAddress));
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [auth.user]);
 
   return (
     <form onSubmit={updateHandler} className={classes['shipping-address-form']}>
