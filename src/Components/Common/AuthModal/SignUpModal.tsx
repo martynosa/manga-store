@@ -106,27 +106,30 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
 
   const validatePassword = (password: string) => {
     const error = lengthValidator(password, 6);
+    console.log(error);
+
     if (error.status) {
       setAuthError((prevState) => {
         return { ...prevState, password: error };
       });
-      return;
+      return error;
     }
     setAuthError((prevState) => {
       return { ...prevState, password: defaultError };
     });
+    return error;
   };
 
   const validateRepeatPassword = (password: string, repeatPassword: string) => {
     const error = repeatPasswordValidator(password, repeatPassword);
     if (error.status) {
       setAuthError((prevState) => {
-        return { ...prevState, password: error };
+        return { ...prevState, repeatPassword: error };
       });
       return;
     }
     setAuthError((prevState) => {
-      return { ...prevState, password: defaultError };
+      return { ...prevState, repeatPassword: defaultError };
     });
   };
 
@@ -142,8 +145,10 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
 
   const onChangePassword = (password: string) => {
     setPassword(password);
-    validatePassword(password);
-    validateRepeatPassword(password, repeatPassword);
+    const passwordError = validatePassword(password);
+    if (!passwordError.status) {
+      validateRepeatPassword(password, repeatPassword);
+    }
   };
 
   const onChangeRepeatPassword = (repeatPassword: string) => {
@@ -163,6 +168,9 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
             onChange={(e) => onChangeEmail(e.target.value)}
           />
           {authError.email.status && <p>{authError.email.message}</p>}
+          {!authError.email.status && (
+            <p className={classes.placeholder}>no error</p>
+          )}
         </div>
         <div className={classes['input-group']}>
           <label htmlFor="displayName">Name</label>
@@ -174,6 +182,9 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
           {authError.displayName.status && (
             <p>{authError.displayName.message}</p>
           )}
+          {!authError.displayName.status && (
+            <p className={classes.placeholder}>no error</p>
+          )}
         </div>
         <div className={classes['input-group']}>
           <label htmlFor="password">password</label>
@@ -183,6 +194,9 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
             onChange={(e) => onChangePassword(e.target.value)}
           />
           {authError.password.status && <p>{authError.password.message}</p>}
+          {!authError.password.status && (
+            <p className={classes.placeholder}>no error</p>
+          )}
         </div>
         <div className={classes['input-group']}>
           <label htmlFor="repeatPassword">repeat password</label>
@@ -193,6 +207,9 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
           />
           {authError.repeatPassword.status && (
             <p>{authError.repeatPassword.message}</p>
+          )}
+          {!authError.repeatPassword.status && (
+            <p className={classes.placeholder}>no error</p>
           )}
         </div>
         <div className={classes['button-group']}>

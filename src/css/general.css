@@ -7,17 +7,26 @@ button {
   font-size: var(--fs-24);
   border-radius: var(--border-radius);
   transition: var(--animation);
-  cursor: pointer;
 }
 
 a {
   text-decoration: none;
 }
 
+button {
+  border: none;
+  cursor: pointer;
+}
+
 button.sign-in,
 button.sign-up {
-  font-size: var(--fs-18);
+  font-size: var(--fs-24);
   background-color: var(--amber-color);
+}
+
+button.close {
+  font-size: var(--fs-24);
+  background-color: transparent;
 }
 
 button.nav-sign-in,
@@ -27,11 +36,6 @@ button.nav-sign-up {
 
 button.nav-sign-out {
   background-color: var(--red-color);
-}
-
-button.close {
-  font-size: var(--fs-18);
-  background-color: transparent;
 }
 
 button.plus-one {
@@ -60,7 +64,6 @@ button.load-more {
 
 a.nav-cart {
   background-color: var(--green-color);
-  border: 2px solid black;
 }
 
 a.nav-logo {

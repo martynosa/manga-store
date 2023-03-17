@@ -108,6 +108,9 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
             onChange={(e) => onChangeEmail(e.target.value)}
           />
           {authError.email.status && <p>{authError.email.message}</p>}
+          {!authError.email.status && (
+            <p className={classes.placeholder}>no error</p>
+          )}
         </div>
         <div className={classes['input-group']}>
           <label htmlFor="password">password</label>
@@ -117,6 +120,9 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
             onChange={(e) => onChangePassword(e.target.value)}
           />
           {authError.password.status && <p>{authError.password.message}</p>}
+          {!authError.password.status && (
+            <p className={classes.placeholder}>no error</p>
+          )}
         </div>
         <div className={classes['button-group']}>
           <button type="button" onClick={closeModal} className="close">

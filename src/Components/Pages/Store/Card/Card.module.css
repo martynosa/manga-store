@@ -6,6 +6,7 @@
 }
 
 .card img {
+  border-radius: var(--border-radius);
   margin-bottom: 0.6rem;
 }
 
