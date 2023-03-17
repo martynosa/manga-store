@@ -46,7 +46,7 @@ const Profile: React.FC = () => {
     const purchaseHistory: IPurchaseHistoryItem[] = [];
     if (auth.user) {
       const cartRef = collection(db, 'users', auth.user.id, 'purchaseHistory');
-      const q = query(cartRef, orderBy('orderedOn'));
+      const q = query(cartRef, orderBy('orderedOn', 'desc'));
       getDocs(q)
         .then((purchaseHistorySnap) => {
           purchaseHistorySnap.forEach((purchaseHistoryItemSnap) => {
