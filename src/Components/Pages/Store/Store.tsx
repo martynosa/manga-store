@@ -63,7 +63,7 @@ const Store: React.FC = () => {
 
   return (
     <section className={classes['store-section']}>
-      <h1 className={classes['page-title']}>Store</h1>
+      <h1 className="page-title">Store</h1>
       <Search />
       <div className={classes['store-grid']}>
         {volumes.map((v) => {

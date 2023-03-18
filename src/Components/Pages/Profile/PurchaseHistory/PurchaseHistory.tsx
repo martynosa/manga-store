@@ -1,8 +1,5 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import classes from './PurchaseHistory.module.css';
-// firebase
-import { db } from '../../../../firebase/firebase';
 // redux
 import { RootState } from '../../../../redux/reduxStore';
 // components
@@ -16,7 +13,7 @@ const PurchaseHistory: React.FC = () => {
     <div className={classes['purchase-history-content']}>
       <List>
         {auth.purchaseHistory.map((order) => (
-          <PurchaseHistoryItem purchaseHistoryItem={order} />
+          <PurchaseHistoryItem purchaseHistoryItem={order} key={order.id} />
         ))}
       </List>
     </div>

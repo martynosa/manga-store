@@ -64,7 +64,7 @@ const ShippingAddress: React.FC = () => {
       onSubmit={updateShippingAddressHandler}
       className={classes['shipping-address-form']}
     >
-      <div className={classes['input-group']}>
+      <div className="input-group">
         <label htmlFor="city">city</label>
         <input
           id="city"
@@ -73,7 +73,7 @@ const ShippingAddress: React.FC = () => {
           onChange={(e) => onChangeCity(e.target.value)}
         />
       </div>
-      <div className={classes['input-group']}>
+      <div className="input-group">
         <label htmlFor="address">address</label>
         <input
           id="address"
@@ -82,7 +82,7 @@ const ShippingAddress: React.FC = () => {
           onChange={(e) => onChangeAddress(e.target.value)}
         />
       </div>
-      <div className={classes['input-group']}>
+      <div className="input-group">
         <label htmlFor="post-code">post code</label>
         <input
           id="post-code"
@@ -91,7 +91,7 @@ const ShippingAddress: React.FC = () => {
           onChange={(e) => onChangePostCode(e.target.value)}
         />
       </div>
-      <div className={classes['input-group']}>
+      <div className="input-group">
         <label htmlFor="phone">phone number</label>
         <input
           id="phone"

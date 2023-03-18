@@ -49,8 +49,10 @@ const Profile: React.FC = () => {
       getDocs(purchaseHistoryQ)
         .then((purchaseHistorySnap) => {
           purchaseHistorySnap.forEach((purchaseHistoryItemSnap) => {
-            const purchaseHistoryItem =
-              purchaseHistoryItemSnap.data() as IPurchaseHistoryItem;
+            const purchaseHistoryItem = {
+              ...(purchaseHistoryItemSnap.data() as IPurchaseHistoryItem),
+              id: purchaseHistoryItemSnap.id,
+            };
             tempPurchaseHistory.push(purchaseHistoryItem);
           });
           dispatch(authActions.setPurchaseHistory(tempPurchaseHistory));
@@ -63,7 +65,7 @@ const Profile: React.FC = () => {
 
   return (
     <section className={classes['profile-section']}>
-      <h1 className={classes['page-title']}>Profile</h1>
+      <h1 className="page-title">Profile</h1>
       <nav className={classes['profile-nav']}>
         <NavLink
           to="overview"

@@ -13,7 +13,7 @@ const PurchaseHistoryItem: React.FC<{
         {purchaseHistoryItem.order.map((volume) => {
           if (volume.volume) {
             return (
-              <p>
+              <p key={volume.id}>
                 <span>{volume.quantity}</span> x {volume.volume.engVolumeName}
               </p>
             );

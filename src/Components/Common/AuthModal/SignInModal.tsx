@@ -97,34 +97,38 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
   };
 
   return (
-    <form onSubmit={signInHandler} className={classes.form}>
+    <form onSubmit={signInHandler} className={classes['auth-form']}>
       <h1>Sign In</h1>
-      <div className={classes.group}>
-        <div className={classes['input-group']}>
+      <div className={classes['auth-form-group']}>
+        <div className="input-group">
           <label htmlFor="email">email</label>
           <input
             id="email"
             type="text"
             onChange={(e) => onChangeEmail(e.target.value)}
           />
-          {authError.email.status && <p>{authError.email.message}</p>}
+          {authError.email.status && (
+            <p className="error">{authError.email.message}</p>
+          )}
           {!authError.email.status && (
-            <p className={classes.placeholder}>no error</p>
+            <p className="error-placeholder">no error</p>
           )}
         </div>
-        <div className={classes['input-group']}>
+        <div className="input-group">
           <label htmlFor="password">password</label>
           <input
             id="password"
             type="password"
             onChange={(e) => onChangePassword(e.target.value)}
           />
-          {authError.password.status && <p>{authError.password.message}</p>}
+          {authError.password.status && (
+            <p className="error">{authError.password.message}</p>
+          )}
           {!authError.password.status && (
-            <p className={classes.placeholder}>no error</p>
+            <p className="error-placeholder">no error</p>
           )}
         </div>
-        <div className={classes['button-group']}>
+        <div className={classes['auth-button-group']}>
           <button type="button" onClick={closeModal} className="close">
             close
           </button>

@@ -1,4 +1,4 @@
-// manga
+// volume
 export interface IChapter {
   chapter: number;
   engName: string;
@@ -65,4 +65,5 @@ export interface ICartItem {
 export interface IPurchaseHistoryItem {
   orderedOn: string;
   order: ICartItem[];
+  id: string;
 }

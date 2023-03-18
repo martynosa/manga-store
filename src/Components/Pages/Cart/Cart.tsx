@@ -167,7 +167,7 @@ const Cart: React.FC = () => {
 
   return (
     <section className={classes['cart-section']}>
-      <h1 className={classes['page-title']}>Cart</h1>
+      <h1 className="page-title">Cart</h1>
       <div className={classes['content-grid']}>
         <List>
           {modifiedCart.map((c) => (
