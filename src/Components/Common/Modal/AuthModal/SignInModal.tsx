@@ -2,9 +2,9 @@ import { FormEvent, useState } from 'react';
 import classes from './AuthModal.module.css';
 // redux
 import { useDispatch } from 'react-redux';
-import { authActions } from '../../../redux/reduxStore';
+import { authActions } from '../../../../redux/reduxStore';
 // firebase
-import { auth } from '../../../firebase/firebase';
+import { auth } from '../../../../firebase/firebase';
 import {
   browserLocalPersistence,
   setPersistence,
@@ -15,9 +15,12 @@ import {
   defaultAuthError,
   IAuthError,
   defaultError,
-} from '../../../typescript/interfaces';
+} from '../../../../typescript/interfaces';
 // helpers
-import { emailValidator, lengthValidator } from '../../../helpers/validators';
+import {
+  emailValidator,
+  lengthValidator,
+} from '../../../../helpers/validators';
 
 interface IProps {
   closeModal: () => void;

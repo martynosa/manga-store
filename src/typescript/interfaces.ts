@@ -65,5 +65,5 @@ export interface ICartItem {
 export interface IPurchaseHistoryItem {
   orderedOn: string;
   order: ICartItem[];
-  id: string;
+  id?: string;
 }

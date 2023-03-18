@@ -2,8 +2,8 @@ import { FormEvent, useState } from 'react';
 import classes from './AuthModal.module.css';
 // redux
 import { useDispatch } from 'react-redux';
-import { authActions } from '../../../redux/reduxStore';
-import { initialShippingAddress } from '../../../redux/authSlice';
+import { authActions } from '../../../../redux/reduxStore';
+import { initialShippingAddress } from '../../../../redux/authSlice';
 // firebase
 import {
   browserLocalPersistence,
@@ -11,21 +11,21 @@ import {
   setPersistence,
   updateProfile,
 } from 'firebase/auth';
-import { auth } from '../../../firebase/firebase';
+import { auth } from '../../../../firebase/firebase';
 import { setDoc } from 'firebase/firestore';
-import { getProfileRef } from '../../../firebase/firestoreReferences';
+import { getProfileRef } from '../../../../firebase/firestoreReferences';
 // typescript
 import {
   defaultAuthError,
   defaultError,
   IAuthError,
-} from '../../../typescript/interfaces';
+} from '../../../../typescript/interfaces';
 // helpers
 import {
   emailValidator,
   lengthValidator,
   repeatPasswordValidator,
-} from '../../../helpers/validators';
+} from '../../../../helpers/validators';
 
 interface IProps {
   closeModal: () => void;

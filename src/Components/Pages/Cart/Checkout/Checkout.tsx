@@ -59,9 +59,9 @@ const Checkout: React.FC<IProps> = ({
           Total price: <span>${totalPrice.toFixed(2)}</span>
         </p>
         <button
-          className={totalPrice ? 'checkout' : 'disabled'}
+          className={!totalPrice || addressError ? 'disabled' : 'checkout'}
           onClick={checkoutHandler}
-          disabled={!totalPrice}
+          disabled={!totalPrice || addressError}
         >
           Checkout
         </button>

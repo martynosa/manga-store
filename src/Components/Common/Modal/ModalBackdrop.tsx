@@ -4,9 +4,9 @@ import classes from './ModalBackdrop.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { modalActions, RootState } from '../../../redux/reduxStore';
 // components
-import SignInModal from '../AuthModal/SignInModal';
-import SignUpModal from '../AuthModal/SignUpModal';
-import CheckoutModal from '../CheckoutModal/CheckoutModal';
+import SignInModal from './AuthModal/SignInModal';
+import SignUpModal from './AuthModal/SignUpModal';
+import CheckoutModal from './CheckoutModal/CheckoutModal';
 
 const ModalBackdrop: React.FC<PropsWithChildren> = () => {
   const modal = useSelector((state: RootState) => state.modal);

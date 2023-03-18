@@ -1,8 +1,4 @@
-import { useEffect } from 'react';
 import classes from './Overview.module.css';
-// firebase
-import { db } from '../../../../firebase/firebase';
-import { doc, getDoc } from 'firebase/firestore';
 // redux
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/reduxStore';
