@@ -29,6 +29,7 @@ const Volume: React.FC = () => {
           if (volumeSnap.exists()) {
             const volume = volumeSnap.data();
             setVolume(volume as IVolume);
+            dispatch(loadingActions.setPageLoading(false));
           } else {
             // error handling
             console.log('no data for this volumeId');
