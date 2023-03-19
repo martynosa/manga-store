@@ -91,7 +91,7 @@ const Profile: React.FC = () => {
     }
   }, [auth.user]);
 
-  if (loading.isProfileLoading) {
+  if (loading.isProfileLoading || loading.isAuthStateChanging) {
     return (
       <section className="loading-error-section">
         <h2 className="general loading">Loading...</h2>

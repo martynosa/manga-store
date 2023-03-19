@@ -2,12 +2,13 @@ import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { authActions, RootState } from './redux/reduxStore';
+import { authActions, loadingActions, RootState } from './redux/reduxStore';
 // firebase
-import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 // components
 import ModalBackdrop from './Components/Common/Modal/ModalBackdrop';
+
 import Nav from './Components/Common/Nav/Nav';
 import Home from './Components/Pages/Home/Home';
 import Cart from './Components/Pages/Cart/Cart';
@@ -21,6 +22,8 @@ import Overview from './Components/Pages/Profile/Overview/Overview';
 
 function App() {
   const modal = useSelector((state: RootState) => state.modal);
+  const loading = useSelector((state: RootState) => state.loading);
+
   const dispatch = useDispatch();
 
   // user persistance
@@ -35,6 +38,9 @@ function App() {
           })
         );
       }
+      dispatch(
+        loadingActions.setLoading({ ...loading, isAuthStateChanging: false })
+      );
     });
   }, []);
 
@@ -47,6 +53,7 @@ function App() {
   return (
     <>
       {modal.isOpen && <ModalBackdrop />}
+
       <Nav />
 
       <Routes>

@@ -18,6 +18,11 @@ button {
   transition: var(--animation);
 }
 
+a.disabled,
+button.disabled {
+  background-color: var(--disabled-color);
+}
+
 a {
   text-decoration: none;
 }
@@ -61,10 +66,6 @@ button.checkout {
 
 button.update {
   background-color: var(--amber-color);
-}
-
-button.disabled {
-  background-color: var(--disabled-color);
 }
 
 button.load-more {

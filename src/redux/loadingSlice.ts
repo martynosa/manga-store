@@ -10,6 +10,8 @@ interface ILoadingState {
   isRemoveFromCartLoading: boolean;
   isUpdateShippingAddressLoading: boolean;
   isCheckoutLoading: boolean;
+  isAuthStateChanging: boolean;
+  isCartLinkLoading: boolean;
 }
 
 const initialState: ILoadingState = {
@@ -22,6 +24,8 @@ const initialState: ILoadingState = {
   isRemoveFromCartLoading: false,
   isUpdateShippingAddressLoading: false,
   isCheckoutLoading: false,
+  isAuthStateChanging: true,
+  isCartLinkLoading: false,
 };
 
 const loadingSlice = createSlice({
@@ -29,6 +33,8 @@ const loadingSlice = createSlice({
   initialState,
   reducers: {
     setLoading(state, action: PayloadAction<ILoadingState>) {
+      console.log(action.payload);
+
       state = action.payload;
       return state;
     },
