@@ -265,6 +265,7 @@ const Cart: React.FC = () => {
           cartItemCount={cartItemCount}
           checkoutHandler={checkoutHandler}
           isCheckoutLoading={loading.isCheckoutLoading}
+          addressError={addressError}
         />
       </div>
     </section>
