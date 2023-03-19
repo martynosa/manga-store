@@ -47,6 +47,7 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
       email === '' ||
       password === ''
     ) {
+      // error handling
       console.log('errors =>', authError);
       return;
     }
@@ -68,6 +69,7 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
       closeModal();
       dispatch(loadingActions.setLoading({ ...loading, isAuthLoading: false }));
     } catch (error) {
+      // error handling
       console.log(error);
       dispatch(loadingActions.setLoading({ ...loading, isAuthLoading: false }));
     }

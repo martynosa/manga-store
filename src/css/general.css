@@ -142,10 +142,25 @@ button.disabled:hover {
   color: var(--red-color);
 }
 
-/* loading */
-/* .loading {
-  text-align: center;
+/* loading or error */
+.loading-error-section {
+  margin: 0 auto;
+  margin-top: 6.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.general {
   font-size: var(--fs-24);
   font-weight: 700;
-  margin-bottom: 2.4rem;
-} */
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--border-radius);
+}
+
+.general.error {
+  background-color: var(--red-color);
+}
+
+.general.loading {
+  background-color: var(--disabled-color);
+}

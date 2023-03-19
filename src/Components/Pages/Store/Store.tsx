@@ -44,6 +44,7 @@ const Store: React.FC = () => {
         );
       })
       .catch((error) => {
+        // error handling
         console.log(error);
         dispatch(
           loadingActions.setLoading({ ...loading, isStoreLoading: false })
@@ -73,6 +74,7 @@ const Store: React.FC = () => {
         );
       })
       .catch((error) => {
+        // error handling
         console.log(error);
         dispatch(
           loadingActions.setLoading({ ...loading, isStoreLoading: false })
