@@ -1,25 +1,75 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import classes from './Checkout.module.css';
+// firebase
+import { addDoc } from 'firebase/firestore';
+import { getPurchaseHistoryRef } from '../../../../firebase/firestoreReferences';
 // redux
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../../redux/reduxStore';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  authActions,
+  modalActions,
+  RootState,
+} from '../../../../redux/reduxStore';
+// typescript
+import { ICartItem } from '../../../../typescript/interfaces';
 
 interface IProps {
   cartItemCount: number;
   totalPrice: number;
-  checkoutHandler: () => void;
-  isCheckoutLoading: boolean;
   addressError: boolean;
+  modifiedCart: ICartItem[];
 }
 
 const Checkout: React.FC<IProps> = ({
   cartItemCount,
   totalPrice,
-  checkoutHandler,
-  isCheckoutLoading,
   addressError,
+  modifiedCart,
 }) => {
+  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
   const auth = useSelector((state: RootState) => state.auth);
+
+  const dispatch = useDispatch();
+
+  const checkoutHandler = async () => {
+    // checkout validation
+    if (!auth.user) {
+      dispatch(modalActions.open('signin'));
+      return;
+    }
+
+    if (!totalPrice) {
+      console.log('no items in the cart');
+      return;
+    }
+
+    if (addressError) {
+      console.log('invalid address');
+      return;
+    }
+
+    // adds to firebase purchase history
+    const purchaseHistoryItem = {
+      orderedOn: new Date().toLocaleString(),
+      order: modifiedCart,
+    };
+    try {
+      if (auth.user) {
+        setIsCheckoutLoading(true);
+
+        await addDoc(getPurchaseHistoryRef(auth.user.id), purchaseHistoryItem);
+        // adds to redux and opens modal
+        dispatch(authActions.addToPurchaseHistory(purchaseHistoryItem));
+        setIsCheckoutLoading(false);
+        dispatch(modalActions.open('checkout'));
+      }
+    } catch (error) {
+      // error handling
+      console.log(error);
+      setIsCheckoutLoading(false);
+    }
+  };
 
   const shippingInfo = (
     <div className={classes['shipping-info']}>

@@ -22,7 +22,6 @@ import Overview from './Components/Pages/Profile/Overview/Overview';
 
 function App() {
   const modal = useSelector((state: RootState) => state.modal);
-  const loading = useSelector((state: RootState) => state.loading);
 
   const dispatch = useDispatch();
 
@@ -38,9 +37,7 @@ function App() {
           })
         );
       }
-      dispatch(
-        loadingActions.setLoading({ ...loading, isAuthStateChanging: false })
-      );
+      dispatch(loadingActions.setIsAuthStateChanging(false));
     });
   }, []);
 
@@ -58,7 +55,6 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-
         <Route path="/cart" element={<Cart />} />
         <Route path="/store" element={<Store />} />
         <Route path="/store/:mangaParam/:volumeParam" element={<Volume />} />

@@ -28,7 +28,7 @@ const Profile: React.FC = () => {
   useEffect(() => {
     // initializes the shipping address
     if (auth.user) {
-      dispatch(loadingActions.setLoading({ ...loading, isPageLoading: true }));
+      dispatch(loadingActions.setPageLoading(true));
 
       getDoc(getShippingAddressRef(auth.user.id))
         .then((shippingAddressSnap) => {
@@ -37,16 +37,12 @@ const Profile: React.FC = () => {
               shippingAddressSnap.data() as IShippingAddress;
             dispatch(authActions.setShippingAddress(shippingAddress));
           }
-          dispatch(
-            loadingActions.setLoading({ ...loading, isPageLoading: false })
-          );
+          dispatch(loadingActions.setPageLoading(false));
         })
         .catch((error) => {
           // error handling
           console.log(error);
-          dispatch(
-            loadingActions.setLoading({ ...loading, isPageLoading: false })
-          );
+          dispatch(loadingActions.setPageLoading(false));
         });
     }
   }, [auth.user]);
@@ -56,8 +52,7 @@ const Profile: React.FC = () => {
     const tempPurchaseHistory: IPurchaseHistoryItem[] = [];
 
     if (auth.user) {
-      dispatch(loadingActions.setLoading({ ...loading, isPageLoading: true }));
-
+      dispatch(loadingActions.setPageLoading(true));
       const purchaseHistoryQ = query(
         getPurchaseHistoryRef(auth.user.id),
         orderBy('orderedOn', 'desc')
@@ -73,16 +68,12 @@ const Profile: React.FC = () => {
             tempPurchaseHistory.push(purchaseHistoryItem);
           });
           dispatch(authActions.setPurchaseHistory(tempPurchaseHistory));
-          dispatch(
-            loadingActions.setLoading({ ...loading, isPageLoading: false })
-          );
+          dispatch(loadingActions.setPageLoading(false));
         })
         .catch((error) => {
           // error handling
           console.log(error);
-          dispatch(
-            loadingActions.setLoading({ ...loading, isPageLoading: false })
-          );
+          dispatch(loadingActions.setPageLoading(false));
         });
     }
   }, [auth.user]);

@@ -1,14 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import classes from './Nav.module.css';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  cartActions,
-  RootState,
-  authActions,
-  loadingActions,
-} from '../../../redux/reduxStore';
+import { cartActions, RootState, authActions } from '../../../redux/reduxStore';
 // firebase
 import { auth } from '../../../firebase/firebase';
 import {
@@ -24,9 +19,9 @@ import { ICartItem } from '../../../typescript/interfaces';
 import { cartItemCountReducer } from '../../../helpers/cartReducers';
 
 const UserNav: React.FC = () => {
+  const [isCartLinkLoading, setIsCartLinkLoading] = useState(false);
   const user = useSelector((state: RootState) => state.auth.user);
   const cart = useSelector((state: RootState) => state.cart);
-  const loading = useSelector((state: RootState) => state.loading);
 
   const dispatch = useDispatch();
 
@@ -47,9 +42,7 @@ const UserNav: React.FC = () => {
     // initializes the cart
     const tempCartItems: ICartItem[] = [];
     if (user) {
-      dispatch(
-        loadingActions.setLoading({ ...loading, isCartLinkLoading: true })
-      );
+      setIsCartLinkLoading(true);
       getDocs(getCartRef(user.id))
         .then((cartSnap) => {
           cartSnap.forEach((cartItemSnap) => {
@@ -57,27 +50,17 @@ const UserNav: React.FC = () => {
             tempCartItems.push(cartItem as ICartItem);
           });
           dispatch(cartActions.initialize(tempCartItems));
-          dispatch(
-            loadingActions.setLoading({
-              ...loading,
-              isCartLinkLoading: false,
-            })
-          );
+          setIsCartLinkLoading(false);
         })
         .catch((error) => {
           // error handling
           console.log(error);
-          dispatch(
-            loadingActions.setLoading({
-              ...loading,
-              isCartLinkLoading: false,
-            })
-          );
+          setIsCartLinkLoading(false);
         });
     }
   }, [user]);
 
-  const cartLink = loading.isCartLinkLoading ? (
+  const cartLink = isCartLinkLoading ? (
     <NavLink
       to="/cart"
       className={({ isActive }) =>

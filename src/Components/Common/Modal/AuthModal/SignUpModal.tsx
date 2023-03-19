@@ -62,7 +62,7 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
       return;
     }
 
-    dispatch(loadingActions.setLoading({ ...loading, isAuthLoading: true }));
+    dispatch(loadingActions.setAuthLoading(true));
 
     try {
       await setPersistence(auth, browserLocalPersistence);
@@ -82,11 +82,11 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
       );
 
       closeModal();
-      dispatch(loadingActions.setLoading({ ...loading, isAuthLoading: false }));
+      dispatch(loadingActions.setAuthLoading(false));
     } catch (error) {
       // error handling
       console.log(error);
-      dispatch(loadingActions.setLoading({ ...loading, isAuthLoading: false }));
+      dispatch(loadingActions.setAuthLoading(false));
     }
   };
 

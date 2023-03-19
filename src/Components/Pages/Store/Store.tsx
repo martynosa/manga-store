@@ -17,12 +17,13 @@ import Search from './Search/Search';
 import { getMangaStoreRef } from '../../../firebase/firestoreReferences';
 
 const Store: React.FC = () => {
-  const dispatch = useDispatch();
   const volumes = useSelector((state: RootState) => state.volumes);
   const loading = useSelector((state: RootState) => state.loading);
 
+  const dispatch = useDispatch();
+
   const loadMoreHandler = async () => {
-    dispatch(loadingActions.setLoading({ ...loading, isPageLoading: true }));
+    dispatch(loadingActions.setPageLoading(true));
     const tempVolumes: IVolume[] = [];
 
     const subsequentBatches = query(
@@ -39,21 +40,17 @@ const Store: React.FC = () => {
           tempVolumes.push(volume);
         });
         dispatch(volumesActions.addMore(tempVolumes));
-        dispatch(
-          loadingActions.setLoading({ ...loading, isPageLoading: false })
-        );
+        dispatch(loadingActions.setPageLoading(false));
       })
       .catch((error) => {
         // error handling
         console.log(error);
-        dispatch(
-          loadingActions.setLoading({ ...loading, isPageLoading: false })
-        );
+        dispatch(loadingActions.setPageLoading(false));
       });
   };
 
   useEffect(() => {
-    dispatch(loadingActions.setLoading({ ...loading, isPageLoading: true }));
+    dispatch(loadingActions.setPageLoading(true));
     const tempVolumes: IVolume[] = [];
 
     const firstBatchQ = query(
@@ -69,16 +66,12 @@ const Store: React.FC = () => {
           tempVolumes.push(volume);
         });
         dispatch(volumesActions.initialize(tempVolumes));
-        dispatch(
-          loadingActions.setLoading({ ...loading, isPageLoading: false })
-        );
+        dispatch(loadingActions.setPageLoading(false));
       })
       .catch((error) => {
         // error handling
         console.log(error);
-        dispatch(
-          loadingActions.setLoading({ ...loading, isPageLoading: false })
-        );
+        dispatch(loadingActions.setPageLoading(false));
       });
   }, []);
 
