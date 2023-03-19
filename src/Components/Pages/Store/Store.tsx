@@ -2,7 +2,11 @@ import { useEffect } from 'react';
 import classes from './Store.module.css';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, volumesActions } from '../../../redux/reduxStore';
+import {
+  loadingActions,
+  RootState,
+  volumesActions,
+} from '../../../redux/reduxStore';
 // firebase
 import { getDocs, limit, orderBy, query, startAfter } from 'firebase/firestore';
 // typescript
@@ -15,8 +19,10 @@ import { getMangaStoreRef } from '../../../firebase/firestoreReferences';
 const Store: React.FC = () => {
   const dispatch = useDispatch();
   const volumes = useSelector((state: RootState) => state.volumes);
+  const loading = useSelector((state: RootState) => state.loading);
 
   const loadMoreHandler = async () => {
+    dispatch(loadingActions.setLoading({ ...loading, isStoreLoading: true }));
     const tempVolumes: IVolume[] = [];
 
     const subsequentBatches = query(
@@ -33,13 +39,20 @@ const Store: React.FC = () => {
           tempVolumes.push(volume);
         });
         dispatch(volumesActions.addMore(tempVolumes));
+        dispatch(
+          loadingActions.setLoading({ ...loading, isStoreLoading: false })
+        );
       })
       .catch((error) => {
         console.log(error);
+        dispatch(
+          loadingActions.setLoading({ ...loading, isStoreLoading: false })
+        );
       });
   };
 
   useEffect(() => {
+    dispatch(loadingActions.setLoading({ ...loading, isStoreLoading: true }));
     const tempVolumes: IVolume[] = [];
 
     const firstBatchQ = query(
@@ -55,9 +68,15 @@ const Store: React.FC = () => {
           tempVolumes.push(volume);
         });
         dispatch(volumesActions.initialize(tempVolumes));
+        dispatch(
+          loadingActions.setLoading({ ...loading, isStoreLoading: false })
+        );
       })
       .catch((error) => {
         console.log(error);
+        dispatch(
+          loadingActions.setLoading({ ...loading, isStoreLoading: false })
+        );
       });
   }, []);
 
@@ -71,9 +90,19 @@ const Store: React.FC = () => {
         })}
       </div>
       <div className={classes['button-group']}>
-        <button onClick={loadMoreHandler} className="load-more">
-          load more
-        </button>
+        {loading.isStoreLoading ? (
+          <button
+            onClick={loadMoreHandler}
+            className="disabled"
+            disabled={loading.isStoreLoading}
+          >
+            Loading...
+          </button>
+        ) : (
+          <button onClick={loadMoreHandler} className="load-more">
+            load more
+          </button>
+        )}
       </div>
     </section>
   );

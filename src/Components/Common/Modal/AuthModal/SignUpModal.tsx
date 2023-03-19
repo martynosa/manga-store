@@ -1,8 +1,12 @@
 import { FormEvent, useState } from 'react';
 import classes from './AuthModal.module.css';
 // redux
-import { useDispatch } from 'react-redux';
-import { authActions } from '../../../../redux/reduxStore';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  authActions,
+  loadingActions,
+  RootState,
+} from '../../../../redux/reduxStore';
 import { initialShippingAddress } from '../../../../redux/authSlice';
 // firebase
 import {
@@ -37,7 +41,9 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const [authError, setAuthError] = useState<IAuthError>(defaultAuthError);
+
   const dispatch = useDispatch();
+  const loading = useSelector((state: RootState) => state.loading);
 
   const signUpHandler = async (e: FormEvent) => {
     e.preventDefault();
@@ -54,6 +60,8 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
       console.log('errors =>', authError);
       return;
     }
+
+    dispatch(loadingActions.setLoading({ ...loading, isAuthLoading: true }));
 
     try {
       await setPersistence(auth, browserLocalPersistence);
@@ -73,8 +81,10 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
       );
 
       closeModal();
+      dispatch(loadingActions.setLoading({ ...loading, isAuthLoading: false }));
     } catch (error) {
       console.log(error);
+      dispatch(loadingActions.setLoading({ ...loading, isAuthLoading: false }));
     }
   };
 
@@ -216,7 +226,13 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
           <button type="button" onClick={closeModal} className="close">
             close
           </button>
-          <button className="sign-up">sign up</button>
+          {loading.isAuthLoading ? (
+            <button className="disabled" disabled={loading.isAuthLoading}>
+              Loading...
+            </button>
+          ) : (
+            <button className="sign-up">sign up</button>
+          )}
         </div>
       </div>
     </form>
