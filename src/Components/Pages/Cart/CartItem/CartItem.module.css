@@ -35,3 +35,8 @@
   font-weight: 700;
   font-size: var(--fs-18);
 }
+
+.cart-item .error {
+  font-weight: 700;
+  font-size: var(--fs-18);
+}

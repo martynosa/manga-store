@@ -8,20 +8,18 @@ interface IProps {
   cartItemCount: number;
   totalPrice: number;
   checkoutHandler: () => void;
+  isCheckoutLoading: boolean;
+  addressError: boolean;
 }
 
 const Checkout: React.FC<IProps> = ({
   cartItemCount,
   totalPrice,
   checkoutHandler,
+  isCheckoutLoading,
+  addressError,
 }) => {
   const auth = useSelector((state: RootState) => state.auth);
-
-  const addressError =
-    auth.shippingAddress.city === '' ||
-    auth.shippingAddress.address === '' ||
-    auth.shippingAddress.postCode === '' ||
-    auth.shippingAddress.phoneNumber === '';
 
   const shippingInfo = (
     <div className={classes['shipping-info']}>
@@ -58,13 +56,19 @@ const Checkout: React.FC<IProps> = ({
         <p className={classes['total-price']}>
           Total price: <span>${totalPrice.toFixed(2)}</span>
         </p>
-        <button
-          className={!totalPrice || addressError ? 'disabled' : 'checkout'}
-          onClick={checkoutHandler}
-          disabled={!totalPrice || addressError}
-        >
-          Checkout
-        </button>
+        {isCheckoutLoading ? (
+          <button className="disabled" disabled={isCheckoutLoading}>
+            Loading...
+          </button>
+        ) : (
+          <button
+            className={!totalPrice || addressError ? 'disabled' : 'checkout'}
+            onClick={checkoutHandler}
+            disabled={!totalPrice || addressError}
+          >
+            Checkout
+          </button>
+        )}
       </div>
     </div>
   );
