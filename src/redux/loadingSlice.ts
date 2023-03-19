@@ -1,11 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ILoadingState {
-  isStoreLoading: boolean;
-  isProfileLoading: boolean;
-  isCartLoading: boolean;
+  isPageLoading: boolean;
   isAuthLoading: boolean;
-  isVolumeLoading: boolean;
   isAddToCartLoading: boolean;
   isRemoveFromCartLoading: boolean;
   isUpdateShippingAddressLoading: boolean;
@@ -15,11 +12,8 @@ interface ILoadingState {
 }
 
 const initialState: ILoadingState = {
-  isStoreLoading: false,
-  isProfileLoading: false,
-  isCartLoading: false,
+  isPageLoading: false,
   isAuthLoading: false,
-  isVolumeLoading: false,
   isAddToCartLoading: false,
   isRemoveFromCartLoading: false,
   isUpdateShippingAddressLoading: false,

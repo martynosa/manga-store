@@ -22,7 +22,7 @@ const Store: React.FC = () => {
   const loading = useSelector((state: RootState) => state.loading);
 
   const loadMoreHandler = async () => {
-    dispatch(loadingActions.setLoading({ ...loading, isStoreLoading: true }));
+    dispatch(loadingActions.setLoading({ ...loading, isPageLoading: true }));
     const tempVolumes: IVolume[] = [];
 
     const subsequentBatches = query(
@@ -40,20 +40,20 @@ const Store: React.FC = () => {
         });
         dispatch(volumesActions.addMore(tempVolumes));
         dispatch(
-          loadingActions.setLoading({ ...loading, isStoreLoading: false })
+          loadingActions.setLoading({ ...loading, isPageLoading: false })
         );
       })
       .catch((error) => {
         // error handling
         console.log(error);
         dispatch(
-          loadingActions.setLoading({ ...loading, isStoreLoading: false })
+          loadingActions.setLoading({ ...loading, isPageLoading: false })
         );
       });
   };
 
   useEffect(() => {
-    dispatch(loadingActions.setLoading({ ...loading, isStoreLoading: true }));
+    dispatch(loadingActions.setLoading({ ...loading, isPageLoading: true }));
     const tempVolumes: IVolume[] = [];
 
     const firstBatchQ = query(
@@ -70,14 +70,14 @@ const Store: React.FC = () => {
         });
         dispatch(volumesActions.initialize(tempVolumes));
         dispatch(
-          loadingActions.setLoading({ ...loading, isStoreLoading: false })
+          loadingActions.setLoading({ ...loading, isPageLoading: false })
         );
       })
       .catch((error) => {
         // error handling
         console.log(error);
         dispatch(
-          loadingActions.setLoading({ ...loading, isStoreLoading: false })
+          loadingActions.setLoading({ ...loading, isPageLoading: false })
         );
       });
   }, []);
@@ -92,11 +92,11 @@ const Store: React.FC = () => {
         })}
       </div>
       <div className={classes['button-group']}>
-        {loading.isStoreLoading ? (
+        {loading.isPageLoading ? (
           <button
             onClick={loadMoreHandler}
             className="disabled"
-            disabled={loading.isStoreLoading}
+            disabled={loading.isPageLoading}
           >
             Loading...
           </button>

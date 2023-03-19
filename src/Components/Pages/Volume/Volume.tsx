@@ -70,22 +70,20 @@ const Volume: React.FC = () => {
 
   useEffect(() => {
     if (mangaParam && volumeParam) {
-      dispatch(
-        loadingActions.setLoading({ ...loading, isVolumeLoading: true })
-      );
+      dispatch(loadingActions.setLoading({ ...loading, isPageLoading: true }));
       getDoc(getVolumeRef(mangaParam, volumeParam))
         .then((volumeSnap) => {
           if (volumeSnap.exists()) {
             const volume = volumeSnap.data();
             setVolume(volume as IVolume);
             dispatch(
-              loadingActions.setLoading({ ...loading, isVolumeLoading: false })
+              loadingActions.setLoading({ ...loading, isPageLoading: false })
             );
           } else {
             // error handling
             console.log('no data for this volumeId');
             dispatch(
-              loadingActions.setLoading({ ...loading, isVolumeLoading: false })
+              loadingActions.setLoading({ ...loading, isPageLoading: false })
             );
           }
         })
@@ -93,13 +91,13 @@ const Volume: React.FC = () => {
           // error handling
           console.log(error);
           dispatch(
-            loadingActions.setLoading({ ...loading, isVolumeLoading: false })
+            loadingActions.setLoading({ ...loading, isPageLoading: false })
           );
         });
     }
   }, [mangaParam, volumeParam]);
 
-  if (loading.isVolumeLoading) {
+  if (loading.isPageLoading) {
     return (
       <section className="loading-error-section">
         <h2 className="general loading">Loading...</h2>

@@ -188,7 +188,7 @@ const Cart: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(loadingActions.setLoading({ ...loading, isCartLoading: true }));
+    dispatch(loadingActions.setLoading({ ...loading, isPageLoading: true }));
     const tempVolumes: IVolume[] = [];
     getDocs(getMangaStoreRef('naruto'))
       .then((storeSnap) => {
@@ -198,14 +198,14 @@ const Cart: React.FC = () => {
         });
         dispatch(volumesActions.initialize(tempVolumes));
         dispatch(
-          loadingActions.setLoading({ ...loading, isCartLoading: false })
+          loadingActions.setLoading({ ...loading, isPageLoading: false })
         );
       })
       .catch((error) => {
         // error handling
         console.log(error);
         dispatch(
-          loadingActions.setLoading({ ...loading, isCartLoading: false })
+          loadingActions.setLoading({ ...loading, isPageLoading: false })
         );
       });
   }, []);
@@ -213,7 +213,7 @@ const Cart: React.FC = () => {
   useEffect(() => {
     // initializes the shipping address
     if (auth.user) {
-      dispatch(loadingActions.setLoading({ ...loading, isCartLoading: true }));
+      dispatch(loadingActions.setLoading({ ...loading, isPageLoading: true }));
 
       getDoc(getShippingAddressRef(auth.user.id))
         .then((shippingAddressSnap) => {
@@ -222,7 +222,7 @@ const Cart: React.FC = () => {
               shippingAddressSnap.data() as IShippingAddress;
             dispatch(authActions.setShippingAddress(shippingAddress));
             dispatch(
-              loadingActions.setLoading({ ...loading, isCartLoading: false })
+              loadingActions.setLoading({ ...loading, isPageLoading: false })
             );
           }
         })
@@ -230,13 +230,13 @@ const Cart: React.FC = () => {
           // error handling
           console.log(error);
           dispatch(
-            loadingActions.setLoading({ ...loading, isCartLoading: false })
+            loadingActions.setLoading({ ...loading, isPageLoading: false })
           );
         });
     }
   }, [auth.user]);
 
-  if (loading.isCartLoading) {
+  if (loading.isPageLoading) {
     return (
       <section className="loading-error-section">
         <h2 className="general loading">Loading...</h2>

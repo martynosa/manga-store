@@ -28,9 +28,7 @@ const Profile: React.FC = () => {
   useEffect(() => {
     // initializes the shipping address
     if (auth.user) {
-      dispatch(
-        loadingActions.setLoading({ ...loading, isProfileLoading: true })
-      );
+      dispatch(loadingActions.setLoading({ ...loading, isPageLoading: true }));
 
       getDoc(getShippingAddressRef(auth.user.id))
         .then((shippingAddressSnap) => {
@@ -40,14 +38,14 @@ const Profile: React.FC = () => {
             dispatch(authActions.setShippingAddress(shippingAddress));
           }
           dispatch(
-            loadingActions.setLoading({ ...loading, isProfileLoading: false })
+            loadingActions.setLoading({ ...loading, isPageLoading: false })
           );
         })
         .catch((error) => {
           // error handling
           console.log(error);
           dispatch(
-            loadingActions.setLoading({ ...loading, isProfileLoading: false })
+            loadingActions.setLoading({ ...loading, isPageLoading: false })
           );
         });
     }
@@ -58,9 +56,7 @@ const Profile: React.FC = () => {
     const tempPurchaseHistory: IPurchaseHistoryItem[] = [];
 
     if (auth.user) {
-      dispatch(
-        loadingActions.setLoading({ ...loading, isProfileLoading: true })
-      );
+      dispatch(loadingActions.setLoading({ ...loading, isPageLoading: true }));
 
       const purchaseHistoryQ = query(
         getPurchaseHistoryRef(auth.user.id),
@@ -78,20 +74,21 @@ const Profile: React.FC = () => {
           });
           dispatch(authActions.setPurchaseHistory(tempPurchaseHistory));
           dispatch(
-            loadingActions.setLoading({ ...loading, isProfileLoading: false })
+            loadingActions.setLoading({ ...loading, isPageLoading: false })
           );
         })
         .catch((error) => {
           // error handling
           console.log(error);
           dispatch(
-            loadingActions.setLoading({ ...loading, isProfileLoading: false })
+            loadingActions.setLoading({ ...loading, isPageLoading: false })
           );
         });
     }
   }, [auth.user]);
 
-  if (loading.isProfileLoading || loading.isAuthStateChanging) {
+  if (loading.isPageLoading) {
+    // might need to add  || loading.isAuthStateChanging -> no indication for loading when page is refreshing
     return (
       <section className="loading-error-section">
         <h2 className="general loading">Loading...</h2>
