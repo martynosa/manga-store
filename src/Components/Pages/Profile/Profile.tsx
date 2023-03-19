@@ -3,7 +3,11 @@ import { NavLink, Outlet } from 'react-router-dom';
 import classes from './Profile.module.css';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { authActions, RootState } from '../../../redux/reduxStore';
+import {
+  authActions,
+  loadingActions,
+  RootState,
+} from '../../../redux/reduxStore';
 // firebase
 import { getDoc, getDocs, orderBy, query } from 'firebase/firestore';
 import {
@@ -19,10 +23,15 @@ import {
 const Profile: React.FC = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state: RootState) => state.auth);
+  const loading = useSelector((state: RootState) => state.loading);
 
   useEffect(() => {
     // initializes the shipping address
     if (auth.user) {
+      dispatch(
+        loadingActions.setLoading({ ...loading, isProfileLoading: true })
+      );
+
       getDoc(getShippingAddressRef(auth.user.id))
         .then((shippingAddressSnap) => {
           if (shippingAddressSnap.exists()) {
@@ -30,9 +39,16 @@ const Profile: React.FC = () => {
               shippingAddressSnap.data() as IShippingAddress;
             dispatch(authActions.setShippingAddress(shippingAddress));
           }
+          dispatch(
+            loadingActions.setLoading({ ...loading, isProfileLoading: false })
+          );
         })
         .catch((error) => {
+          // error handling
           console.log(error);
+          dispatch(
+            loadingActions.setLoading({ ...loading, isProfileLoading: false })
+          );
         });
     }
   }, [auth.user]);
@@ -40,7 +56,12 @@ const Profile: React.FC = () => {
   useEffect(() => {
     // initializes the purchase history
     const tempPurchaseHistory: IPurchaseHistoryItem[] = [];
+
     if (auth.user) {
+      dispatch(
+        loadingActions.setLoading({ ...loading, isProfileLoading: true })
+      );
+
       const purchaseHistoryQ = query(
         getPurchaseHistoryRef(auth.user.id),
         orderBy('orderedOn', 'desc')
@@ -56,12 +77,27 @@ const Profile: React.FC = () => {
             tempPurchaseHistory.push(purchaseHistoryItem);
           });
           dispatch(authActions.setPurchaseHistory(tempPurchaseHistory));
+          dispatch(
+            loadingActions.setLoading({ ...loading, isProfileLoading: false })
+          );
         })
         .catch((error) => {
+          // error handling
           console.log(error);
+          dispatch(
+            loadingActions.setLoading({ ...loading, isProfileLoading: false })
+          );
         });
     }
   }, [auth.user]);
+
+  if (loading.isProfileLoading) {
+    return (
+      <section className="loading-error-section">
+        <h2 className="general loading">Loading...</h2>
+      </section>
+    );
+  }
 
   return (
     <section className={classes['profile-section']}>

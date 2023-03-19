@@ -2,11 +2,7 @@ import { PropsWithChildren } from 'react';
 import classes from './ModalBackdrop.module.css';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  loadingActions,
-  modalActions,
-  RootState,
-} from '../../../redux/reduxStore';
+import { modalActions, RootState } from '../../../redux/reduxStore';
 // components
 import SignInModal from './AuthModal/SignInModal';
 import SignUpModal from './AuthModal/SignUpModal';
@@ -18,7 +14,6 @@ const ModalBackdrop: React.FC<PropsWithChildren> = () => {
   const dispatch = useDispatch();
   const closeModal = () => {
     dispatch(modalActions.close());
-    dispatch(loadingActions.setIsLoading(false));
   };
 
   return (

@@ -1,11 +1,15 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './ShippingAddress.module.css';
 // firebase
 import { setDoc } from 'firebase/firestore';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { authActions, RootState } from '../../../../redux/reduxStore';
+import {
+  authActions,
+  loadingActions,
+  RootState,
+} from '../../../../redux/reduxStore';
 import { getProfileRef } from '../../../../firebase/firestoreReferences';
 
 const ShippingAddress: React.FC = () => {
@@ -17,6 +21,7 @@ const ShippingAddress: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const auth = useSelector((state: RootState) => state.auth);
+  const loading = useSelector((state: RootState) => state.loading);
 
   const onChangeCity = (city: string) => {
     setCity(city);
@@ -50,14 +55,40 @@ const ShippingAddress: React.FC = () => {
 
     try {
       if (auth.user) {
+        dispatch(
+          loadingActions.setLoading({
+            ...loading,
+            isUpdateShippingAddressLoading: true,
+          })
+        );
         await setDoc(getProfileRef(auth.user.id), newShippingAddress);
         dispatch(authActions.setShippingAddress(newShippingAddress));
+        dispatch(
+          loadingActions.setLoading({
+            ...loading,
+            isUpdateShippingAddressLoading: false,
+          })
+        );
         navigate('/profile/overview');
       }
     } catch (error) {
+      // error handlling
       console.log(error);
+      dispatch(
+        loadingActions.setLoading({
+          ...loading,
+          isUpdateShippingAddressLoading: false,
+        })
+      );
     }
   };
+
+  useEffect(() => {
+    setCity(auth.shippingAddress.city);
+    setAddress(auth.shippingAddress.address);
+    setPostCode(auth.shippingAddress.postCode);
+    setPhoneNumber(auth.shippingAddress.phoneNumber);
+  }, [auth]);
 
   return (
     <form
@@ -100,7 +131,16 @@ const ShippingAddress: React.FC = () => {
           onChange={(e) => onChangePhoneNumber(e.target.value)}
         />
       </div>
-      <button className="update">update</button>
+      {loading.isUpdateShippingAddressLoading ? (
+        <button
+          className="disabled"
+          disabled={loading.isUpdateShippingAddressLoading}
+        >
+          Loading...
+        </button>
+      ) : (
+        <button className="update">update</button>
+      )}
     </form>
   );
 };
