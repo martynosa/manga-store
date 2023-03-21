@@ -9,12 +9,11 @@ import {
 } from '../../../redux/reduxStore';
 // firebase
 import { getDocs, limit, orderBy, query, startAfter } from 'firebase/firestore';
+import { getMangaStoreRef } from '../../../firebase/firestoreReferences';
 // typescript
 import { IVolume } from '../../../typescript/interfaces';
 // components
 import Card from './Card/Card';
-import Search from './Search/Search';
-import { getMangaStoreRef } from '../../../firebase/firestoreReferences';
 
 const Store: React.FC = () => {
   const volumes = useSelector((state: RootState) => state.volumes);
@@ -78,7 +77,6 @@ const Store: React.FC = () => {
   return (
     <section className={classes['store-section']}>
       <h1 className="page-title">Store</h1>
-      <Search />
       <div className={classes['store-grid']}>
         {volumes.map((v) => {
           return <Card key={v.volume} volume={v} />;

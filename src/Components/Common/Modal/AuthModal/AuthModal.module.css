@@ -12,9 +12,9 @@
 }
 
 .auth-form h1 {
-  margin-bottom: 1.2rem;
   text-transform: uppercase;
   font-size: var(--fs-32);
+  margin-bottom: 1.2rem;
 }
 
 .auth-form-group {

@@ -12,6 +12,6 @@
 }
 
 .checkout-modal p {
-  margin-bottom: 1.2rem;
   font-size: var(--fs-24);
+  margin-bottom: 2.4rem;
 }
