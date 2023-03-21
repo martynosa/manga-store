@@ -1,21 +1,19 @@
 import classes from './Info.module.css';
-// typescript
-import { IVolume } from '../../../../typescript/interfaces';
-import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { getCartItemRef } from '../../../../firebase/firestoreReferences';
-import { getDoc, increment, setDoc, updateDoc } from 'firebase/firestore';
+// redux
 import {
   cartActions,
   modalActions,
   RootState,
 } from '../../../../redux/reduxStore';
+import { useDispatch, useSelector } from 'react-redux';
+// firebase
+import { getCartItemRef } from '../../../../firebase/firestoreReferences';
+import { getDoc, increment, setDoc, updateDoc } from 'firebase/firestore';
+// typescript
+import { IVolume } from '../../../../typescript/interfaces';
 
-interface IProps {
-  volume: IVolume;
-}
-
-const Info: React.FC<IProps> = ({ volume }) => {
+const Info: React.FC<{ volume: IVolume }> = ({ volume }) => {
   const [isAddToCartLoading, setIsAddToCartLoading] = useState(false);
   const user = useSelector((state: RootState) => state.auth.user);
 

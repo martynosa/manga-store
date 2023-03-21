@@ -26,11 +26,7 @@ import {
   lengthValidator,
 } from '../../../../helpers/validators';
 
-interface IProps {
-  closeModal: () => void;
-}
-
-const SignInModal: React.FC<IProps> = ({ closeModal }) => {
+const SignInModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState<IAuthError>(defaultAuthError);

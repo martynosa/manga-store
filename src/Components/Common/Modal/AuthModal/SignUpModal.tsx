@@ -31,11 +31,7 @@ import {
   repeatPasswordValidator,
 } from '../../../../helpers/validators';
 
-interface IProps {
-  closeModal: () => void;
-}
-
-const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
+const SignUpModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const [email, setEmail] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [password, setPassword] = useState('');

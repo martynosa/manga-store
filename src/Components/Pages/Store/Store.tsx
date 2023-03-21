@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import classes from './Store.module.css';
-// Redux
+// redux
 import { useDispatch, useSelector } from 'react-redux';
 import {
   loadingActions,

@@ -8,7 +8,6 @@ import { auth } from './firebase/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 // components
 import ModalBackdrop from './Components/Common/Modal/ModalBackdrop';
-
 import Nav from './Components/Common/Nav/Nav';
 import Home from './Components/Pages/Home/Home';
 import Cart from './Components/Pages/Cart/Cart';

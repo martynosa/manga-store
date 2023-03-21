@@ -38,6 +38,7 @@ export interface IError {
   status: boolean;
   message: string;
 }
+
 export interface IAuthError {
   email: IError;
   displayName: IError;

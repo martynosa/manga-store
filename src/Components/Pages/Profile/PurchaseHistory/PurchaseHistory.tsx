@@ -1,6 +1,6 @@
-import { useSelector } from 'react-redux';
 import classes from './PurchaseHistory.module.css';
 // redux
+import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/reduxStore';
 // components
 import List from '../../../Common/List/List';

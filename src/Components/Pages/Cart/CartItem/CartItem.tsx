@@ -19,11 +19,7 @@ import {
 // typescript
 import { ICartItem, IVolume } from '../../../../typescript/interfaces';
 
-interface IProps {
-  cartItem: ICartItem;
-}
-
-const CartItem: React.FC<IProps> = ({ cartItem }) => {
+const CartItem: React.FC<{ cartItem: ICartItem }> = ({ cartItem }) => {
   const [isAddToCartLoading, setIsAddToCartLoading] = useState(false);
   const [isRemoveFromCartLoading, setIsRemoveFromCartLoading] = useState(false);
   const auth = useSelector((state: RootState) => state.auth);

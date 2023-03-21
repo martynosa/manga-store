@@ -14,19 +14,12 @@ import {
 // typescript
 import { ICartItem } from '../../../../typescript/interfaces';
 
-interface IProps {
+const Checkout: React.FC<{
   cartItemCount: number;
   totalPrice: number;
   addressError: boolean;
   modifiedCart: ICartItem[];
-}
-
-const Checkout: React.FC<IProps> = ({
-  cartItemCount,
-  totalPrice,
-  addressError,
-  modifiedCart,
-}) => {
+}> = ({ cartItemCount, totalPrice, addressError, modifiedCart }) => {
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
   const auth = useSelector((state: RootState) => state.auth);
 
