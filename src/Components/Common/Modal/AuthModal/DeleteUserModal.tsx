@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import classes from './AuthModal.module.css';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,7 +26,6 @@ import {
   emailValidator,
   lengthValidator,
 } from '../../../../helpers/validators';
-import { useNavigate } from 'react-router-dom';
 
 const DeleteUserModal: React.FC<{ closeModal: () => void }> = ({
   closeModal,

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { modalActions, RootState } from '../../../../redux/reduxStore';
 // helpers
 import { totalMoneySpentReducer } from '../../../../helpers/cartReducers';
+// typescript
 import { IModalPayload } from '../../../../redux/modalSlice';
 
 const Overview: React.FC = () => {
