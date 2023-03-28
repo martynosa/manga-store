@@ -21,9 +21,10 @@ import {
 } from '../../../typescript/interfaces';
 
 const Profile: React.FC = () => {
-  const dispatch = useDispatch();
   const auth = useSelector((state: RootState) => state.auth);
   const loading = useSelector((state: RootState) => state.loading);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // initializes the shipping address

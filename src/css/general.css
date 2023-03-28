@@ -72,6 +72,10 @@ button.load-more {
   background-color: var(--amber-color);
 }
 
+button.delete {
+  background-color: var(--red-color);
+}
+
 a.nav-cart {
   background-color: var(--green-color);
 }
@@ -122,7 +126,6 @@ button.disabled:hover {
 .input-group input {
   width: 100%;
   padding: 0.3rem 0.6rem;
-  text-transform: uppercase;
   background-color: var(--light-orange-color);
   border: 2px solid transparent;
   border-radius: var(--border-radius);

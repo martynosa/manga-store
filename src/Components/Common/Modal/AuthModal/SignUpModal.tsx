@@ -15,7 +15,7 @@ import {
   setPersistence,
   updateProfile,
 } from 'firebase/auth';
-import { auth } from '../../../../firebase/firebase';
+import { firebaseAuth } from '../../../../firebase/firebase';
 import { setDoc } from 'firebase/firestore';
 import { getProfileRef } from '../../../../firebase/firestoreReferences';
 // typescript
@@ -38,8 +38,9 @@ const SignUpModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const [repeatPassword, setRepeatPassword] = useState('');
   const [authError, setAuthError] = useState<IAuthError>(defaultAuthError);
 
-  const dispatch = useDispatch();
   const loading = useSelector((state: RootState) => state.loading);
+
+  const dispatch = useDispatch();
 
   const signUpHandler = async (e: FormEvent) => {
     e.preventDefault();
@@ -61,8 +62,12 @@ const SignUpModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
     dispatch(loadingActions.setAuthLoading(true));
 
     try {
-      await setPersistence(auth, browserLocalPersistence);
-      const user = await createUserWithEmailAndPassword(auth, email, password);
+      await setPersistence(firebaseAuth, browserLocalPersistence);
+      const user = await createUserWithEmailAndPassword(
+        firebaseAuth,
+        email,
+        password
+      );
 
       if (user) {
         await updateProfile(user.user, { displayName: displayName });

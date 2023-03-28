@@ -1,14 +1,44 @@
 import classes from './Overview.module.css';
+// firebase
+import { deleteUser } from 'firebase/auth';
+import { firebaseAuth } from '../../../../firebase/firebase';
 // redux
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../../redux/reduxStore';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  authActions,
+  loadingActions,
+  RootState,
+} from '../../../../redux/reduxStore';
 // helpers
 import { totalMoneySpentReducer } from '../../../../helpers/cartReducers';
+import { useNavigate } from 'react-router-dom';
 
 const Overview: React.FC = () => {
   const auth = useSelector((state: RootState) => state.auth);
+  const loading = useSelector((state: RootState) => state.loading);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const totalMoneySpent = totalMoneySpentReducer(auth.purchaseHistory);
+
+  const onDeleteUserHandler = async () => {
+    dispatch(loadingActions.setAuthLoading(true));
+    // will need to reauthenticate here, if the user logged in too long ago it will throw an error into the catch block
+    try {
+      const user = firebaseAuth.currentUser;
+      if (user) {
+        await deleteUser(user);
+        dispatch(authActions.unsetUser());
+        dispatch(loadingActions.setAuthLoading(false));
+        navigate('/');
+      }
+    } catch (error) {
+      // error handling here
+      console.log(error);
+      dispatch(loadingActions.setAuthLoading(false));
+    }
+  };
 
   return (
     <>
@@ -47,6 +77,15 @@ const Overview: React.FC = () => {
               <span>Phone number:</span> {auth.shippingAddress.phoneNumber}
             </p>
           </div>
+          {loading.isAuthLoading ? (
+            <button className="disabled" disabled={loading.isAuthLoading}>
+              Loading...
+            </button>
+          ) : (
+            <button className="delete" onClick={onDeleteUserHandler}>
+              delete account
+            </button>
+          )}
         </div>
       )}
     </>

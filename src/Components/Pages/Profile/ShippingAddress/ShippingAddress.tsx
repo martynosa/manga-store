@@ -16,9 +16,10 @@ const ShippingAddress: React.FC = () => {
   const [isUpdateShippingAddressLoading, setIsUpdateShippingAddressLoading] =
     useState(false);
 
+  const auth = useSelector((state: RootState) => state.auth);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const auth = useSelector((state: RootState) => state.auth);
 
   const onChangeCity = (city: string) => {
     setCity(city);

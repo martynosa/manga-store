@@ -12,6 +12,7 @@ const ModalBackdrop: React.FC<PropsWithChildren> = () => {
   const modal = useSelector((state: RootState) => state.modal);
 
   const dispatch = useDispatch();
+
   const closeModal = () => {
     dispatch(modalActions.close());
   };

@@ -8,7 +8,7 @@ import {
   RootState,
 } from '../../../../redux/reduxStore';
 // firebase
-import { auth } from '../../../../firebase/firebase';
+import { firebaseAuth } from '../../../../firebase/firebase';
 import {
   browserLocalPersistence,
   setPersistence,
@@ -31,8 +31,9 @@ const SignInModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState<IAuthError>(defaultAuthError);
 
-  const dispatch = useDispatch();
   const loading = useSelector((state: RootState) => state.loading);
+
+  const dispatch = useDispatch();
 
   const signInHandler = async (e: FormEvent) => {
     e.preventDefault();
@@ -51,8 +52,12 @@ const SignInModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
     dispatch(loadingActions.setAuthLoading(true));
 
     try {
-      await setPersistence(auth, browserLocalPersistence);
-      const user = await signInWithEmailAndPassword(auth, email, password);
+      await setPersistence(firebaseAuth, browserLocalPersistence);
+      const user = await signInWithEmailAndPassword(
+        firebaseAuth,
+        email,
+        password
+      );
 
       dispatch(
         authActions.setUser({

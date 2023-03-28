@@ -19,6 +19,7 @@ const Volume: React.FC = () => {
   const { mangaParam, volumeParam } = useParams();
 
   const loading = useSelector((state: RootState) => state.loading);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
