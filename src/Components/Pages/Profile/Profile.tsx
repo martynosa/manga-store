@@ -89,7 +89,7 @@ const Profile: React.FC = () => {
   }
 
   return (
-    <section className={classes['profile-section']}>
+    <section className="page-section">
       <h1 className="page-title">Profile</h1>
       <nav className={classes['profile-nav']}>
         <NavLink

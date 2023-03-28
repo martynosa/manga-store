@@ -94,7 +94,7 @@ const Cart: React.FC = () => {
   }
 
   return (
-    <section className={classes['cart-section']}>
+    <section className="page-section">
       <h1 className="page-title">Cart</h1>
       <div className={classes['content-grid']}>
         <List>

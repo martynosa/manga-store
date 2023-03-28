@@ -1,6 +1,6 @@
 :root {
   /* GENERAL */
-  --animation: all 0.2s ease-in-out;
+  --animation: all 0.3s ease-in-out;
   --border-radius: 4px;
 
   /* FONT_SIZE */
@@ -28,4 +28,7 @@
   --red-color: #b91c1c;
   --green-color: #15803d;
   --amber-color: #f59e0b;
+
+  --success-color: #bef264;
+  --fail-color: #fda4af;
 }

@@ -77,7 +77,7 @@ const UserNav: React.FC = () => {
       }
     >
       <span>{totalCartItemCount} </span>
-      cart
+      🛒
     </NavLink>
   );
 

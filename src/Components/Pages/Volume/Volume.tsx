@@ -55,7 +55,7 @@ const Volume: React.FC = () => {
 
   if (volume) {
     return (
-      <section className={classes['volume-section']}>
+      <section className="page-section">
         <h1 className={classes['eng-title']}>{volume.engVolumeName}</h1>
         <h2 className={classes['jap-title']}>{volume.japVolumeName}</h2>
         <div className={classes.content}>

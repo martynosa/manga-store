@@ -18,6 +18,7 @@ import Profile from './Components/Pages/Profile/Profile';
 import ShippingAddress from './Components/Pages/Profile/ShippingAddress/ShippingAddress';
 import PurchaseHistory from './Components/Pages/Profile/PurchaseHistory/PurchaseHistory';
 import Overview from './Components/Pages/Profile/Overview/Overview';
+import Notification from './Components/Common/Notification/Notification';
 
 function App() {
   const modal = useSelector((state: RootState) => state.modal);
@@ -51,6 +52,8 @@ function App() {
       {modal.isOpen && <ModalBackdrop />}
 
       <Nav />
+
+      {/* <Notification /> */}
 
       <Routes>
         <Route path="/" element={<Home />} />

@@ -1,4 +1,9 @@
-/* page title */
+/* page related */
+.page-section {
+  padding: 1.2rem 2.4rem;
+  margin-top: 9.6rem;
+}
+
 .page-title {
   text-align: center;
   text-transform: uppercase;
@@ -149,7 +154,7 @@ button.disabled:hover {
 /* loading or error */
 .loading-error-section {
   margin: 0 auto;
-  margin-top: 6.4rem;
+  margin-top: 9.6rem;
   display: flex;
   align-items: center;
   justify-content: center;
