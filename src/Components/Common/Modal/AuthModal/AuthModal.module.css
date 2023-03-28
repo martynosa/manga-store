@@ -13,7 +13,7 @@
 
 .auth-form h1 {
   text-transform: uppercase;
-  font-size: var(--fs-32);
+  font-size: var(--fs-24);
   margin-bottom: 1.2rem;
 }
 

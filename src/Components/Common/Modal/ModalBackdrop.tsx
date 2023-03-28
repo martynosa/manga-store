@@ -7,6 +7,7 @@ import { modalActions, RootState } from '../../../redux/reduxStore';
 import SignInModal from './AuthModal/SignInModal';
 import SignUpModal from './AuthModal/SignUpModal';
 import CheckoutModal from './CheckoutModal/CheckoutModal';
+import DeleteUserModal from './AuthModal/DeleteUserModal';
 
 const ModalBackdrop: React.FC<PropsWithChildren> = () => {
   const modal = useSelector((state: RootState) => state.modal);
@@ -23,6 +24,9 @@ const ModalBackdrop: React.FC<PropsWithChildren> = () => {
       {modal.content === 'signup' && <SignUpModal closeModal={closeModal} />}
       {modal.content === 'checkout' && (
         <CheckoutModal closeModal={closeModal} />
+      )}
+      {modal.content === 'deleteUser' && (
+        <DeleteUserModal closeModal={closeModal} />
       )}
     </div>
   );

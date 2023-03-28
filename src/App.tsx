@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions, loadingActions, RootState } from './redux/reduxStore';
 // firebase
-import { auth } from './firebase/firebase';
+import { firebaseAuth } from './firebase/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 // components
 import ModalBackdrop from './Components/Common/Modal/ModalBackdrop';
@@ -26,7 +26,7 @@ function App() {
 
   // user persistance
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(firebaseAuth, (user) => {
       if (user) {
         dispatch(
           authActions.setUser({

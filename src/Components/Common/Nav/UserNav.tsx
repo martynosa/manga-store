@@ -5,7 +5,7 @@ import classes from './Nav.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartActions, RootState, authActions } from '../../../redux/reduxStore';
 // firebase
-import { auth } from '../../../firebase/firebase';
+import { firebaseAuth } from '../../../firebase/firebase';
 import {
   browserLocalPersistence,
   setPersistence,
@@ -29,8 +29,8 @@ const UserNav: React.FC = () => {
 
   const signOutHandler = async () => {
     try {
-      await setPersistence(auth, browserLocalPersistence);
-      await signOut(auth);
+      await setPersistence(firebaseAuth, browserLocalPersistence);
+      await signOut(firebaseAuth);
       dispatch(authActions.unsetUser());
     } catch (error) {
       // error handling
