@@ -171,9 +171,6 @@ const SignInModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           )}
         </div>
       </div>
-      <button type="button" onClick={openNotification}>
-        open
-      </button>
     </form>
   );
 };
