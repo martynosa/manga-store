@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface INotificationState {
   isOpen: boolean;
-  type: 'success' | 'fail';
   message: string;
+  type: null | 'success' | 'fail';
 }
 
 export interface INotificationPayload {
@@ -13,8 +13,8 @@ export interface INotificationPayload {
 
 const initialState: INotificationState = {
   isOpen: false,
-  type: 'success',
   message: '',
+  type: null,
 };
 
 const notificationSlice = createSlice({
