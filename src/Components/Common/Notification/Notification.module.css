@@ -1,11 +1,23 @@
 .notification {
+  z-index: 9999;
   position: fixed;
   top: 7.2rem;
   padding: 0.3rem 0.6rem;
   text-align: center;
   left: 50%;
   transform: translateX(-50%);
-  background-color: var(--fail-color);
   border-radius: var(--border-radius);
   font-weight: 700;
+}
+
+.notification p {
+  text-transform: capitalize;
+}
+
+.success {
+  background-color: var(--success-color);
+}
+
+.fail {
+  background-color: var(--fail-color);
 }

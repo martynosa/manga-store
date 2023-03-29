@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   authActions,
   loadingActions,
+  notificationActions,
   RootState,
 } from '../../../../redux/reduxStore';
 // firebase
@@ -13,6 +14,7 @@ import {
   browserLocalPersistence,
   setPersistence,
   signInWithEmailAndPassword,
+  AuthError as firebaseAuthError,
 } from 'firebase/auth';
 // typescript
 import {
@@ -25,6 +27,7 @@ import {
   emailValidator,
   lengthValidator,
 } from '../../../../helpers/validators';
+import { firebaseErrorTrimmer } from '../../../../helpers/firebaseErrorTrimmer';
 
 const SignInModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const [email, setEmail] = useState('');
@@ -34,6 +37,10 @@ const SignInModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const loading = useSelector((state: RootState) => state.loading);
 
   const dispatch = useDispatch();
+
+  const openNotification = () => {
+    dispatch(notificationActions.open({ message: 'hello', type: 'success' }));
+  };
 
   const signInHandler = async (e: FormEvent) => {
     e.preventDefault();
@@ -71,7 +78,14 @@ const SignInModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
       dispatch(loadingActions.setAuthLoading(false));
     } catch (error) {
       // error handling
-      console.log(error);
+      const errorMessage = firebaseErrorTrimmer(error as firebaseAuthError);
+
+      dispatch(
+        notificationActions.open({
+          message: errorMessage,
+          type: 'fail',
+        })
+      );
       dispatch(loadingActions.setAuthLoading(false));
     }
   };
@@ -157,6 +171,9 @@ const SignInModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           )}
         </div>
       </div>
+      <button type="button" onClick={openNotification}>
+        open
+      </button>
     </form>
   );
 };

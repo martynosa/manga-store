@@ -27,6 +27,7 @@ const modalSlice = createSlice({
     },
     close(state) {
       state.isOpen = false;
+      state.content = null;
     },
   },
 });

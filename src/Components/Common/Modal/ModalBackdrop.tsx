@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 import classes from './ModalBackdrop.module.css';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +17,13 @@ const ModalBackdrop: React.FC<PropsWithChildren> = () => {
   const closeModal = () => {
     dispatch(modalActions.close());
   };
+
+  useEffect(() => {
+    document.body.classList.add('no-scroll');
+    return () => {
+      document.body.classList.remove('no-scroll');
+    };
+  }, []);
 
   return (
     <div className={classes['modal-backdrop']}>

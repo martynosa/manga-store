@@ -22,6 +22,7 @@ import Notification from './Components/Common/Notification/Notification';
 
 function App() {
   const modal = useSelector((state: RootState) => state.modal);
+  const notification = useSelector((state: RootState) => state.notification);
 
   const dispatch = useDispatch();
 
@@ -41,19 +42,13 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
-    modal.isOpen
-      ? document.body.classList.add('no-scroll')
-      : document.body.classList.remove('no-scroll');
-  }, [modal.isOpen]);
-
   return (
     <>
       {modal.isOpen && <ModalBackdrop />}
 
-      <Nav />
+      {notification.isOpen && <Notification />}
 
-      <Notification />
+      <Nav />
 
       <Routes>
         <Route path="/" element={<Home />} />
