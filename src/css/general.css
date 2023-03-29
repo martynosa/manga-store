@@ -7,7 +7,7 @@
 .page-title {
   text-align: center;
   text-transform: uppercase;
-  font-size: var(--fs-52);
+  font-size: var(--fs-48);
   padding: 0.6rem 1.2rem;
   margin-bottom: 2.4rem;
 }
@@ -39,12 +39,10 @@ button {
 
 button.sign-in,
 button.sign-up {
-  font-size: var(--fs-24);
   background-color: var(--amber-color);
 }
 
 button.close {
-  font-size: var(--fs-24);
   background-color: transparent;
 }
 
@@ -87,12 +85,10 @@ a.nav-cart {
 
 a.nav-logo {
   font-weight: 700;
-  font-size: var(--fs-32);
 }
 
 a.nav-displayname {
   padding: 0.3rem 0.6rem;
-  font-size: var(--fs-24);
   font-weight: 700;
   border-radius: var(--border-radius);
   background-color: var(--amber-color);

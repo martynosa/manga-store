@@ -53,7 +53,7 @@ function App() {
 
       <Nav />
 
-      {/* <Notification /> */}
+      <Notification />
 
       <Routes>
         <Route path="/" element={<Home />} />
