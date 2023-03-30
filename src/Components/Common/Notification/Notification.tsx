@@ -28,8 +28,8 @@ const Notification: React.FC = () => {
       notificationClasses = `${notificationClasses} ${classes.fail}`;
   }
 
-  const successMessage = <p>✔️ {notification.message}.</p>;
-  const failMessage = <p>❌ {notification.message}.</p>;
+  const successMessage = <p>✔️ {notification.message}</p>;
+  const failMessage = <p>❌ {notification.message}</p>;
 
   return (
     <div className={notificationClasses}>

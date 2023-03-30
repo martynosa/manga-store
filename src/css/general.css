@@ -79,6 +79,10 @@ button.delete {
   background-color: var(--red-color);
 }
 
+button.add-to-cart {
+  background-color: var(--green-color);
+}
+
 a.nav-cart {
   background-color: var(--green-color);
 }

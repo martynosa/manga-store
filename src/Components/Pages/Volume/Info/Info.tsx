@@ -4,6 +4,7 @@ import { useState } from 'react';
 import {
   cartActions,
   modalActions,
+  notificationActions,
   RootState,
 } from '../../../../redux/reduxStore';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,7 +23,6 @@ const Info: React.FC<{ volume: IVolume }> = ({ volume }) => {
   const addToCartHandler = async (volume: IVolume) => {
     if (user) {
       setIsAddToCartLoading(true);
-
       try {
         const cartItemRef = getCartItemRef(user.id, volume.id);
         // increments item's quantity
@@ -32,17 +32,34 @@ const Info: React.FC<{ volume: IVolume }> = ({ volume }) => {
             quantity: increment(1),
           });
           dispatch(cartActions.add({ id: volume.id, quantity: 1 }));
+          dispatch(
+            notificationActions.open({
+              message: '+ 1',
+              type: 'success',
+            })
+          );
           setIsAddToCartLoading(false);
           return;
         }
         // adds the item to the cart
         await setDoc(cartItemRef, { quantity: 1 });
         dispatch(cartActions.add({ id: volume.id, quantity: 1 }));
+        dispatch(
+          notificationActions.open({
+            message: 'Added',
+            type: 'success',
+          })
+        );
         setIsAddToCartLoading(false);
         return;
       } catch (error) {
         // error handling
-        console.log(error);
+        dispatch(
+          notificationActions.open({
+            message: 'General error',
+            type: 'fail',
+          })
+        );
         setIsAddToCartLoading(false);
       }
     }
@@ -71,7 +88,12 @@ const Info: React.FC<{ volume: IVolume }> = ({ volume }) => {
           Loading...
         </button>
       ) : (
-        <button onClick={() => addToCartHandler(volume)}>add to cart</button>
+        <button
+          className="add-to-cart"
+          onClick={() => addToCartHandler(volume)}
+        >
+          add to cart
+        </button>
       )}
     </div>
   );
