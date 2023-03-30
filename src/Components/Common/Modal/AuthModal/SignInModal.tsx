@@ -21,6 +21,7 @@ import {
   defaultAuthError,
   IAuthError,
   defaultError,
+  defaultAreTouched,
 } from '../../../../typescript/interfaces';
 // helpers
 import {
@@ -33,10 +34,7 @@ const SignInModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState<IAuthError>(defaultAuthError);
-  const [areTouched, setAreTouched] = useState({
-    email: false,
-    password: false,
-  });
+  const [areTouched, setAreTouched] = useState(defaultAreTouched);
 
   const loading = useSelector((state: RootState) => state.loading);
 

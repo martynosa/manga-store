@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   authActions,
   loadingActions,
+  notificationActions,
   RootState,
 } from '../../../../redux/reduxStore';
 import { initialShippingAddress } from '../../../../redux/authSlice';
@@ -14,12 +15,14 @@ import {
   createUserWithEmailAndPassword,
   setPersistence,
   updateProfile,
+  AuthError as firebaseAuthError,
 } from 'firebase/auth';
 import { firebaseAuth } from '../../../../firebase/firebase';
 import { setDoc } from 'firebase/firestore';
 import { getProfileRef } from '../../../../firebase/firestoreReferences';
 // typescript
 import {
+  defaultAreTouched,
   defaultAuthError,
   defaultError,
   IAuthError,
@@ -30,6 +33,7 @@ import {
   lengthValidator,
   repeatPasswordValidator,
 } from '../../../../helpers/validators';
+import { firebaseErrorTrimmer } from '../../../../helpers/firebaseErrorTrimmer';
 
 const SignUpModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const [email, setEmail] = useState('');
@@ -37,6 +41,7 @@ const SignUpModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const [authError, setAuthError] = useState<IAuthError>(defaultAuthError);
+  const [areTouched, setAreTouched] = useState(defaultAreTouched);
 
   const loading = useSelector((state: RootState) => state.loading);
 
@@ -45,17 +50,58 @@ const SignUpModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const signUpHandler = async (e: FormEvent) => {
     e.preventDefault();
 
+    if (!areTouched.email) {
+      setAuthError((prevState) => {
+        return {
+          ...prevState,
+          email: { status: true, message: 'Please provide a valid email.' },
+        };
+      });
+    }
+
+    if (!areTouched.displayName) {
+      setAuthError((prevState) => {
+        return {
+          ...prevState,
+          displayName: {
+            status: true,
+            message: '3 or more characters required.',
+          },
+        };
+      });
+    }
+
+    if (!areTouched.password) {
+      setAuthError((prevState) => {
+        return {
+          ...prevState,
+          password: { status: true, message: '6 or more characters required.' },
+        };
+      });
+    }
+
+    if (!areTouched.repeatPassword) {
+      setAuthError((prevState) => {
+        return {
+          ...prevState,
+          repeatPassword: {
+            status: true,
+            message: 'Repeat password does not match password.',
+          },
+        };
+      });
+    }
+
     if (
       authError.email.status ||
       authError.displayName.status ||
       authError.password.status ||
       authError.repeatPassword.status ||
-      email === '' ||
-      password === '' ||
-      repeatPassword === ''
+      !areTouched.email ||
+      !areTouched.displayName ||
+      !areTouched.password ||
+      !areTouched.repeatPassword
     ) {
-      // error handling
-      console.log('errors =>', authError);
       return;
     }
 
@@ -82,11 +128,23 @@ const SignUpModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
         })
       );
 
-      closeModal();
+      dispatch(
+        notificationActions.open({
+          message: `Welcome ${user.user.displayName}`,
+          type: 'success',
+        })
+      );
       dispatch(loadingActions.setAuthLoading(false));
+      closeModal();
     } catch (error) {
       // error handling
-      console.log(error);
+      const errorMessage = firebaseErrorTrimmer(error as firebaseAuthError);
+      dispatch(
+        notificationActions.open({
+          message: errorMessage,
+          type: 'fail',
+        })
+      );
       dispatch(loadingActions.setAuthLoading(false));
     }
   };
@@ -144,25 +202,37 @@ const SignUpModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
     });
   };
 
-  const onChangeEmail = (email: string) => {
+  const onBlurEmail = (email: string) => {
     setEmail(email);
     validateEmail(email);
+    setAreTouched((state) => {
+      return { ...state, email: true };
+    });
   };
 
-  const onChangeDisplayName = (displayName: string) => {
+  const onBlurDisplayName = (displayName: string) => {
     setDisplayName(displayName);
     validateDisplayName(displayName);
+    setAreTouched((state) => {
+      return { ...state, displayName: true };
+    });
   };
 
-  const onChangePassword = (password: string) => {
+  const onBlurPassword = (password: string) => {
     setPassword(password);
     validatePassword(password);
     validateRepeatPassword(password, repeatPassword);
+    setAreTouched((state) => {
+      return { ...state, password: true };
+    });
   };
 
-  const onChangeRepeatPassword = (repeatPassword: string) => {
+  const onBlurRepeatPassword = (repeatPassword: string) => {
     setRepeatPassword(repeatPassword);
     validateRepeatPassword(password, repeatPassword);
+    setAreTouched((state) => {
+      return { ...state, repeatPassword: true };
+    });
   };
 
   return (
@@ -174,7 +244,7 @@ const SignUpModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           <input
             id="email"
             type="text"
-            onChange={(e) => onChangeEmail(e.target.value)}
+            onBlur={(e) => onBlurEmail(e.target.value)}
           />
           {authError.email.status && (
             <p className="error">{authError.email.message}</p>
@@ -188,7 +258,7 @@ const SignUpModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           <input
             id="displayName"
             type="text"
-            onChange={(e) => onChangeDisplayName(e.target.value)}
+            onBlur={(e) => onBlurDisplayName(e.target.value)}
           />
           {authError.displayName.status && (
             <p className="error">{authError.displayName.message}</p>
@@ -202,7 +272,7 @@ const SignUpModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           <input
             id="password"
             type="password"
-            onChange={(e) => onChangePassword(e.target.value)}
+            onBlur={(e) => onBlurPassword(e.target.value)}
           />
           {authError.password.status && (
             <p className="error">{authError.password.message}</p>
@@ -216,7 +286,7 @@ const SignUpModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           <input
             id="repeatPassword"
             type="password"
-            onChange={(e) => onChangeRepeatPassword(e.target.value)}
+            onBlur={(e) => onBlurRepeatPassword(e.target.value)}
           />
           {authError.repeatPassword.status && (
             <p className="error">{authError.repeatPassword.message}</p>

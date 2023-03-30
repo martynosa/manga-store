@@ -55,6 +55,13 @@ export const defaultAuthError = {
   repeatPassword: defaultError,
 };
 
+export const defaultAreTouched = {
+  email: false,
+  displayName: false,
+  password: false,
+  repeatPassword: false,
+};
+
 // cart
 export interface ICartItem {
   id: string;
