@@ -33,26 +33,46 @@ const SignInModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState<IAuthError>(defaultAuthError);
+  const [areTouched, setAreTouched] = useState({
+    email: false,
+    password: false,
+  });
 
   const loading = useSelector((state: RootState) => state.loading);
 
   const dispatch = useDispatch();
 
-  const openNotification = () => {
-    dispatch(notificationActions.open({ message: 'hello', type: 'success' }));
-  };
-
   const signInHandler = async (e: FormEvent) => {
     e.preventDefault();
+
+    if (authError.email.status || authError.password.status) {
+      return;
+    }
+
+    if (!areTouched.email) {
+      setAuthError((prevState) => {
+        return {
+          ...prevState,
+          email: { status: true, message: 'Please provide a valid email.' },
+        };
+      });
+    }
+
+    if (!areTouched.password) {
+      setAuthError((prevState) => {
+        return {
+          ...prevState,
+          password: { status: true, message: '6 or more characters required.' },
+        };
+      });
+    }
 
     if (
       authError.email.status ||
       authError.password.status ||
-      email === '' ||
-      password === ''
+      !areTouched.email ||
+      !areTouched.password
     ) {
-      // error handling
-      console.log('errors =>', authError);
       return;
     }
 
@@ -73,13 +93,17 @@ const SignInModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           displayName: user.user.displayName,
         })
       );
-
-      closeModal();
+      dispatch(
+        notificationActions.open({
+          message: `Welcome ${user.user.displayName}`,
+          type: 'success',
+        })
+      );
       dispatch(loadingActions.setAuthLoading(false));
+      closeModal();
     } catch (error) {
       // error handling
       const errorMessage = firebaseErrorTrimmer(error as firebaseAuthError);
-
       dispatch(
         notificationActions.open({
           message: errorMessage,
@@ -116,14 +140,20 @@ const SignInModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
     });
   };
 
-  const onChangeEmail = (email: string) => {
+  const onBlurEmail = (email: string) => {
     setEmail(email);
     validateEmail(email);
+    setAreTouched((state) => {
+      return { ...state, email: true };
+    });
   };
 
-  const onChangePassword = (password: string) => {
+  const onBlurPassword = (password: string) => {
     setPassword(password);
     validatePassword(password);
+    setAreTouched((state) => {
+      return { ...state, password: true };
+    });
   };
 
   return (
@@ -135,7 +165,7 @@ const SignInModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           <input
             id="email"
             type="text"
-            onChange={(e) => onChangeEmail(e.target.value)}
+            onBlur={(e) => onBlurEmail(e.target.value)}
           />
           {authError.email.status && (
             <p className="error">{authError.email.message}</p>
@@ -149,7 +179,7 @@ const SignInModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           <input
             id="password"
             type="password"
-            onChange={(e) => onChangePassword(e.target.value)}
+            onBlur={(e) => onBlurPassword(e.target.value)}
           />
           {authError.password.status && (
             <p className="error">{authError.password.message}</p>
