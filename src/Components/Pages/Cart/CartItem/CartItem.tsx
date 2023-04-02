@@ -54,7 +54,7 @@ const CartItem: React.FC<{ cartItem: ICartItem }> = ({ cartItem }) => {
         // error handling
         dispatch(
           notificationActions.open({
-            message: 'General error',
+            message: 'general error',
             type: 'fail',
           })
         );

@@ -130,7 +130,7 @@ const SignUpModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
 
       dispatch(
         notificationActions.open({
-          message: `Welcome ${user.user.displayName}`,
+          message: `welcome ${user.user.displayName}`,
           type: 'success',
         })
       );
