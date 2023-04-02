@@ -83,7 +83,7 @@ const Profile: React.FC = () => {
     // might need to add  || loading.isAuthStateChanging -> no indication for loading when page is refreshing
     return (
       <section className="loading-error-section">
-        <h2 className="general loading">Loading...</h2>
+        <h2 className="general loading">loading...</h2>
       </section>
     );
   }

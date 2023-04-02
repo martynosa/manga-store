@@ -48,7 +48,7 @@ const Volume: React.FC = () => {
   if (loading.isPageLoading) {
     return (
       <section className="loading-error-section">
-        <h2 className="general loading">Loading...</h2>
+        <h2 className="general loading">loading...</h2>
       </section>
     );
   }
@@ -72,7 +72,7 @@ const Volume: React.FC = () => {
 
   return (
     <section className="loading-error-section">
-      <h2 className="general error">Volume not found.</h2>
+      <h2 className="general error">volume not found</h2>
     </section>
   );
 };

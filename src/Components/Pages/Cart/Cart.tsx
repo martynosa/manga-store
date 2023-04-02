@@ -88,7 +88,7 @@ const Cart: React.FC = () => {
   if (loading.isPageLoading) {
     return (
       <section className="loading-error-section">
-        <h2 className="general loading">Loading...</h2>
+        <h2 className="general loading">loading...</h2>
       </section>
     );
   }
