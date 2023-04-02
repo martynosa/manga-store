@@ -4,6 +4,7 @@ import classes from './Store.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   loadingActions,
+  notificationActions,
   RootState,
   volumesActions,
 } from '../../../redux/reduxStore';
@@ -38,6 +39,17 @@ const Store: React.FC = () => {
           const volume = volumeSnap.data() as IVolume;
           tempVolumes.push(volume);
         });
+
+        if (tempVolumes.length === 0) {
+          dispatch(loadingActions.setPageLoading(false));
+          dispatch(
+            notificationActions.open({
+              message: 'you reached the end',
+              type: 'warning',
+            })
+          );
+        }
+
         dispatch(volumesActions.addMore(tempVolumes));
         dispatch(loadingActions.setPageLoading(false));
       })

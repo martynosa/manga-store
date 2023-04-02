@@ -26,15 +26,20 @@ const Notification: React.FC = () => {
       break;
     case 'fail':
       notificationClasses = `${notificationClasses} ${classes.fail}`;
+      break;
+    case 'warning':
+      notificationClasses = `${notificationClasses} ${classes.warning}`;
   }
 
   const successMessage = <p>✔️ {notification.message}</p>;
   const failMessage = <p>❌ {notification.message}</p>;
+  const warningMessage = <p>❗ {notification.message}</p>;
 
   return (
     <div className={notificationClasses}>
       {notification.type === 'success' && successMessage}
       {notification.type === 'fail' && failMessage}
+      {notification.type === 'warning' && warningMessage}
     </div>
   );
 };

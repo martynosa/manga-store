@@ -98,9 +98,13 @@ const Cart: React.FC = () => {
       <h1 className="page-title">Cart</h1>
       <div className={classes['content-grid']}>
         <List>
-          {modifiedCart.map((c) => (
-            <CartItem cartItem={c} key={c.id} />
-          ))}
+          {cartItemCount !== 0 &&
+            modifiedCart.map((c) => <CartItem cartItem={c} key={c.id} />)}
+          {cartItemCount === 0 && (
+            <section className="loading-error-section">
+              <h2 className="general warning">your cart is empty</h2>
+            </section>
+          )}
         </List>
         <Checkout
           totalPrice={totalPrice}

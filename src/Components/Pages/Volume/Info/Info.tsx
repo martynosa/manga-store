@@ -46,7 +46,7 @@ const Info: React.FC<{ volume: IVolume }> = ({ volume }) => {
         dispatch(cartActions.add({ id: volume.id, quantity: 1 }));
         dispatch(
           notificationActions.open({
-            message: 'Added',
+            message: 'added',
             type: 'success',
           })
         );
@@ -56,7 +56,7 @@ const Info: React.FC<{ volume: IVolume }> = ({ volume }) => {
         // error handling
         dispatch(
           notificationActions.open({
-            message: 'General error',
+            message: 'general error',
             type: 'fail',
           })
         );

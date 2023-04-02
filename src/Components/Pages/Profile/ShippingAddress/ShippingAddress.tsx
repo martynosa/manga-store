@@ -5,7 +5,12 @@ import classes from './ShippingAddress.module.css';
 import { setDoc } from 'firebase/firestore';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { authActions, RootState } from '../../../../redux/reduxStore';
+import {
+  authActions,
+  loadingActions,
+  notificationActions,
+  RootState,
+} from '../../../../redux/reduxStore';
 import { getProfileRef } from '../../../../firebase/firestoreReferences';
 
 const ShippingAddress: React.FC = () => {
@@ -20,26 +25,6 @@ const ShippingAddress: React.FC = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const onChangeCity = (city: string) => {
-    setCity(city);
-    // validate here
-  };
-
-  const onChangeAddress = (address: string) => {
-    setAddress(address);
-    // validate here
-  };
-
-  const onChangePostCode = (postCode: string) => {
-    setPostCode(postCode);
-    // validate here
-  };
-
-  const onChangePhoneNumber = (phoneNumber: string) => {
-    setPhoneNumber(phoneNumber);
-    // validate here
-  };
 
   const updateShippingAddressHandler = async (e: FormEvent) => {
     e.preventDefault();
@@ -56,6 +41,12 @@ const ShippingAddress: React.FC = () => {
         setIsUpdateShippingAddressLoading(true);
         await setDoc(getProfileRef(auth.user.id), newShippingAddress);
         dispatch(authActions.setShippingAddress(newShippingAddress));
+        dispatch(
+          notificationActions.open({
+            message: 'address updated',
+            type: 'success',
+          })
+        );
         setIsUpdateShippingAddressLoading(false);
         navigate('/profile/overview');
       }
@@ -84,7 +75,7 @@ const ShippingAddress: React.FC = () => {
           id="city"
           type="text"
           defaultValue={auth.shippingAddress.city}
-          onChange={(e) => onChangeCity(e.target.value)}
+          onBlur={(e) => setCity(e.target.value)}
         />
       </div>
       <div className="input-group">
@@ -93,7 +84,7 @@ const ShippingAddress: React.FC = () => {
           id="address"
           type="text"
           defaultValue={auth.shippingAddress.address}
-          onChange={(e) => onChangeAddress(e.target.value)}
+          onBlur={(e) => setAddress(e.target.value)}
         />
       </div>
       <div className="input-group">
@@ -102,7 +93,7 @@ const ShippingAddress: React.FC = () => {
           id="post-code"
           type="text"
           defaultValue={auth.shippingAddress.postCode}
-          onChange={(e) => onChangePostCode(e.target.value)}
+          onBlur={(e) => setPostCode(e.target.value)}
         />
       </div>
       <div className="input-group">
@@ -111,7 +102,7 @@ const ShippingAddress: React.FC = () => {
           id="phone"
           type="text"
           defaultValue={auth.shippingAddress.phoneNumber}
-          onChange={(e) => onChangePhoneNumber(e.target.value)}
+          onBlur={(e) => setPhoneNumber(e.target.value)}
         />
       </div>
       {isUpdateShippingAddressLoading ? (

@@ -3,12 +3,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface INotificationState {
   isOpen: boolean;
   message: string;
-  type: null | 'success' | 'fail';
+  type: null | 'success' | 'fail' | 'warning';
 }
 
 export interface INotificationPayload {
   message: string;
-  type: 'success' | 'fail';
+  type: 'success' | 'fail' | 'warning';
 }
 
 const initialState: INotificationState = {

@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   cartActions,
   modalActions,
+  notificationActions,
   RootState,
 } from '../../../../redux/reduxStore';
 // typescript
@@ -29,7 +30,6 @@ const CartItem: React.FC<{ cartItem: ICartItem }> = ({ cartItem }) => {
   const addToCartHandler = async (volume: IVolume) => {
     if (auth.user) {
       setIsAddToCartLoading(true);
-
       try {
         const cartItemRef = getCartItemRef(auth.user.id, volume.id);
         // increments item's quantity
@@ -39,20 +39,28 @@ const CartItem: React.FC<{ cartItem: ICartItem }> = ({ cartItem }) => {
             quantity: increment(1),
           });
           dispatch(cartActions.add({ id: volume.id, quantity: 1 }));
+          dispatch(
+            notificationActions.open({
+              message: '+ 1',
+              type: 'success',
+            })
+          );
           setIsAddToCartLoading(false);
           return;
         }
-        // adds the item to the cart
-        await setDoc(cartItemRef, { quantity: 1 });
         setIsAddToCartLoading(false);
         return;
       } catch (error) {
         // error handling
-        console.log(error);
+        dispatch(
+          notificationActions.open({
+            message: 'General error',
+            type: 'fail',
+          })
+        );
         setIsAddToCartLoading(false);
       }
     }
-    dispatch(modalActions.open('signin'));
   };
 
   const removeFromCartHandler = async (volume: IVolume) => {
@@ -67,6 +75,12 @@ const CartItem: React.FC<{ cartItem: ICartItem }> = ({ cartItem }) => {
           if (cartItemQuantity <= 1) {
             await deleteDoc(cartItemRef);
             dispatch(cartActions.remove({ id: volume.id, quantity: 1 }));
+            dispatch(
+              notificationActions.open({
+                message: 'removed',
+                type: 'warning',
+              })
+            );
             setIsRemoveFromCartLoading(false);
             return;
           }
@@ -75,11 +89,22 @@ const CartItem: React.FC<{ cartItem: ICartItem }> = ({ cartItem }) => {
         await updateDoc(cartItemRef, {
           quantity: increment(-1),
         });
-        setIsRemoveFromCartLoading(false);
         dispatch(cartActions.remove({ id: volume.id, quantity: 1 }));
+        dispatch(
+          notificationActions.open({
+            message: '- 1',
+            type: 'warning',
+          })
+        );
+        setIsRemoveFromCartLoading(false);
       } catch (error) {
         // error handling
-        console.log(error);
+        dispatch(
+          notificationActions.open({
+            message: 'general error',
+            type: 'fail',
+          })
+        );
         setIsRemoveFromCartLoading(false);
       }
     }

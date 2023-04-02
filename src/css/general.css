@@ -173,3 +173,7 @@ button.disabled:hover {
 .general.loading {
   background-color: var(--disabled-color);
 }
+
+.general.warning {
+  background-color: var(--warning-color);
+}
