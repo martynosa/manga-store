@@ -19,6 +19,7 @@ const Nav = () => {
             isActive ? 'nav-logo active-link' : 'nav-logo'
           }
         >
+          <img src="/brand.svg" alt="logo" />
           naruto
         </NavLink>
       </div>
