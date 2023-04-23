@@ -82,44 +82,23 @@ const UserNav: React.FC = () => {
   );
 
   return (
-    <nav className={classes.nav}>
-      <div>
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            isActive ? 'nav-logo active-link' : 'nav-logo'
-          }
-        >
-          naruto
-        </NavLink>
-      </div>
-      <div>
-        <NavLink
-          to="/store"
-          className={({ isActive }) => (isActive ? 'active-link' : '')}
-          end
-        >
-          store
-        </NavLink>
-      </div>
-      <div>
-        <p className={classes.displayname}></p>
-        <NavLink
-          to="/profile"
-          className={({ isActive }) =>
-            isActive ? 'nav-displayname active-link' : 'nav-displayname'
-          }
-        >
-          {user?.displayName}
-        </NavLink>
-        {cartLink}
-        {user?.email !== null && (
-          <button onClick={signOutHandler} className="nav-sign-out">
-            sign out
-          </button>
-        )}
-      </div>
-    </nav>
+    <div>
+      <p className={classes.displayname}></p>
+      <NavLink
+        to="/profile"
+        className={({ isActive }) =>
+          isActive ? 'nav-displayname active-link' : 'nav-displayname'
+        }
+      >
+        {user?.displayName}
+      </NavLink>
+      {cartLink}
+      {user?.email !== null && (
+        <button onClick={signOutHandler} className="nav-sign-out">
+          sign out
+        </button>
+      )}
+    </div>
   );
 };
 export default UserNav;
