@@ -19,4 +19,5 @@ const PurchaseHistory: React.FC = () => {
     </div>
   );
 };
+
 export default PurchaseHistory;

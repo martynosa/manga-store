@@ -1,5 +1,13 @@
 import { useState } from 'react';
 import classes from './CartItem.module.css';
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  cartActions,
+  modalActions,
+  notificationActions,
+  RootState,
+} from '../../../../redux/reduxStore';
 // firebase
 import { getCartItemRef } from '../../../../firebase/firestoreReferences';
 import {
@@ -9,14 +17,6 @@ import {
   setDoc,
   updateDoc,
 } from 'firebase/firestore';
-// redux
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  cartActions,
-  modalActions,
-  notificationActions,
-  RootState,
-} from '../../../../redux/reduxStore';
 // typescript
 import { ICartItem, IVolume } from '../../../../typescript/interfaces';
 
@@ -164,10 +164,12 @@ const CartItem: React.FC<{ cartItem: ICartItem }> = ({ cartItem }) => {
       </div>
     );
   }
+
   return (
     <div className={classes['cart-item']}>
       <p className={classes['error']}>Volume not found.</p>
     </div>
   );
 };
+
 export default CartItem;

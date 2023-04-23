@@ -1,5 +1,5 @@
-import classes from './Info.module.css';
 import { useState } from 'react';
+import classes from './Info.module.css';
 // redux
 import {
   cartActions,
@@ -98,4 +98,5 @@ const Info: React.FC<{ volume: IVolume }> = ({ volume }) => {
     </div>
   );
 };
+
 export default Info;

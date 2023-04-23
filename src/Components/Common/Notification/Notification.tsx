@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
+import classes from './Notification.module.css';
+// redux
 import { useDispatch, useSelector } from 'react-redux';
 import { notificationActions, RootState } from '../../../redux/reduxStore';
-import classes from './Notification.module.css';
 
 const Notification: React.FC = () => {
   const notification = useSelector((state: RootState) => state.notification);

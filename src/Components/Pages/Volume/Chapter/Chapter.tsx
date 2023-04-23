@@ -13,4 +13,5 @@ const Chapter: React.FC<{
     </div>
   );
 };
+
 export default Chapter;

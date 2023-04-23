@@ -124,4 +124,5 @@ const Cart: React.FC = () => {
     </section>
   );
 };
+
 export default Cart;

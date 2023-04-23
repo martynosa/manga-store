@@ -1,8 +1,6 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './ShippingAddress.module.css';
-// firebase
-import { setDoc } from 'firebase/firestore';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -11,6 +9,8 @@ import {
   notificationActions,
   RootState,
 } from '../../../../redux/reduxStore';
+// firebase
+import { setDoc } from 'firebase/firestore';
 import { getProfileRef } from '../../../../firebase/firestoreReferences';
 
 const ShippingAddress: React.FC = () => {
@@ -115,4 +115,5 @@ const ShippingAddress: React.FC = () => {
     </form>
   );
 };
+
 export default ShippingAddress;

@@ -124,4 +124,5 @@ const Profile: React.FC = () => {
     </section>
   );
 };
+
 export default Profile;

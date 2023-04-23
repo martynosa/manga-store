@@ -12,4 +12,5 @@ const CheckoutModal: React.FC<{ closeModal: () => void }> = ({
     </div>
   );
 };
+
 export default CheckoutModal;
