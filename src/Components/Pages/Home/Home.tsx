@@ -11,7 +11,9 @@ const Home: React.FC = () => {
         <img src="letter_t.webp" alt="t" />
         <img src="letter_o.webp" alt="o" />
       </div>
-      <footer className={classes.footer}>it's just a demo, dattebayo</footer>
+      <footer className={classes.footer}>
+        it's just a demo, dattebayo (not responsive)
+      </footer>
     </section>
   );
 };
