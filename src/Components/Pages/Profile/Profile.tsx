@@ -79,8 +79,15 @@ const Profile: React.FC = () => {
     }
   }, [auth.user]);
 
+  if (!auth.user) {
+    return (
+      <section className="loading-error-section">
+        <h2 className="general warning">sign in to continue</h2>
+      </section>
+    );
+  }
+
   if (loading.isPageLoading) {
-    // might need to add  || loading.isAuthStateChanging -> no indication for loading when page is refreshing
     return (
       <section className="loading-error-section">
         <h2 className="general loading">loading...</h2>

@@ -85,6 +85,14 @@ const Cart: React.FC = () => {
     }
   }, [auth.user]);
 
+  if (!auth.user) {
+    return (
+      <section className="loading-error-section">
+        <h2 className="general warning">sign in to continue</h2>
+      </section>
+    );
+  }
+
   if (loading.isPageLoading) {
     return (
       <section className="loading-error-section">

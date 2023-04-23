@@ -19,7 +19,6 @@ import ShippingAddress from './Components/Pages/Profile/ShippingAddress/Shipping
 import PurchaseHistory from './Components/Pages/Profile/PurchaseHistory/PurchaseHistory';
 import Overview from './Components/Pages/Profile/Overview/Overview';
 import Notification from './Components/Common/Notification/Notification';
-import GuestGuard from './Guards/GuestGuard';
 
 function App() {
   const modal = useSelector((state: RootState) => state.modal);
@@ -55,14 +54,12 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/store" element={<Store />} />
         <Route path="/store/:mangaParam/:volumeParam" element={<Volume />} />
-        <Route element={<GuestGuard />}>
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/profile" element={<Profile />}>
-            <Route path="" element={<Navigate to="overview" />} />
-            <Route path="overview" element={<Overview />} />
-            <Route path="shippingAddress" element={<ShippingAddress />} />
-            <Route path="purchaseHistory" element={<PurchaseHistory />} />
-          </Route>
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/profile" element={<Profile />}>
+          <Route path="" element={<Navigate to="overview" />} />
+          <Route path="overview" element={<Overview />} />
+          <Route path="shippingAddress" element={<ShippingAddress />} />
+          <Route path="purchaseHistory" element={<PurchaseHistory />} />
         </Route>
         <Route path="*" element={<Error />} />
       </Routes>

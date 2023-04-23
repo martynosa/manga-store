@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import classes from './Volume.module.css';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +21,9 @@ const Volume: React.FC = () => {
   const loading = useSelector((state: RootState) => state.loading);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const backHandler = () => navigate(-1);
 
   useEffect(() => {
     if (mangaParam && volumeParam) {
@@ -56,6 +59,7 @@ const Volume: React.FC = () => {
   if (volume) {
     return (
       <section className="page-section">
+        <button onClick={backHandler}> &larr; back</button>
         <h1 className={classes['eng-title']}>{volume.engVolumeName}</h1>
         <h2 className={classes['jap-title']}>{volume.japVolumeName}</h2>
         <div className={classes.content}>
