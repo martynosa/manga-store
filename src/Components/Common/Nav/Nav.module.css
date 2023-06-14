@@ -38,4 +38,9 @@
   .nav a {
     font-size: var(--fs-default);
   }
+
+  .nav img {
+    height: 24px;
+    width: 24px;
+  }
 }

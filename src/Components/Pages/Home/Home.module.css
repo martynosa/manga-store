@@ -8,12 +8,12 @@
   justify-content: center;
 }
 
-.naruto-grid {
+.home-section div {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
 }
 
-.footer {
+.home-section footer {
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -37,10 +37,10 @@
 
 @media (max-width: 720px) {
   .home-section {
-    padding: 4.8rem 9.6rem;
+    padding-top: 6.4rem;
   }
 
-  .naruto-grid {
+  .home-section div {
     grid-template-columns: 1fr 1fr;
     justify-content: center;
     align-items: center;
