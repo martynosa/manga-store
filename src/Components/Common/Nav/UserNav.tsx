@@ -50,7 +50,7 @@ const UserNav: React.FC = () => {
             tempCartItems.push(cartItem as ICartItem);
           });
           dispatch(cartActions.initialize(tempCartItems));
-          setIsCartLinkLoading(true);
+          setIsCartLinkLoading(false);
         })
         .catch((error) => {
           // error handling

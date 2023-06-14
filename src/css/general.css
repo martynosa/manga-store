@@ -25,6 +25,7 @@ button {
 
 a.disabled,
 button.disabled {
+  cursor: default;
   background-color: var(--disabled-color);
 }
 
