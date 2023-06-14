@@ -183,11 +183,12 @@ button.disabled:hover {
   background-color: var(--warning-color);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
   a.nav-logo,
   a.nav-store,
   a.nav-displayname,
   a.nav-cart,
+  a.disabled,
   button.nav-sign-in,
   button.nav-sign-up,
   button.nav-sign-out {
@@ -208,6 +209,7 @@ button.disabled:hover {
   a.nav-store,
   a.nav-displayname,
   a.nav-cart,
+  a.disabled,
   button.nav-sign-in,
   button.nav-sign-up,
   button.nav-sign-out {
