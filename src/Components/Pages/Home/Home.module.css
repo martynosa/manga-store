@@ -36,10 +36,6 @@
 } */
 
 @media (max-width: 720px) {
-  .home-section {
-    padding-top: 6.4rem;
-  }
-
   .home-section div {
     grid-template-columns: 1fr 1fr;
     justify-content: center;
