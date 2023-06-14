@@ -76,7 +76,7 @@ const UserNav: React.FC = () => {
         isActive ? 'nav-cart active-link' : 'nav-cart'
       }
     >
-      <span>{totalCartItemCount} </span>
+      <span>{totalCartItemCount}</span>
       🛒
     </NavLink>
   );
@@ -95,7 +95,7 @@ const UserNav: React.FC = () => {
       {cartLink}
       {user?.email !== null && (
         <button onClick={signOutHandler} className="nav-sign-out">
-          sign out
+          ❌ <span>sign out</span>
         </button>
       )}
     </div>

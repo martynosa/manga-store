@@ -19,28 +19,12 @@
   gap: 1.2rem;
 }
 
-.nav span {
-  font-weight: 700;
-}
-
-@media (max-width: 720px) {
+@media (max-width: 900px) {
   .nav {
     grid-template-columns: 1fr 1fr 2fr;
   }
 
   .nav span {
     display: none;
-  }
-}
-
-@media (max-width: 420px) {
-  .nav button,
-  .nav a {
-    font-size: var(--fs-default);
-  }
-
-  .nav img {
-    height: 24px;
-    width: 24px;
   }
 }

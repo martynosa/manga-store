@@ -26,7 +26,9 @@ const Nav = () => {
       <div>
         <NavLink
           to="/store"
-          className={({ isActive }) => (isActive ? 'active-link' : '')}
+          className={({ isActive }) =>
+            isActive ? 'nav-store active-link' : 'nav-store'
+          }
         >
           store
         </NavLink>

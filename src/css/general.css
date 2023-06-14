@@ -182,3 +182,40 @@ button.disabled:hover {
 .general.warning {
   background-color: var(--warning-color);
 }
+
+@media (max-width: 1200px) {
+  a.nav-logo,
+  a.nav-store,
+  a.nav-displayname,
+  a.nav-cart,
+  button.nav-sign-in,
+  button.nav-sign-up,
+  button.nav-sign-out {
+    font-size: var(--fs-18);
+  }
+
+  a.nav-logo img {
+    height: 24px;
+    width: 24px;
+  }
+}
+
+@media (max-width: 900px) {
+}
+
+@media (max-width: 420px) {
+  a.nav-logo,
+  a.nav-store,
+  a.nav-displayname,
+  a.nav-cart,
+  button.nav-sign-in,
+  button.nav-sign-up,
+  button.nav-sign-out {
+    font-size: var(--fs-default);
+  }
+
+  a.nav-logo img {
+    height: 24px;
+    width: 24px;
+  }
+}
