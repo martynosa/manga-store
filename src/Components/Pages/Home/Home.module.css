@@ -1,5 +1,5 @@
 .home-section {
-  padding: 1.2rem 2.4rem;
+  padding: 3.2rem 6.4rem;
   min-height: 100vh;
   background-color: var(--dark-bg-color);
   display: flex;
@@ -22,7 +22,8 @@
   padding: 0.6rem 1.2rem;
 }
 
-@media (-webkit-device-pixel-ratio: 1.25) {
+/* this fixes 125% and 150% scaling */
+/* @media (-webkit-device-pixel-ratio: 1.25) {
   .home-section {
     padding: 3.2rem 6.4rem;
   }
@@ -31,5 +32,17 @@
 @media (-webkit-device-pixel-ratio: 1.5) {
   .home-section {
     padding: 3.2rem 6.4rem;
+  }
+} */
+
+@media (max-width: 720px) {
+  .home-section {
+    padding: 4.8rem 9.6rem;
+  }
+
+  .naruto-grid {
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
   }
 }

@@ -20,7 +20,7 @@ const Nav = () => {
           }
         >
           <img src="/brand.svg" alt="logo" />
-          naruto
+          <span>naruto</span>
         </NavLink>
       </div>
       <div>

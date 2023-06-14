@@ -22,3 +22,20 @@
 .nav span {
   font-weight: 700;
 }
+
+@media (max-width: 720px) {
+  .nav {
+    grid-template-columns: 1fr 1fr 2fr;
+  }
+
+  .nav span {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .nav button,
+  .nav a {
+    font-size: var(--fs-default);
+  }
+}
